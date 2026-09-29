@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c0610">
+<title>هدية صغيرة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0c0610;
+    --night-2:#1a0912;
+    --burgundy:#5c1226;
+    --burgundy-2:#7a1a33;
+    --wine:#3a0b18;
+    --gold:#d8b26a;
+    --gold-2:#f3dca4;
+    --gold-3:#a8823e;
+    --ink:#f6ecdc;
+    --ink-dim:rgba(246,236,220,.62);
+    --glass:rgba(255,240,220,.05);
+    --line:rgba(216,178,106,.35);
+    --aurora-1:rgba(64,214,170,.16);
+    --aurora-2:rgba(140,90,220,.14);
+    --rose:#c2536f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:
+      radial-gradient(120% 80% at 50% 110%, var(--wine) 0%, transparent 60%),
+      radial-gradient(90% 60% at 50% -10%, #1d0a1a 0%, transparent 70%),
+      var(--night);
+    color:var(--ink);
+    font-family:"Tajawal",system-ui,sans-serif;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  /* ---------- sky ---------- */
+  #sky{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+  .aurora{position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(60px);opacity:.9}
+  .aurora::before,.aurora::after{
+    content:"";position:absolute;border-radius:50%;
+    width:70vmax;height:28vmax;left:15%;top:8%;
+    background:radial-gradient(closest-side,var(--aurora-1),transparent);
+    animation:drift 18s ease-in-out infinite alternate;
+  }
+  .aurora::after{
+    left:35%;top:16%;width:60vmax;height:22vmax;
+    background:radial-gradient(closest-side,var(--aurora-2),transparent);
+    animation-duration:24s;animation-direction:alternate-reverse;
+  }
+  @keyframes drift{
+    0%{transform:translate(-8%,0) rotate(-8deg) scaleX(1)}
+    100%{transform:translate(10%,4%) rotate(6deg) scaleX(1.25)}
+  }
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.65) 100%)}
+
+  .scene{position:fixed;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;
+    padding:24px 16px calc(24px + env(safe-area-inset-bottom));transition:opacity 1.2s ease, filter 1.2s ease}
+  .scene.hidden{opacity:0;pointer-events:none;filter:blur(8px)}
+
+  /* ---------- intro ---------- */
+  #intro{flex-direction:column;text-align:center}
+  .line{
+    font-family:"Aref Ruqaa",serif;font-weight:700;
+    font-size:clamp(34px,8.5vw,76px);line-height:1.5;
+    max-width:900px;
+  }
+  .line .w{
+    background:linear-gradient(180deg,var(--gold-2) 0%,var(--gold) 55%,var(--gold-3) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 26px rgba(216,178,106,.18);
+    padding:0 .04em;
+    display:inline-block;opacity:0;transform:translateY(18px) scale(.96);filter:blur(12px);
+    animation:wIn 1.1s cubic-bezier(.2,.7,.2,1) forwards;margin-inline:.14em}
+  .line.out .w{animation:wOut .9s ease forwards}
+  @keyframes wIn{to{opacity:1;transform:none;filter:blur(0)}}
+  @keyframes wOut{from{opacity:1;filter:blur(0)}to{opacity:0;transform:translateY(-14px);filter:blur(14px)}}
+
+  .progress{margin-top:28px;width:min(360px,74vw);opacity:0;transition:opacity 1s ease}
+  .progress.show{opacity:1}
+  .bar{height:3px;border-radius:3px;background:rgba(216,178,106,.15);overflow:hidden;position:relative}
+  .bar i{position:absolute;inset:0 auto 0 0;width:0;right:0;left:auto;
+    background:linear-gradient(90deg,var(--gold-3),var(--gold-2));box-shadow:0 0 14px var(--gold);
+    transition:width 3.2s cubic-bezier(.3,.1,.2,1)}
+  .pct{margin-top:14px;font-family:"Reem Kufi",sans-serif;font-size:22px;letter-spacing:.06em;color:var(--gold-2)}
+
+  .skip{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
+    z-index:5;background:none;border:0;color:var(--ink-dim);font:400 13px "Tajawal";letter-spacing:.04em;
+    cursor:pointer;opacity:.7;padding:8px 14px}
+  .skip:hover{opacity:1}
+
+  /* ---------- gate ---------- */
+  #gate{flex-direction:column;gap:clamp(18px,3.2vh,30px)}
+  .gate-title{text-align:center}
+  .gate-title .wait{font-family:"Aref Ruqaa",serif;font-size:clamp(40px,10vw,72px);line-height:1.3;
+    background:linear-gradient(180deg,var(--gold-2),var(--gold) 60%,var(--gold-3));
+    -webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;padding:0 .1em}
+  .gate-title .sub{margin-top:6px;font-size:clamp(15px,3.8vw,19px);color:var(--ink-dim);font-weight:300;letter-spacing:.02em}
+  .gate-title .sub .dots::after{content:"";animation:dots 1.8s steps(4) infinite}
+  @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+
+  /* the door */
+  .door-wrap{position:relative;width:min(62vw,250px);aspect-ratio:3/4.3;perspective:1100px}
+  .door-wrap::before{ /* light behind */
+    content:"";position:absolute;inset:-18% -30%;
+    background:radial-gradient(closest-side,rgba(255,221,150,.35),rgba(216,178,106,.08) 60%,transparent);
+    filter:blur(8px);animation:breathe 4s ease-in-out infinite}
+  @keyframes breathe{50%{opacity:.55;transform:scale(.96)}}
+  .frame{position:absolute;inset:0;border-radius:50% 50% 6px 6px / 28% 28% 6px 6px;
+    padding:9px;background:linear-gradient(160deg,var(--gold-2),var(--gold-3) 40%,var(--gold) 70%,#6b4b1c);
+    box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 40px rgba(216,178,106,.18)}
+  .opening{position:relative;width:100%;height:100%;border-radius:inherit;overflow:hidden;
+    background:radial-gradient(60% 50% at 50% 55%,#fff3d0 0%,#ffd98f 30%,#c98a3a 70%,#6d3a18 100%)}
+  .leaf{position:absolute;top:0;bottom:0;width:50%;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.05),transparent 30%),
+      linear-gradient(160deg,var(--burgundy-2),var(--burgundy) 45%,var(--wine));
+    transition:transform 2.8s cubic-bezier(.6,.05,.2,1);
+    backface-visibility:hidden;
+    box-shadow:inset 0 0 30px rgba(0,0,0,.45)}
+  .leaf.r{right:0;transform-origin:right center;border-radius:0 100% 0 0 / 0 56% 0 0}
+  .leaf.l{left:0;transform-origin:left center;border-radius:100% 0 0 0 / 56% 0 0 0}
+  .leaf .panel{position:absolute;left:16%;right:16%;border:1px solid var(--line);border-radius:4px;
+    box-shadow:inset 0 0 0 4px rgba(0,0,0,.12),inset 0 0 18px rgba(0,0,0,.35)}
+  .leaf .panel.p1{top:28%;height:30%}
+  .leaf .panel.p2{top:64%;height:26%}
+  .leaf .panel::after{content:"";position:absolute;inset:22% 28%;border:1px solid rgba(216,178,106,.22);transform:rotate(45deg)}
+  .leaf .handle{position:absolute;top:56%;width:7px;height:34px;border-radius:6px;
+    background:linear-gradient(180deg,var(--gold-2),var(--gold-3));box-shadow:0 2px 6px rgba(0,0,0,.5)}
+  .leaf.r .handle{left:9px}
+  .leaf.l .handle{right:9px}
+  .seam{position:absolute;top:6%;bottom:0;left:50%;width:2px;transform:translateX(-50%);
+    background:linear-gradient(180deg,transparent,#ffe6a8 20%,#fff5d6 50%,#ffe6a8 80%,transparent);
+    box-shadow:0 0 12px 3px rgba(255,220,140,.7),0 0 34px 8px rgba(255,200,110,.35);
+    animation:seam 3s ease-in-out infinite}
+  @keyframes seam{50%{opacity:.5}}
+  .crest{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:26%;aspect-ratio:1;z-index:2;
+    color:var(--gold);filter:drop-shadow(0 0 8px rgba(216,178,106,.5));transition:opacity 1s}
+  .door-wrap.open .leaf.r{transform:rotateY(-108deg)}
+  .door-wrap.open .leaf.l{transform:rotateY(108deg)}
+  .door-wrap.open .seam,.door-wrap.open .crest{opacity:0}
+
+  /* countdown */
+  .count{display:flex;gap:clamp(8px,2.4vw,14px);direction:rtl}
+  .unit{min-width:clamp(64px,18vw,86px);padding:12px 6px 10px;text-align:center;border-radius:14px;
+    background:linear-gradient(180deg,rgba(255,240,220,.07),rgba(255,240,220,.02));
+    border:1px solid var(--line);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 10px 30px rgba(0,0,0,.35)}
+  .unit b{display:block;font-family:"Reem Kufi",sans-serif;font-weight:700;
+    font-size:clamp(28px,8vw,42px);line-height:1.1;color:var(--gold-2);
+    text-shadow:0 0 18px rgba(216,178,106,.35);font-variant-numeric:tabular-nums}
+  .unit b.tick{animation:tick .5s ease}
+  @keyframes tick{0%{transform:translateY(-6px);opacity:.3}100%{transform:none;opacity:1}}
+  .unit span{display:block;margin-top:4px;font-size:12px;color:var(--ink-dim);letter-spacing:.08em}
+  .count-cap{font-size:12px;color:var(--ink-dim);letter-spacing:.18em;text-align:center;margin-bottom:-8px}
+
+  .ornament{width:min(240px,60vw);height:14px;color:var(--gold);opacity:.7}
+
+  /* revealed */
+  .reveal{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:24px;opacity:0;transition:opacity 1.6s ease 1.6s;pointer-events:none}
+  .door-wrap.open .reveal{opacity:1}
+  .reveal p{font-family:"Aref Ruqaa",serif;font-size:clamp(20px,5vw,28px);color:#5a2410;line-height:1.5}
+
+  .replay{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:4;
+    background:none;border:0;color:var(--ink-dim);font:400 12px "Tajawal";cursor:pointer;opacity:.55;padding:8px 12px}
+  .replay:hover{opacity:1}
+
+  /* ---------- note button ---------- */
+  .note-btn{position:fixed;left:0;top:50%;transform:translate(-2px,-50%);z-index:6;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    padding:16px 10px 14px 12px;border-radius:0 16px 16px 0;cursor:pointer;
+    background:linear-gradient(180deg,rgba(122,26,51,.85),rgba(58,11,24,.9));
+    border:1px solid var(--line);border-left:0;color:var(--gold-2);
+    box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 20px rgba(194,83,111,.18);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    transition:transform .3s ease,box-shadow .3s ease,opacity 1s ease}
+  .note-btn:hover{transform:translate(0,-50%);box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 28px rgba(194,83,111,.4)}
+  .note-btn.hidden{opacity:0;pointer-events:none}
+  .note-btn svg{width:18px;height:18px;animation:beat 1.6s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.12)}}
+  .note-btn span{writing-mode:vertical-rl;font:500 14px "Tajawal";letter-spacing:.12em}
+
+  .heart{position:fixed;z-index:9;pointer-events:none;will-change:transform,opacity}
+
+  /* ---------- modal ---------- */
+  .modal{position:fixed;inset:0;z-index:8;display:flex;align-items:center;justify-content:center;padding:16px;
+    background:rgba(8,3,8,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    opacity:0;pointer-events:none;transition:opacity .5s ease}
+  .modal.show{opacity:1;pointer-events:auto}
+  .card{position:relative;width:min(460px,100%);max-height:86vh;overflow:auto;
+    padding:34px 26px 26px;border-radius:22px;text-align:center;
+    background:
+      radial-gradient(120% 60% at 50% 0%,rgba(216,178,106,.14),transparent 60%),
+      linear-gradient(180deg,#2a0b17,#16060d);
+    border:1px solid var(--line);
+    box-shadow:0 30px 90px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);
+    transform:translateY(16px) scale(.97);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+  .modal.show .card{transform:none}
+  .card::before{content:"";position:absolute;inset:8px;border-radius:16px;border:1px solid rgba(216,178,106,.15);pointer-events:none}
+  .card h3{font-family:"Aref Ruqaa",serif;font-size:34px;color:var(--gold-2);margin-bottom:6px}
+  .card .ornament{margin:0 auto 18px;display:block}
+  .card p{font-size:17px;line-height:2;color:var(--ink);font-weight:400}
+  .card p + p{margin-top:12px}
+  .card .sign{margin-top:22px;font-family:"Aref Ruqaa",serif;font-size:24px;color:var(--gold)}
+  .close{position:absolute;top:14px;left:14px;width:34px;height:34px;border-radius:50%;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--gold-2);font-size:18px;cursor:pointer;z-index:1}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.3s!important}
+  }
+</style>
+</head>
+<body>
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- المقدمة -->
+  <section id="intro" class="scene" aria-live="polite">
+    <div class="line" id="line"></div>
+    <div class="progress" id="progress">
+      <div class="bar"><i id="barFill"></i></div>
+      <div class="pct" id="pct">٠٪</div>
+    </div>
+  </section>
+  <button class="skip" id="skip">تخطّي ›</button>
+
+  <!-- الباب والمؤقت -->
+  <section id="gate" class="scene hidden">
+    <div class="gate-title">
+      <div class="wait">انتظري…</div>
+      <div class="sub">الباب بينفتح<span class="dots"></span></div>
+    </div>
+
+    <div class="door-wrap" id="door">
+      <div class="frame">
+        <div class="opening">
+          <div class="reveal"><p id="revealText">انفتح الباب ✨</p></div>
+          <div class="leaf l"><div class="panel p1"></div><div class="panel p2"></div><div class="handle"></div></div>
+          <div class="leaf r"><div class="panel p1"></div><div class="panel p2"></div><div class="handle"></div></div>
+          <div class="seam"></div>
+          <svg class="crest" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <path d="M50 8 L61 39 L94 39 L67 58 L77 90 L50 71 L23 90 L33 58 L6 39 L39 39 Z" stroke-linejoin="round"/>
+            <circle cx="50" cy="50" r="46" stroke-width="1" opacity=".5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <svg class="ornament" viewBox="0 0 240 14" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M0 7 H100 M140 7 H240" stroke-width="1"/>
+      <path d="M120 1 L126 7 L120 13 L114 7 Z" fill="currentColor"/>
+      <circle cx="106" cy="7" r="1.6" fill="currentColor"/><circle cx="134" cy="7" r="1.6" fill="currentColor"/>
+    </svg>
+
+    <div class="count-cap">الوقت المتبقي</div>
+    <div class="count" id="count" role="timer" aria-live="off">
+      <div class="unit"><b id="d">٠٠</b><span>يوم</span></div>
+      <div class="unit"><b id="h">٠٠</b><span>ساعة</span></div>
+      <div class="unit"><b id="m">٠٠</b><span>دقيقة</span></div>
+      <div class="unit"><b id="s">٠٠</b><span>ثانية</span></div>
+    </div>
+  </section>
+  <button class="replay hidden" id="replay" style="display:none">↺ إعادة المقدمة</button>
+
+  <!-- زر الملاحظة -->
+  <button class="note-btn hidden" id="noteBtn" aria-haspopup="dialog">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.5 1.1 4.3 2.4.8-1.3 2.2-2.4 4.3-2.4 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>
+    <span>ملاحظة</span>
+  </button>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="noteTitle">
+    <div class="card">
+      <button class="close" id="close" aria-label="إغلاق">×</button>
+      <h3 id="noteTitle">ملاحظة</h3>
+      <svg class="ornament" viewBox="0 0 240 14" fill="none" stroke="currentColor" aria-hidden="true">
+        <path d="M0 7 H100 M140 7 H240" stroke-width="1"/>
+        <path d="M120 1 L126 7 L120 13 L114 7 Z" fill="currentColor"/>
+      </svg>
+      <p>هذا الموقع ما انصمّم عشوائيًا…</p>
+      <p>كل تفصيلة فيه انختارت بعناية شديدة: لون البرغندي ودفا الخريف اللي تحبينه، نجوم الليل، ولمحة من الشفق القطبي اللي ودّك تشوفينه يوم.</p>
+      <p>والهدف منه بسيط… إنك تستمتعين بحياتك، وتبتسمين، وتعرفين إن فيه أحد يتمنى لك الخير دايم.</p>
+      <div class="sign">— فهد</div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  /* ======= الإعدادات — عدّل هنا ======= */
+  // موعد فتح الباب (بتوقيت السعودية): ٣ أيام و١٥ ساعة و١٢ دقيقة من وقت التصميم
+  const TARGET = new Date('2026-10-03T12:10:00+03:00');
+
+  // جمل المقدمة — كل سطر يظهر لحاله ثم يختفي
+  const LINES = [
+    'مرحبًا… يا ولاء',
+    'أدري إن هذا شيء غريب',
+    'لكن هذي هدية مخصّصة لك',
+    'أخذت مني وقت طويل',
+    'من أول ما عرفتك… لين الحين',
+    'واكتمل منها تقريبًا'
+  ];
+  const PERCENT = 75;
+  /* ==================================== */
+
+  const $ = id => document.getElementById(id);
+  const AR = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+  const pad = n => AR(String(n).padStart(2, '0'));
+  const store = {
+    get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+    set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+  };
+  const params = new URLSearchParams(location.search);
+
+  /* ---------- sky: stars, gold dust, shooting stars ---------- */
+  const cv = $('sky'), cx = cv.getContext('2d');
+  let W, H, DPR, stars = [], dust = [], shoot = null;
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.width = innerWidth * DPR; H = cv.height = innerHeight * DPR;
+    const n = Math.round((innerWidth * innerHeight) / 2600);
+    stars = Array.from({length:n}, () => ({
+      x:Math.random()*W, y:Math.random()*H, r:(Math.random()*1.1+.25)*DPR,
+      p:Math.random()*Math.PI*2, s:.4+Math.random()*1.4,
+      c:Math.random() < .18 ? '243,220,164' : '255,246,235'
+    }));
+    dust = Array.from({length:Math.round(n/6)}, () => ({
+      x:Math.random()*W, y:Math.random()*H, r:(Math.random()*1.4+.4)*DPR,
+      vy:-(Math.random()*.18+.05)*DPR, vx:(Math.random()-.5)*.1*DPR, a:Math.random()*.5+.15
+    }));
+  }
+  resize(); addEventListener('resize', resize);
+  let t0 = performance.now();
+  function frame(t){
+    const dt = (t - t0)/1000; t0 = t;
+    cx.clearRect(0,0,W,H);
+    for (const s of stars){
+      s.p += dt*s.s;
+      const a = .35 + .65*Math.abs(Math.sin(s.p));
+      cx.beginPath(); cx.arc(s.x,s.y,s.r,0,6.283);
+      cx.fillStyle = `rgba(${s.c},${a})`; cx.fill();
+    }
+    for (const d of dust){
+      d.y += d.vy; d.x += d.vx;
+      if (d.y < -10){ d.y = H+10; d.x = Math.random()*W; }
+      cx.beginPath(); cx.arc(d.x,d.y,d.r,0,6.283);
+      cx.fillStyle = `rgba(216,178,106,${d.a})`; cx.fill();
+    }
+    if (!shoot && Math.random() < .004){
+      shoot = {x:Math.random()*W*.8+W*.2, y:Math.random()*H*.35, l:0, v:(9+Math.random()*6)*DPR};
+    }
+    if (shoot){
+      shoot.l += shoot.v; const len = 120*DPR;
+      const x = shoot.x - shoot.l, y = shoot.y + shoot.l*.45;
+      const g = cx.createLinearGradient(x,y,x+len,y-len*.45);
+      g.addColorStop(0,'rgba(255,240,210,.9)'); g.addColorStop(1,'rgba(255,240,210,0)');
+      cx.strokeStyle = g; cx.lineWidth = 1.6*DPR;
+      cx.beginPath(); cx.moveTo(x,y); cx.lineTo(x+len,y-len*.45); cx.stroke();
+      if (shoot.l > W*.7) shoot = null;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* ---------- intro ---------- */
+  const intro = $('intro'), gate = $('gate'), line = $('line');
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  let skipped = false;
+
+  function showLine(text){
+    line.classList.remove('out');
+    line.innerHTML = '';
+    text.split(' ').forEach((w,i) => {
+      const s = document.createElement('span');
+      s.className = 'w'; s.textContent = w;
+      s.style.animationDelay = (i*0.22)+'s';
+      line.appendChild(s);
+    });
+    return text.split(' ').length;
+  }
+  async function hideLine(){
+    line.querySelectorAll('.w').forEach((w,i) => { w.style.animationDelay = (i*0.06)+'s'; });
+    line.classList.add('out');
+    await wait(1100);
+  }
+
+  async function playIntro(){
+    skipped = false;
+    gate.classList.add('hidden'); $('noteBtn').classList.add('hidden');
+    $('replay').style.display = 'none';
+    intro.classList.remove('hidden'); $('skip').style.display = '';
+    $('progress').classList.remove('show'); $('barFill').style.width = '0';
+    $('pct').textContent = AR(0) + '٪';
+    await wait(900);
+    for (let i = 0; i < LINES.length; i++){
+      if (skipped) return;
+      const n = showLine(LINES[i]);
+      const last = i === LINES.length - 1;
+      if (last){
+        await wait(n*220 + 700);
+        if (skipped) return;
+        $('progress').classList.add('show');
+        await wait(200);
+        $('barFill').style.width = PERCENT + '%';
+        const start = performance.now();
+        await new Promise(res => {
+          (function step(t){
+            const k = Math.min((t-start)/3200, 1), e = 1 - Math.pow(1-k, 3);
+            $('pct').textContent = AR(Math.round(e*PERCENT)) + '٪';
+            k < 1 && !skipped ? requestAnimationFrame(step) : res();
+          })(start);
+        });
+        await wait(1800);
+      } else {
+        await wait(n*220 + 2300);
+      }
+      if (skipped) return;
+      await hideLine();
+    }
+    toGate();
+  }
+
+  function toGate(){
+    skipped = true;
+    store.set('seenIntro','1');
+    intro.classList.add('hidden'); $('skip').style.display = 'none';
+    setTimeout(() => {
+      gate.classList.remove('hidden');
+      $('noteBtn').classList.remove('hidden');
+      $('replay').style.display = '';
+    }, 500);
+  }
+  $('skip').onclick = toGate;
+  $('replay').onclick = playIntro;
+
+  /* ---------- countdown ---------- */
+  const els = {d:$('d'),h:$('h'),m:$('m'),s:$('s')};
+  const prev = {};
+  let opened = false;
+  function tick(){
+    let ms = TARGET - Date.now();
+    if (params.has('open')) ms = 0;           // للمعاينة: index.html?open
+    if (ms <= 0){ ms = 0; openDoor(); }
+    const v = {
+      d:Math.floor(ms/864e5), h:Math.floor(ms/36e5)%24,
+      m:Math.floor(ms/6e4)%60, s:Math.floor(ms/1e3)%60
+    };
+    for (const k in v){
+      if (prev[k] !== v[k]){
+        els[k].textContent = pad(v[k]);
+        els[k].classList.remove('tick'); void els[k].offsetWidth; els[k].classList.add('tick');
+        prev[k] = v[k];
+      }
+    }
+  }
+  function openDoor(){
+    if (opened) return; opened = true;
+    setTimeout(() => $('door').classList.add('open'), 600);
+    document.querySelector('.gate-title .wait').textContent = 'تفضّلي';
+    document.querySelector('.gate-title .sub').textContent = 'الباب انفتح';
+    document.querySelector('.count-cap').textContent = 'حان الوقت';
+    $('count').style.opacity = '.35';
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ---------- note + hearts ---------- */
+  const modal = $('modal');
+  const COLORS = ['#c2536f','#e07a93','#d8b26a','#f3dca4','#7a1a33'];
+  function hearts(fromEl){
+    const r = fromEl.getBoundingClientRect();
+    const ox = r.right, oy = r.top + r.height/2;
+    const N = 34;
+    for (let i = 0; i < N; i++){
+      const el = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      el.setAttribute('viewBox','0 0 24 24'); el.classList.add('heart');
+      const size = 12 + Math.random()*26;
+      el.style.width = el.style.height = size + 'px';
+      el.style.left = (ox - size/2) + 'px'; el.style.top = (oy - size/2) + 'px';
+      el.innerHTML = `<path fill="${COLORS[i % COLORS.length]}" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.5 1.1 4.3 2.4.8-1.3 2.2-2.4 4.3-2.4 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/>`;
+      document.body.appendChild(el);
+      const dx = 40 + Math.random()*(innerWidth*.75), dy = -(80 + Math.random()*innerHeight*.7);
+      const rot = (Math.random()-.5)*80, dur = 1800 + Math.random()*1800;
+      el.animate([
+        {transform:'translate(0,0) scale(.2) rotate(0deg)', opacity:0},
+        {transform:`translate(${dx*.25}px,${dy*.25}px) scale(1) rotate(${rot*.4}deg)`, opacity:1, offset:.2},
+        {transform:`translate(${dx}px,${dy}px) scale(.8) rotate(${rot}deg)`, opacity:0}
+      ], {duration:dur, delay:i*28, easing:'cubic-bezier(.2,.6,.3,1)', fill:'both'})
+        .onfinish = () => el.remove();
+    }
+  }
+  $('noteBtn').onclick = e => {
+    hearts(e.currentTarget);
+    setTimeout(() => modal.classList.add("show"), 650);
+  };
+  const closeModal = () => modal.classList.remove('show');
+  $('close').onclick = closeModal;
+  modal.onclick = e => { if (e.target === modal) closeModal(); };
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  /* ---------- start ---------- */
+  if (store.get('seenIntro') && !params.has('intro')) toGate();
+  else playIntro();
+})();
+</script>
+</body>
+</html>
