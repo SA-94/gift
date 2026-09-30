@@ -578,8 +578,7 @@
         <button class="gbtn" id="send2">إرسال</button>
       </div>
       <div class="qstep" id="qStep3" hidden>
-        <p class="q">وصل ✨</p>
-        <p class="qs">شكرًا… كلامك وصل للمطوّر</p>
+        <p class="q">حلو… 😏</p>
       </div>
     </div>
   </div>
@@ -990,6 +989,7 @@
     btn.disabled = false; btn.textContent = label;
     step(next);
     if (next === 2) setTimeout(() => $('a2').focus(), 50);
+    if (next === 3) setTimeout(() => qModal.classList.remove('show'), 1600);
   }
   flush();
   addEventListener('online', flush);
