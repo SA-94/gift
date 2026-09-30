@@ -418,42 +418,6 @@
     border:8px solid transparent;border-top-color:#f3e3c3}
   .bubble.on{opacity:1;transform:translate(calc(-50% + var(--bx,0px)),0) scale(1)}
 
-  /* الزر الأحمر الغريب (يطلع بعد الرسالة الأخيرة) */
-  .red-btn{position:fixed;z-index:16;top:calc(18px + env(safe-area-inset-top));left:18px;
-    display:flex;flex-direction:column;align-items:center;gap:9px;padding:0;border:0;background:none;cursor:pointer;
-    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;
-    opacity:0;transform:scale(.3) rotate(-30deg);transition:opacity .6s ease,transform .7s cubic-bezier(.34,1.56,.64,1)}
-  .red-btn[hidden]{display:none}
-  .red-btn.on{opacity:1;transform:none}
-  .red-dome{position:relative;display:block;width:56px;height:56px;border-radius:50%;
-    background:radial-gradient(circle at 36% 30%,#ff9c9c 0%,#f0283c 32%,#b10f22 70%,#6d0714 100%);
-    box-shadow:0 5px 0 #5a0611,0 10px 22px rgba(0,0,0,.6),0 0 24px rgba(240,40,60,.5);
-    animation:redPulse 2.4s ease-in-out infinite}
-  .red-dome::before{content:"";position:absolute;inset:-8px;border-radius:50%;z-index:-1;
-    background:repeating-conic-gradient(#f5c518 0 15deg,#141414 15deg 30deg);box-shadow:0 0 0 2px #141414}
-  .red-dome::after{content:"";position:absolute;left:18%;top:9%;width:42%;height:26%;border-radius:50%;
-    background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,0))}
-  .red-bar{position:absolute;left:21%;right:21%;top:50%;height:9px;margin-top:-4px;border-radius:3px;background:#fff;
-    box-shadow:0 1px 2px rgba(0,0,0,.35)}
-  .red-cap{font:700 11px "Tajawal";color:#ffb3b3;white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.9)}
-  @keyframes redPulse{50%{box-shadow:0 5px 0 #5a0611,0 10px 22px rgba(0,0,0,.6),0 0 40px 6px rgba(240,40,60,.7)}}
-  .red-dome.hit{animation:redHit .45s ease}
-  @keyframes redHit{0%{transform:translateY(4px) scale(.94)}30%{transform:rotate(-14deg)}55%{transform:rotate(12deg)}80%{transform:rotate(-6deg)}100%{transform:none}}
-  .red-say{position:fixed;z-index:16;top:calc(112px + env(safe-area-inset-top));left:14px;width:max-content;max-width:min(78vw,320px);
-    padding:12px 16px;border-radius:4px 18px 18px 18px;font:500 16px/1.7 "Tajawal";color:#3a1410;text-align:right;
-    background:linear-gradient(180deg,#fffaf0,#f3e3c3);border:1px solid #e0485a;box-shadow:0 12px 30px rgba(0,0,0,.55);
-    opacity:0;transform:translateY(-8px) scale(.9);transform-origin:top left;transition:opacity .3s ease,transform .3s ease;pointer-events:none}
-  .red-say.on{opacity:1;transform:none}
-  .surprise{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:24px;
-    background:rgba(8,3,8,.84);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .6s ease}
-  .surprise[hidden]{display:none}
-  .surprise.on{opacity:1}
-  .surprise-card{position:relative;margin:0;padding:8px;border-radius:14px;background:linear-gradient(160deg,var(--gold-2),var(--gold-3));
-    box-shadow:0 30px 90px rgba(0,0,0,.7);transform:scale(.6) rotate(-5deg);transition:transform .8s cubic-bezier(.2,.9,.2,1)}
-  .surprise.on .surprise-card{transform:none}
-  .surprise-card img{display:block;max-width:min(84vw,520px);max-height:76vh;border-radius:9px}
-  .surprise .close{top:-15px;left:-15px;background:#2a0b17}
-
   .replay{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:9;
     background:none;border:0;color:var(--ink-dim);font-size:12px;cursor:pointer;opacity:.5;padding:8px 12px}
   .replay:hover{opacity:1}
@@ -728,19 +692,6 @@
     </div>
   </section>
 
-  <!-- الزر الأحمر الغريب: ١٠ رسائل، بعدها "متأكدة؟"، بعدها الصورة -->
-  <button class="red-btn" id="redBtn" aria-label="ممنوع الضغط" hidden>
-    <span class="red-dome"><span class="red-bar"></span></span>
-    <span class="red-cap" id="redCap">ممنوع الضغط</span>
-  </button>
-  <div class="red-say" id="redSay" role="status"></div>
-  <div class="surprise" id="surprise" hidden>
-    <figure class="surprise-card">
-      <button class="close" id="surpriseClose" aria-label="إغلاق">×</button>
-      <img id="surpriseImg" alt="">
-    </figure>
-  </div>
-
   <div id="flash"></div>
   <button class="replay" id="replay" style="display:none">↺ من البداية</button>
 
@@ -877,33 +828,6 @@
   const BORED_MS = 5000;
   const CATCH_MS = 5000;
 
-  // الزر الأحمر الغريب بعد الرسالة الأخيرة: رسالة لكل ضغطة (كل وحدة أضحك من اللي قبلها)
-  const RED_LINES = [
-    'هاي! ستوب ✋ توقّفي… فيك شي؟ اللقافة لهالدرجة؟ 😳',
-    'حبيبتي لا تضغطين… نصيحة لك: لا تضغطين، ابتعدي عن الزر 🙂',
-    'الزر أحمر… والأحمر يعني خطر، مو «تفضّلي» 😐',
-    'طيب… أنا زر، وعندي مشاعر، وأنتِ تدوسين عليها 🥲',
-    'ترى بعلّم عليك الرجال 🎩… وهو ما يرحم',
-    'الرجال يقول: «لماذا لم تصبري؟» مرة ثانية 😒😂',
-    'أدري إنك ما بتوقفين… بس كان لازم أحاول 😮‍💨😂',
-    'تكفين… صار لي ثمان ضغطات أترجّاك 😭😂',
-    'خلاص… الزر رسميًا يقدّم استقالته 📝😂😂',
-    'ولا ضغطة ترحم؟! أنتِ اللقافة بذاتها 😂😂😂'
-  ];
-  const RED_SURE = 'متأكدة تبين تفتحينه؟ 🤨 إذا إيه… اضغطيه بعد';
-  // الصورة اللي تطلع في النهاية (الزر ما يظهر إلا إذا الصورة موجودة)
-  const SURPRISE_IMG = 'surprise.jpg';
-  // كلام يطلع تحت الزر الهارب كل ما تحاول تمسكه
-  const RUN_HINTS = [
-    'يا حبيبة قلبي خلق طيّارة 🛩️',
-    'يا حبيبة قلبي خلق دبّابة 🚂',
-    'سرعة الإنسان ما تكفي 😌',
-    'قرّبتي… لا لا، بعّدتي 😂',
-    'الصبر مفتاح الفرج 🗝️',
-    'ما ينمسك بالعافية… فكّري 🤔',
-    'الجواب قدّامك من زمان 😏',
-    'شوفي حواليك… في شي منسي 📌'
-  ];
   /* ==================================== */
 
   const $ = id => document.getElementById(id);
@@ -916,7 +840,7 @@
     del(k){ try { localStorage.removeItem(k); } catch(e){} }
   };
   const params = new URLSearchParams(location.search);
-  if (params.has('reset')){ ['stage','wish','early','greeted','red'].forEach(k => store.del(k)); }
+  if (params.has('reset')){ ['stage','wish','early','greeted'].forEach(k => store.del(k)); }
   const noteBtn = $('noteBtn'), replay = $('replay');
   const showChrome = on => { noteBtn.classList.toggle('hidden', !on); replay.style.display = on ? '' : 'none'; };
 
@@ -1683,51 +1607,7 @@
     $('finalSign').classList.add('on');
     await wait(1200);
     showChrome(true);
-    // الزر الأحمر ما يطلع إلا بعد ما تخلص الرسالة كاملة — حتى لو حدّثت الصفحة
-    await wait(1500);
-    finalDone = true; tryShowRed();
   }
-
-  /* ---------- الزر الأحمر الغريب ---------- */
-  const redBtn = $('redBtn'), redSay = $('redSay'), surprise = $('surprise');
-  let redN = +(store.get('red') || 0), redReady = false, finalDone = false, redTimer = 0;
-  // نتأكد إن الصورة موجودة قبل ما نطلّع الزر
-  const surprisePic = new Image();
-  surprisePic.onload = () => { $('surpriseImg').src = SURPRISE_IMG; redReady = true; tryShowRed(); };
-  surprisePic.src = SURPRISE_IMG;
-  function redCap(){ $('redCap').textContent = redN > RED_LINES.length + 1 ? 'الصورة 🤍' : redN > RED_LINES.length ? 'متأكدة؟' : 'ممنوع الضغط'; }
-  function tryShowRed(){
-    if (!redReady || !finalDone || !redBtn.hidden) return;
-    redCap();
-    redBtn.hidden = false;
-    requestAnimationFrame(() => requestAnimationFrame(() => redBtn.classList.add('on')));
-  }
-  function redSays(text){
-    redSay.textContent = text;
-    redSay.classList.remove('on'); void redSay.offsetWidth; redSay.classList.add('on');
-    clearTimeout(redTimer);
-    redTimer = setTimeout(() => redSay.classList.remove('on'), 6000);
-  }
-  redBtn.addEventListener('click', () => {
-    const dome = redBtn.querySelector('.red-dome');
-    dome.classList.remove('hit'); void dome.offsetWidth; dome.classList.add('hit');
-    redN++; store.set('red', redN); redCap();
-    if (redN <= RED_LINES.length){ redSays(RED_LINES[redN - 1]); navigator.vibrate && navigator.vibrate(15); }
-    else if (redN === RED_LINES.length + 1){ redSays(RED_SURE); navigator.vibrate && navigator.vibrate([20,40,20]); }
-    else { clearTimeout(redTimer); redSay.classList.remove('on'); openSurprise(); }
-  });
-  redBtn.addEventListener('contextmenu', e => e.preventDefault());
-  function openSurprise(){
-    surprise.hidden = false;
-    requestAnimationFrame(() => requestAnimationFrame(() => surprise.classList.add('on')));
-    navigator.vibrate && navigator.vibrate([30,40,80]);
-  }
-  function closeSurprise(){
-    surprise.classList.remove('on');
-    setTimeout(() => { surprise.hidden = true; }, 600);
-  }
-  $('surpriseClose').onclick = closeSurprise;
-  surprise.onclick = e => { if (e.target === surprise) closeSurprise(); };
 
   /* ---------- العدّاد ---------- */
   const HINT2_EARLY = 'المسي البصمة… لو ما قدرتي تصبرين 😏';
@@ -1787,7 +1667,7 @@
   const closeModal = () => modal.classList.remove('show');
   $('close').onclick = closeModal;
   modal.onclick = e => { if (e.target === modal) closeModal(); };
-  addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); if (!surprise.hidden) closeSurprise(); } });
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
   replay.onclick = () => { store.del('stage'); location.href = location.pathname; };
 
