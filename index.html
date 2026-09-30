@@ -142,11 +142,8 @@
   .door-wrap.open .leaf.r{transform:rotateY(-108deg)}
   .door-wrap.open .leaf.l{transform:rotateY(108deg)}
   .door-wrap.open .seam,.door-wrap.open .medal{opacity:0;pointer-events:none}
-  #door1.open .opening::after{opacity:1}
+  .door-wrap.open .opening::after{opacity:1}
   #door1.zoom{transform:scale(7)}
-  #door2 .opening::after{content:"";position:absolute;inset:0;z-index:1;opacity:0;transition:opacity 1.4s ease;
-    background:radial-gradient(70% 60% at 50% 50%,#fff 0%,#fffaf0 45%,rgba(255,240,210,.6) 80%,rgba(255,230,190,.2))}
-  #door2.open .opening::after{opacity:1}
   #door2.zoom{transform:scale(8)}
 
   /* fingerprint medallion */
@@ -207,22 +204,14 @@
   .act2 .t{font-family:"Aref Ruqaa",serif;font-size:clamp(28px,7vw,44px);line-height:1.2;
     background:linear-gradient(180deg,var(--gold-2),var(--gold) 60%,var(--gold-3));
     -webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .1em}
-  #door2{width:min(52vw,220px,30vh)}
+  #door2{width:min(46vw,200px,25vh)}
   #door2 .leaf{background:
       linear-gradient(180deg,rgba(255,255,255,.06),transparent 30%),
       repeating-linear-gradient(92deg,rgba(0,0,0,.08) 0 2px,transparent 2px 9px),
       linear-gradient(160deg,var(--walnut-2),var(--walnut) 45%,var(--walnut-3))}
-  #door2 .medal{width:30%;background:radial-gradient(circle at 50% 40%,#4b2d18,#231208 70%);cursor:default}
-  #door2 .medal::before{animation:none;opacity:.5}
-  #door2 .medal svg{width:52%;height:52%}
-  #door2 .shackle{transition:transform .6s ease}
-  #door2.unlocked .shackle{transform:translateY(-6px)}
-  .shake{animation:shake .5s ease}
-  @keyframes shake{20%,60%{transform:translate(calc(-50% - 5px),-50%)}40%,80%{transform:translate(calc(-50% + 5px),-50%)}}
-  .reveal{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;text-align:center;
-    padding:20px;opacity:0;transition:opacity 1.6s ease 1.6s;pointer-events:none}
-  .door-wrap.open .reveal{opacity:1}
-  .reveal p{font-family:"Aref Ruqaa",serif;font-size:clamp(18px,4.6vw,26px);color:#5a2410;line-height:1.5}
+  #door2 .medal{background:radial-gradient(circle at 50% 40%,#4b2d18,#231208 70%)}
+  .hold2{margin-top:-2px}
+  .hold2 .hint{min-height:22px;font-size:14px;text-shadow:0 1px 6px rgba(0,0,0,.8)}
 
   /* countdown */
   .count-cap{font-size:12px;color:var(--ink-dim);letter-spacing:.18em;text-align:center;margin-bottom:-6px}
@@ -237,8 +226,6 @@
   .unit b.tick{animation:tick .5s ease}
   @keyframes tick{0%{transform:translateY(-6px);opacity:.3}100%{transform:none;opacity:1}}
   .unit span{display:block;margin-top:3px;font-size:12px;color:var(--ink-dim);letter-spacing:.08em}
-  .hint2{min-height:22px;margin-top:16px;font-size:14px;text-shadow:0 1px 6px rgba(0,0,0,.8);color:#f0b9c6;text-align:center;opacity:0;transition:opacity .4s}
-  .hint2.on{opacity:1}
 
   /* curtains */
   .curtain{position:absolute;top:0;height:100%;width:51%;z-index:4;
@@ -274,7 +261,7 @@
 
   /* butler */
   .butler{position:absolute;z-index:6;left:0;bottom:calc(6vh + env(safe-area-inset-bottom));
-    height:min(46vh,380px);aspect-ratio:200/420;transform:translateX(120vw)}
+    height:min(46vh,380px);aspect-ratio:200/420;transform:translateX(120vw);transform-origin:50% 100%}
   .butler svg{width:100%;height:100%;display:block;overflow:visible}
   .butler svg *{transform-box:view-box}
   .butler .legA{transform-origin:88px 250px}
@@ -297,11 +284,13 @@
   @keyframes legA{0%,100%{transform:rotate(13deg)}50%{transform:rotate(-13deg)}}
   @keyframes bob{from{transform:translateY(0) rotate(-1.2deg)}to{transform:translateY(5px) rotate(1.2deg)}}
   @keyframes swing{0%,100%{transform:rotate(-11deg)}50%{transform:rotate(11deg)}}
+  .butler .hand-note{opacity:0;transition:opacity .4s ease}
+  .butler.has-note .hand-note{opacity:1}
 
   /* نافذة النوتة */
   .qcard .paper-ico{font-size:44px;line-height:1;margin-bottom:6px}
   .qcard .q{font-family:"Aref Ruqaa",serif;font-size:clamp(24px,6.4vw,30px);line-height:1.5;color:var(--gold-2)}
-  .qcard .qs{font-size:14px;color:var(--ink-dim);margin-top:2px}
+  .qcard .qs{font-size:15px;color:var(--ink-dim);margin-top:2px}
   .qcard textarea{width:100%;margin-top:16px;min-height:120px;resize:vertical;padding:12px 14px;border-radius:14px;
     background:rgba(255,240,220,.05);border:1px solid var(--line);color:var(--ink);font:400 16px/1.7 "Tajawal";outline:none}
   .qcard textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(216,178,106,.15)}
@@ -313,16 +302,64 @@
   .gbtn:disabled{opacity:.6;cursor:default}
   .qstep[hidden]{display:none}
 
+  /* ---------- الغرفة الخشبية (ورا الباب الثاني) ---------- */
+  #room{position:fixed;inset:0;z-index:3;overflow:hidden;background:#12050a;
+    touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  #room.gone{display:none}
+  #room .wall{position:absolute;left:0;right:0;top:0;bottom:40%;
+    background:
+      radial-gradient(60% 46% at 50% 0%,rgba(255,226,170,.16),transparent 70%),
+      radial-gradient(40% 36% at 50% 92%,rgba(255,206,140,.22),transparent 72%),
+      radial-gradient(circle at 23px 23px,rgba(216,178,106,.08) 0 2.5px,transparent 3.5px) 0 0/46px 46px,
+      repeating-linear-gradient(90deg,rgba(0,0,0,.16) 0 1px,transparent 1px 46px),
+      linear-gradient(180deg,#240a13,#361019 70%,#2a0b16)}
+  #room .wainscot{position:absolute;left:0;right:0;bottom:40%;height:12%;
+    background:
+      repeating-linear-gradient(90deg,transparent 0 9px,rgba(216,178,106,.16) 9px 10px,transparent 10px 60px,rgba(216,178,106,.16) 60px 61px,transparent 61px 70px),
+      linear-gradient(180deg,#22090f,#140508);
+    border-top:2px solid var(--gold-3);box-shadow:inset 0 8px 14px rgba(0,0,0,.45)}
+  #room .door3-slot{position:absolute;z-index:2;left:50%;bottom:40%;transform:translateX(-50%)}
+  #door3{width:min(30vw,140px,21vh)}
+  #door3 .frame{padding:7px}
+  #door3 .leaf{background:
+      radial-gradient(90% 45% at 30% 22%,rgba(64,214,170,.24),transparent 70%),
+      radial-gradient(80% 45% at 70% 40%,rgba(140,90,220,.24),transparent 70%),
+      linear-gradient(160deg,#1f2a44,#131b30 50%,#0a0f1d)}
+  #door3 .emblem{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,-50%);
+    color:var(--gold-2);font-size:clamp(15px,4vw,22px);text-shadow:0 0 12px rgba(255,220,150,.85);transition:opacity .5s}
+  #door3.open .emblem{opacity:0}
+  #door3.zoom{transform:scale(9)}
+  .sconce{position:absolute;top:30%;width:9px;height:16px;border-radius:3px 3px 6px 6px;
+    background:linear-gradient(180deg,var(--gold-2),var(--gold-3));box-shadow:0 0 10px rgba(255,220,150,.6)}
+  .sconce::before{content:"";position:absolute;left:50%;top:50%;width:80px;height:80px;transform:translate(-50%,-55%);border-radius:50%;
+    background:radial-gradient(closest-side,rgba(255,220,150,.4),transparent);animation:glow 4s ease-in-out infinite}
+  @keyframes glow{50%{opacity:.6}}
+  .sconce.l{left:-34px}
+  .sconce.r{right:-34px}
+  #room .wood{position:absolute;left:0;right:0;bottom:0;height:40%;z-index:1;
+    -webkit-clip-path:inset(0 0 100% 0);clip-path:inset(0 0 100% 0);
+    transition:-webkit-clip-path 2.2s cubic-bezier(.3,.6,.2,1),clip-path 2.2s cubic-bezier(.3,.6,.2,1)}
+  #room .wood.on{-webkit-clip-path:inset(0);clip-path:inset(0)}
+  #room .wood svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #room .wood::after{content:"";position:absolute;left:0;right:0;top:0;height:6px;
+    background:linear-gradient(180deg,#2c160b,#140905);border-top:1px solid var(--gold-3);box-shadow:0 3px 8px rgba(0,0,0,.5)}
+  #room .butler{bottom:calc(3% + env(safe-area-inset-bottom));height:min(44%,360px)}
+  #room .butler.walking .legA,#room .butler.walking .legB,
+  #room .butler.walking .armA,#room .butler.walking .armB{animation-duration:.72s}
+  #room .butler.walking .upper{animation-duration:.36s}
+
   /* الورقة الملتصقة في زاوية الجدار */
-  .sticky{position:absolute;z-index:8;top:calc(clamp(64px,12vh,110px) + 12px);right:16px;
+  .sticky{position:absolute;z-index:8;top:calc(18px + env(safe-area-inset-top));right:16px;
     width:60px;height:66px;padding:0;cursor:pointer;border:0;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
     background:linear-gradient(160deg,#fff7e6,#f2e2b8);border-radius:3px 3px 3px 14px;
     box-shadow:0 8px 18px rgba(0,0,0,.5);transform:rotate(4deg);transform-origin:top center;
     opacity:0;pointer-events:none;transition:opacity .5s ease}
   .sticky.on{opacity:1;pointer-events:auto;animation:stickySway 3.5s ease-in-out infinite}
   @keyframes stickySway{50%{transform:rotate(-2deg)}}
   .sticky::after{content:"اقرأيني";position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:5px;
-    font-size:11px;color:var(--gold-2);white-space:nowrap}
+    font-size:12px;color:var(--gold-2);white-space:nowrap;opacity:0;transition:opacity .4s}
+  .sticky.nudge::after{opacity:1}
   .sticky .pin{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;
     background:radial-gradient(circle at 35% 30%,#ff8f8f,#b3122b);box-shadow:0 2px 4px rgba(0,0,0,.5)}
   .sticky .sticky-lines{position:absolute;inset:14px 8px 8px;
@@ -330,38 +367,38 @@
   .sticky.on.nudge{animation:nudge 1.6s ease-in-out infinite;box-shadow:0 8px 18px rgba(0,0,0,.5),0 0 22px rgba(243,220,164,.55)}
   @keyframes nudge{0%,60%,100%{transform:rotate(4deg) scale(1)}68%{transform:rotate(-9deg) scale(1.1)}76%{transform:rotate(9deg) scale(1.1)}84%{transform:rotate(-4deg) scale(1.04)}}
 
-  /* الزر الهارب */
-  .runner{position:absolute;z-index:10;padding:14px 26px;border-radius:999px;border:0;cursor:pointer;
-    touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+  /* الزر الهارب — مكانه يتحدد من الجافاسكربت عبر transform */
+  .runner{position:absolute;z-index:10;left:0;top:0;padding:14px 26px;border-radius:999px;border:0;cursor:pointer;overflow:hidden;
+    touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;will-change:transform;
     font:700 17px "Tajawal";color:#2a1206;white-space:nowrap;
     background:linear-gradient(180deg,var(--gold-2),var(--gold));
     box-shadow:0 8px 22px rgba(216,178,106,.35),0 0 26px rgba(216,178,106,.3);
-    opacity:0;pointer-events:none;transition:opacity .5s ease,
-      left .45s cubic-bezier(.34,1.56,.64,1),top .45s cubic-bezier(.34,1.56,.64,1),transform .2s ease}
+    opacity:0;pointer-events:none;transition:opacity .5s ease,filter .6s ease,box-shadow .3s ease}
+  .runner::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#fff,#fff3d2);opacity:.8;
+    transform-origin:right center;transform:scaleX(var(--p,0))}
+  .runner span{position:relative}
   .runner.on{opacity:1;pointer-events:auto}
-  .runner.caught{animation:caught 3s linear forwards;box-shadow:0 0 0 3px var(--gold-2),0 0 40px rgba(255,220,150,.8)}
-  @keyframes caught{to{box-shadow:0 0 0 3px #fff,0 0 60px 16px rgba(255,240,200,.9)}}
-  .runner-hint{position:absolute;z-index:9;left:50%;bottom:calc(9vh + env(safe-area-inset-bottom));transform:translateX(-50%);
-    font:500 15px "Tajawal";color:#f0d59a;text-align:center;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.8);
-    opacity:0;transition:opacity .35s ease;pointer-events:none;max-width:92vw}
+  .runner.caught{box-shadow:0 0 0 3px var(--gold-2),0 0 44px rgba(255,220,150,.85)}
+  .runner.bye{opacity:0;filter:blur(8px);pointer-events:none}
+  .runner-hint{position:absolute;z-index:11;left:50%;bottom:calc(6% + env(safe-area-inset-bottom));transform:translateX(-50%);
+    width:max-content;max-width:88vw;font:500 15px/1.6 "Tajawal";color:#f0d59a;text-align:center;text-shadow:0 1px 8px rgba(0,0,0,.9);
+    opacity:0;transition:opacity .35s ease;pointer-events:none}
   .runner-hint.on{opacity:1}
 
   /* الورقة المفتوحة قدام العين */
-  .paper-open{position:absolute;z-index:9;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+  .paper-open{position:absolute;z-index:9;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;padding:16px}
   .paper-open[hidden]{display:none}
   .flying-note{position:fixed;z-index:15;width:60px;height:66px;left:0;top:0;border-radius:3px 3px 3px 14px;pointer-events:none;
     background:linear-gradient(160deg,#fff7e6,#f2e2b8);box-shadow:0 12px 26px rgba(0,0,0,.55)}
   .flying-note::after{content:"";position:absolute;inset:14px 8px 8px;
     background:repeating-linear-gradient(180deg,transparent 0 8px,rgba(90,40,16,.35) 8px 9px)}
-  .paper-open .paper-sheet{width:min(74vw,300px);padding:26px 22px 20px;border-radius:6px;text-align:center;
+  .paper-open .paper-sheet{width:min(80vw,320px);padding:26px 22px 20px;border-radius:6px;text-align:center;pointer-events:auto;
     color:#4a2a12;background:linear-gradient(170deg,#fffaf0,#f3e3c1);
     box-shadow:0 26px 60px rgba(0,0,0,.6);border:1px solid rgba(120,80,30,.25);
     transform:scale(.2) rotate(6deg);opacity:0;transition:transform .8s cubic-bezier(.2,.9,.2,1),opacity .6s ease}
   .paper-open.on .paper-sheet{transform:none;opacity:1}
   .paper-open .paper-head{font-family:"Aref Ruqaa",serif;font-size:22px;color:#7a1a33;margin-bottom:10px}
-  .paper-open .paper-body{font-size:17px;line-height:1.9;white-space:pre-wrap;word-break:break-word;min-height:28px;max-height:38vh;overflow:auto}
-  .paper-open{padding-bottom:90px}
-  .paper-open .paper-sheet{pointer-events:auto}
+  .paper-open .paper-body{font-size:17px;line-height:1.9;white-space:pre-wrap;word-break:break-word;min-height:56px;max-height:36vh;overflow:auto}
   .paper-open .paper-foot{margin-top:14px;font-family:"Aref Ruqaa",serif;font-size:16px;color:#8a5a34}
 
   /* الرسالة الأخيرة */
@@ -372,13 +409,50 @@
   .final-sign{font-family:"Aref Ruqaa",serif;font-size:clamp(20px,5vw,26px);color:var(--gold);opacity:0;transition:opacity 1.4s ease}
   .final-sign.on{opacity:1}
   @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  .bubble{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translate(-50%,8px) scale(.9);
-    white-space:nowrap;padding:10px 16px;border-radius:16px;font-size:clamp(14px,3.8vw,17px);font-weight:500;color:#3a1410;
+  .bubble{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translate(calc(-50% + var(--bx,0px)),8px) scale(.9);
+    width:max-content;max-width:min(76vw,300px);text-align:center;line-height:1.6;
+    padding:10px 16px;border-radius:16px;font-size:clamp(14px,3.8vw,17px);font-weight:500;color:#3a1410;
     background:linear-gradient(180deg,#fffaf0,#f3e3c3);border:1px solid var(--gold);
     box-shadow:0 10px 24px rgba(0,0,0,.45);opacity:0;transition:opacity .4s ease,transform .4s ease}
-  .bubble::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  .bubble::after{content:"";position:absolute;top:100%;left:calc(50% - var(--bx,0px));transform:translateX(-50%);
     border:8px solid transparent;border-top-color:#f3e3c3}
-  .bubble.on{opacity:1;transform:translate(-50%,0) scale(1)}
+  .bubble.on{opacity:1;transform:translate(calc(-50% + var(--bx,0px)),0) scale(1)}
+
+  /* الزر الأحمر الغريب (يطلع بعد الرسالة الأخيرة) */
+  .red-btn{position:fixed;z-index:16;top:calc(18px + env(safe-area-inset-top));left:18px;
+    display:flex;flex-direction:column;align-items:center;gap:9px;padding:0;border:0;background:none;cursor:pointer;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;
+    opacity:0;transform:scale(.3) rotate(-30deg);transition:opacity .6s ease,transform .7s cubic-bezier(.34,1.56,.64,1)}
+  .red-btn[hidden]{display:none}
+  .red-btn.on{opacity:1;transform:none}
+  .red-dome{position:relative;display:block;width:56px;height:56px;border-radius:50%;
+    background:radial-gradient(circle at 36% 30%,#ff9c9c 0%,#f0283c 32%,#b10f22 70%,#6d0714 100%);
+    box-shadow:0 5px 0 #5a0611,0 10px 22px rgba(0,0,0,.6),0 0 24px rgba(240,40,60,.5);
+    animation:redPulse 2.4s ease-in-out infinite}
+  .red-dome::before{content:"";position:absolute;inset:-8px;border-radius:50%;z-index:-1;
+    background:repeating-conic-gradient(#f5c518 0 15deg,#141414 15deg 30deg);box-shadow:0 0 0 2px #141414}
+  .red-dome::after{content:"";position:absolute;left:18%;top:9%;width:42%;height:26%;border-radius:50%;
+    background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,0))}
+  .red-bar{position:absolute;left:21%;right:21%;top:50%;height:9px;margin-top:-4px;border-radius:3px;background:#fff;
+    box-shadow:0 1px 2px rgba(0,0,0,.35)}
+  .red-cap{font:700 11px "Tajawal";color:#ffb3b3;white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+  @keyframes redPulse{50%{box-shadow:0 5px 0 #5a0611,0 10px 22px rgba(0,0,0,.6),0 0 40px 6px rgba(240,40,60,.7)}}
+  .red-dome.hit{animation:redHit .45s ease}
+  @keyframes redHit{0%{transform:translateY(4px) scale(.94)}30%{transform:rotate(-14deg)}55%{transform:rotate(12deg)}80%{transform:rotate(-6deg)}100%{transform:none}}
+  .red-say{position:fixed;z-index:16;top:calc(112px + env(safe-area-inset-top));left:14px;width:max-content;max-width:min(78vw,320px);
+    padding:12px 16px;border-radius:4px 18px 18px 18px;font:500 16px/1.7 "Tajawal";color:#3a1410;text-align:right;
+    background:linear-gradient(180deg,#fffaf0,#f3e3c3);border:1px solid #e0485a;box-shadow:0 12px 30px rgba(0,0,0,.55);
+    opacity:0;transform:translateY(-8px) scale(.9);transform-origin:top left;transition:opacity .3s ease,transform .3s ease;pointer-events:none}
+  .red-say.on{opacity:1;transform:none}
+  .surprise{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:24px;
+    background:rgba(8,3,8,.84);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .6s ease}
+  .surprise[hidden]{display:none}
+  .surprise.on{opacity:1}
+  .surprise-card{position:relative;margin:0;padding:8px;border-radius:14px;background:linear-gradient(160deg,var(--gold-2),var(--gold-3));
+    box-shadow:0 30px 90px rgba(0,0,0,.7);transform:scale(.6) rotate(-5deg);transition:transform .8s cubic-bezier(.2,.9,.2,1)}
+  .surprise.on .surprise-card{transform:none}
+  .surprise-card img{display:block;max-width:min(84vw,520px);max-height:76vh;border-radius:9px}
+  .surprise .close{top:-15px;left:-15px;background:#2a0b17}
 
   .replay{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:9;
     background:none;border:0;color:var(--ink-dim);font-size:12px;cursor:pointer;opacity:.5;padding:8px 12px}
@@ -500,15 +574,24 @@
         <div class="door-wrap" id="door2">
           <div class="frame">
             <div class="opening">
-              <div class="reveal"><p id="revealText">🤍</p></div>
               <div class="leaf l"><div class="panel p1"></div><div class="panel p2"></div></div>
               <div class="leaf r"><div class="panel p1"></div><div class="panel p2"></div></div>
               <div class="seam"></div>
-              <button class="medal" id="lock" aria-label="الباب مقفول">
-                <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-                  <path class="shackle" d="M21 30v-8a11 11 0 0 1 22 0v8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                  <rect x="15" y="29" width="34" height="27" rx="5" fill="currentColor"/>
-                  <circle cx="32" cy="40" r="3.6" fill="#2a1508"/><rect x="30.4" y="41" width="3.2" height="8" rx="1.5" fill="#2a1508"/>
+              <button class="medal" id="fp2" aria-label="اضغطي مطوّلًا على البصمة">
+                <svg viewBox="0 0 64 64" fill="none" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+                  <g class="base">
+                    <path d="M17 14a22 22 0 0 1 30 0"/><path d="M12 25a21 21 0 0 1 40 0"/>
+                    <path d="M20 50c-3-5-4-10-4-16a16 16 0 0 1 32 0c0 4-1 8-3 11"/>
+                    <path d="M26 55c-3-6-4-12-4-21a10 10 0 0 1 20 0c0 7-1 12-3 16"/>
+                    <path d="M32 58c-3-7-4-14-4-24a4 4 0 0 1 8 0c0 9-2 16-4 20"/>
+                  </g>
+                  <g class="fill">
+                    <path pathLength="1" d="M17 14a22 22 0 0 1 30 0"/><path pathLength="1" d="M12 25a21 21 0 0 1 40 0"/>
+                    <path pathLength="1" d="M20 50c-3-5-4-10-4-16a16 16 0 0 1 32 0c0 4-1 8-3 11"/>
+                    <path pathLength="1" d="M26 55c-3-6-4-12-4-21a10 10 0 0 1 20 0c0 7-1 12-3 16"/>
+                    <path pathLength="1" d="M32 58c-3-7-4-14-4-24a4 4 0 0 1 8 0c0 9-2 16-4 20"/>
+                  </g>
+                  <line class="scan" x1="8" y1="34" x2="56" y2="34" stroke="#fff3cf" stroke-width="1.6" opacity=".9"/>
                 </svg>
               </button>
             </div>
@@ -521,7 +604,11 @@
           <div class="unit"><b id="m">٠٠</b><span>دقيقة</span></div>
           <div class="unit"><b id="s">٠٠</b><span>ثانية</span></div>
         </div>
-        <div class="hint2" id="hint2"></div>
+        <div class="hold hold2">
+          <div class="bar"><i id="holdFill2"></i></div>
+          <div class="pct" id="holdPct2">٠٪</div>
+          <div class="hint" id="hint2">المسي البصمة… لو ما قدرتي تصبرين 😏</div>
+        </div>
       </div>
     </div>
 
@@ -576,29 +663,14 @@
           <g class="armB">
             <path d="M142 138q8 4 8 22l-2 72h-18l-2-82z" fill="#221c2b"/>
             <rect x="129" y="228" width="20" height="6" rx="2" fill="#f7f1e8"/>
+            <g class="hand-note">
+              <rect x="127" y="240" width="26" height="30" rx="2" fill="#fbf1dc" stroke="#d8b26a" stroke-width="1"/>
+              <path d="M131 250h18M131 256h18M131 262h12" stroke="rgba(90,40,16,.45)" stroke-width="1.3"/>
+            </g>
             <circle cx="139" cy="243" r="10" fill="#fbf7f0"/>
           </g>
         </g>
       </svg>
-    </div>
-
-    <!-- الورقة الملتصقة في الزاوية (بعد ما ترسل الأمنية) -->
-    <button class="sticky" id="sticky" aria-label="النوتة" hidden>
-      <span class="pin"></span>
-      <span class="sticky-lines"></span>
-    </button>
-
-    <!-- الزر الهارب -->
-    <button class="runner" id="runner" aria-label="افتحي الباب" hidden>افتحي الباب</button>
-    <div class="runner-hint" id="runnerHint" hidden></div>
-
-    <!-- الورقة المفتوحة قدام العين -->
-    <div class="paper-open" id="paperOpen" hidden>
-      <div class="paper-sheet">
-        <div class="paper-head">أمنيتك…</div>
-        <div class="paper-body" id="paperBody"></div>
-        <div class="paper-foot">— بإذن الله 🤍</div>
-      </div>
     </div>
 
     <div class="pelmet">
@@ -608,7 +680,46 @@
     </div>
   </section>
 
-  <!-- ٤) الرسالة الأخيرة -->
+  <!-- ٤) الغرفة الخشبية ورا الباب الثاني: النوتة + الزر الهارب + الباب التالي -->
+  <section id="room" class="gone" aria-live="polite">
+    <div class="wall"></div>
+    <div class="wainscot"></div>
+    <div class="door3-slot">
+      <span class="sconce l"></span><span class="sconce r"></span>
+      <div class="door-wrap" id="door3">
+        <div class="frame">
+          <div class="opening">
+            <div class="leaf l"><div class="panel p1"></div><div class="panel p2"></div></div>
+            <div class="leaf r"><div class="panel p1"></div><div class="panel p2"></div></div>
+            <div class="seam"></div>
+            <span class="emblem" aria-hidden="true">✦</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wood" id="wood"></div>
+
+    <!-- النوتة الملتصقة في الزاوية (بعد ما ترسلها) -->
+    <button class="sticky" id="sticky" aria-label="النوتة" hidden>
+      <span class="pin"></span>
+      <span class="sticky-lines"></span>
+    </button>
+
+    <!-- الزر الهارب -->
+    <button class="runner" id="runner" aria-label="افتحي الباب" hidden><span id="runnerTxt">افتحي الباب 🚪</span></button>
+    <div class="runner-hint" id="runnerHint"></div>
+
+    <!-- النوتة مفتوحة قدام العين -->
+    <div class="paper-open" id="paperOpen" hidden>
+      <div class="paper-sheet">
+        <div class="paper-head">نوتتك…</div>
+        <div class="paper-body" id="paperBody"></div>
+        <div class="paper-foot">🤍</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ٥) الرسالة الأخيرة -->
   <section id="finalMsg" class="scene gone">
     <div class="final-wrap">
       <div class="final-crown">🤍</div>
@@ -616,6 +727,19 @@
       <div class="final-sign" id="finalSign">— فهد</div>
     </div>
   </section>
+
+  <!-- الزر الأحمر الغريب: ١٠ رسائل، بعدها "متأكدة؟"، بعدها الصورة -->
+  <button class="red-btn" id="redBtn" aria-label="ممنوع الضغط" hidden>
+    <span class="red-dome"><span class="red-bar"></span></span>
+    <span class="red-cap" id="redCap">ممنوع الضغط</span>
+  </button>
+  <div class="red-say" id="redSay" role="status"></div>
+  <div class="surprise" id="surprise" hidden>
+    <figure class="surprise-card">
+      <button class="close" id="surpriseClose" aria-label="إغلاق">×</button>
+      <img id="surpriseImg" alt="">
+    </figure>
+  </div>
 
   <div id="flash"></div>
   <button class="replay" id="replay" style="display:none">↺ من البداية</button>
@@ -641,19 +765,20 @@
     </div>
   </div>
 
-  <!-- نافذة النوتة: أغلى أمنية → توصل فهد -->
+  <!-- نافذة النوتة: أغلى ما تملك -->
   <div class="modal" id="qModal" role="dialog" aria-modal="true" aria-label="نوتة">
     <div class="card qcard">
       <button class="close" id="qClose" aria-label="إغلاق">×</button>
       <div class="qstep" id="qStep1">
-        <div class="paper-ico">✍️</div>
-        <p class="q">أغلى أمنية في بالك…</p>
-        <p class="qs">اكتبيها هنا… يمكن تتحقق 🤍</p>
-        <textarea id="a1" maxlength="2000" placeholder="اكتبي أمنيتك…"></textarea>
+        <div class="paper-ico">📝</div>
+        <p class="q">نوتة…</p>
+        <p class="qs">اكتبي فيها أغلى ما تملكين</p>
+        <textarea id="a1" maxlength="2000" placeholder="اكتبي هنا…"></textarea>
         <button class="gbtn" id="next1">أرسليها</button>
       </div>
       <div class="qstep" id="qStep3" hidden>
-        <p class="q">وصلَت أمنيتك ✨</p>
+        <div class="paper-ico">✨</div>
+        <p class="q">وصلت 🤍</p>
       </div>
     </div>
   </div>
@@ -696,13 +821,25 @@
     open:   'سأفتح لكِ الستار الآن',
     please: 'تفضّلي…'
   };
-  // كلام الرجال في مشهد النوتة (بعد ما يخلص العدّاد)
-  const BUTLER2 = {
-    before: 'قبل لا أخليك تفتحين…',
-    note:   'هذي نوتة… بتوصل فهد',
-    write:  'اكتبي فيها أغلى أمنية في بالك',
-    button: 'هذا هو الزر… بس يبيله صبر',
-    luck:   'يلا بالتوفيق 🤍'
+  // كلام الرجال في الغرفة الخشبية (ورا الباب الثاني)
+  const ROOM = {
+    hello:  'مرحبًا بكِ…',
+    // لو فتحت الباب قبل ما يخلص العدّاد
+    early:  remaining => [
+      'لماذا لم تصبري؟ 🤨',
+      'العدّاد يقول باقي ' + remaining + '…',
+      'وأنتِ بصمتي وفتحتي! 😳',
+      'ما عليه… اللقافة ما تنلام 😌'
+    ],
+    // لو صبرت لين خلص العدّاد
+    onTime: [
+      'صبرتي… وجيتي في وقتك تمامًا 👑',
+      'ما توقعتها منك… بس طلعتي قدّها 😌'
+    ],
+    back:   'أهلًا من جديد 🎩',
+    note:   ['تفضّلي هذي النوتة 📝', 'اكتبي فيها أغلى ما تملكين…'],
+    button: ['تفضّلي هذا الزر…', 'اضغطيه عشان تفتحين الباب التالي 🚪'],
+    luck:   'بالتوفيق… 😏'
   };
 
   // الرسالة الأخيرة وراء الباب الثاني
@@ -729,6 +866,33 @@
     'قربتي… بس لازم صبر',
     'أسرع من كذا ما يصير؟ 🙂'
   ];
+  // لو شالت إصبعها عن بصمة الباب الثاني قبل ما يمتلي
+  const HINTS2 = [
+    'ما صبرتي على العدّاد… ولا على البصمة؟ 😏',
+    'كمّلي… لين يمتلي',
+    'شوي بعد… خلّي إصبعك',
+    'البصمة تبي صبر هي بعد 🙂'
+  ];
+  // كم ثانية بعد فتح النوتة يجي الزر، وكم ثانية لازم تثبّت إصبعها عليه
+  const BORED_MS = 5000;
+  const CATCH_MS = 5000;
+
+  // الزر الأحمر الغريب بعد الرسالة الأخيرة: رسالة لكل ضغطة (كل وحدة أضحك من اللي قبلها)
+  const RED_LINES = [
+    'هاي! ستوب ✋ توقّفي… فيك شي؟ اللقافة لهالدرجة؟ 😳',
+    'حبيبتي لا تضغطين… نصيحة لك: لا تضغطين، ابتعدي عن الزر 🙂',
+    'الزر أحمر… والأحمر يعني خطر، مو «تفضّلي» 😐',
+    'طيب… أنا زر، وعندي مشاعر، وأنتِ تدوسين عليها 🥲',
+    'ترى بعلّم عليك الرجال 🎩… وهو ما يرحم',
+    'الرجال يقول: «لماذا لم تصبري؟» مرة ثانية 😒😂',
+    'أدري إنك ما بتوقفين… بس كان لازم أحاول 😮‍💨😂',
+    'تكفين… صار لي ثمان ضغطات أترجّاك 😭😂',
+    'خلاص… الزر رسميًا يقدّم استقالته 📝😂😂',
+    'ولا ضغطة ترحم؟! أنتِ اللقافة بذاتها 😂😂😂'
+  ];
+  const RED_SURE = 'متأكدة تبين تفتحينه؟ 🤨 إذا إيه… اضغطيه بعد';
+  // الصورة اللي تطلع في النهاية (الزر ما يظهر إلا إذا الصورة موجودة)
+  const SURPRISE_IMG = 'surprise.jpg';
   // كلام يطلع تحت الزر الهارب كل ما تحاول تمسكه
   const RUN_HINTS = [
     'يا حبيبة قلبي خلق طيّارة 🛩️',
@@ -752,7 +916,7 @@
     del(k){ try { localStorage.removeItem(k); } catch(e){} }
   };
   const params = new URLSearchParams(location.search);
-  if (params.has('reset')){ store.del('stage'); store.del('wish'); }
+  if (params.has('reset')){ ['stage','wish','early','greeted','red','finalSeen'].forEach(k => store.del(k)); }
   const noteBtn = $('noteBtn'), replay = $('replay');
   const showChrome = on => { noteBtn.classList.toggle('hidden', !on); replay.style.display = on ? '' : 'none'; };
 
@@ -867,50 +1031,57 @@
   }
   $('skip').onclick = toGate;
 
-  /* ---------- 2) fingerprint hold ---------- */
-  const fp = $('fp'), door1 = $('door1');
-  const fillPaths = fp.querySelectorAll('.fill path');
-  let p = 0, holding = false, looping = false, opened1 = false, tries = 0, last = 0;
-  function render(){
-    fillPaths.forEach(el => el.style.strokeDashoffset = 1 - p);
-    $('holdFill').style.width = (p*100) + '%';
-    $('holdPct').textContent = AR(Math.round(p*100)) + '٪';
-  }
-  function loop(t){
-    const dt = t - last; last = t;
-    if (holding) p = Math.min(1, p + dt/HOLD_MS);
-    else p = Math.max(0, p - dt/(HOLD_MS/2.5));
-    render();
-    if (p >= 1 && !opened1){ opened1 = true; holding = false; looping = false; openDoor1(); return; }
-    if (holding || p > 0) requestAnimationFrame(loop); else looping = false;
-  }
-  function startLoop(){ if (!looping){ looping = true; last = performance.now(); requestAnimationFrame(loop); } }
-  fp.addEventListener('pointerdown', e => {
-    if (opened1) return;
-    e.preventDefault();
-    try { fp.setPointerCapture(e.pointerId); } catch(_){}
-    holding = true; fp.classList.add('holding');
-    $('hint').classList.remove('pop'); $('hint').textContent = 'استمري…';
-    navigator.vibrate && navigator.vibrate(20);
-    startLoop();
-  });
-  function release(){
-    if (!holding) return;
-    holding = false; fp.classList.remove('holding');
-    if (!opened1 && p < 1){
-      const h = $('hint');
-      h.textContent = HINTS[tries++ % HINTS.length];
-      h.classList.remove('pop'); void h.offsetWidth; h.classList.add('pop');
+  /* ---------- 2) fingerprint hold (الباب الأول والثاني) ---------- */
+  // ضغط مطوّل على البصمة يعبّي الشريط، ولو شالت إصبعها يرجع ينقص
+  function fingerprint({btn, fill, pct, hint, hints, onOpen}){
+    const paths = btn.querySelectorAll('.fill path');
+    let p = 0, holding = false, looping = false, opened = false, tries = 0, last = 0;
+    function render(){
+      paths.forEach(el => el.style.strokeDashoffset = 1 - p);
+      fill.style.width = (p*100) + '%';
+      pct.textContent = AR(Math.round(p*100)) + '٪';
     }
-    startLoop();
+    function loop(t){
+      const dt = t - last; last = t;
+      if (holding) p = Math.min(1, p + dt/HOLD_MS);
+      else p = Math.max(0, p - dt/(HOLD_MS/2.5));
+      render();
+      if (p >= 1 && !opened){ opened = true; holding = false; looping = false; open(); return; }
+      if (holding || p > 0) requestAnimationFrame(loop); else looping = false;
+    }
+    function startLoop(){ if (!looping){ looping = true; last = performance.now(); requestAnimationFrame(loop); } }
+    btn.addEventListener('pointerdown', e => {
+      if (opened) return;
+      e.preventDefault();
+      try { btn.setPointerCapture(e.pointerId); } catch(_){}
+      holding = true; btn.classList.add('holding');
+      hint.classList.remove('pop'); hint.textContent = 'استمري…';
+      navigator.vibrate && navigator.vibrate(20);
+      startLoop();
+    });
+    function release(){
+      if (!holding) return;
+      holding = false; btn.classList.remove('holding');
+      if (!opened && p < 1){
+        hint.textContent = hints[tries++ % hints.length];
+        hint.classList.remove('pop'); void hint.offsetWidth; hint.classList.add('pop');
+      }
+      startLoop();
+    }
+    ['pointerup','pointercancel','lostpointercapture'].forEach(ev => btn.addEventListener(ev, release));
+    btn.addEventListener('contextmenu', e => e.preventDefault());
+    function open(){
+      btn.classList.remove('holding'); btn.classList.add('done');
+      hint.textContent = 'انفتح!';
+      navigator.vibrate && navigator.vibrate([30,40,60]);
+      onOpen();
+    }
   }
-  ['pointerup','pointercancel','lostpointercapture'].forEach(ev => fp.addEventListener(ev, release));
-  fp.addEventListener('contextmenu', e => e.preventDefault());
+
+  const door1 = $('door1');
+  fingerprint({btn:$('fp'), fill:$('holdFill'), pct:$('holdPct'), hint:$('hint'), hints:HINTS, onOpen:openDoor1});
 
   async function openDoor1(){
-    fp.classList.remove('holding'); fp.classList.add('done');
-    $('hint').textContent = 'انفتح!';
-    navigator.vibrate && navigator.vibrate([30,40,60]);
     showChrome(false);
     await wait(350);
     door1.classList.add('open');
@@ -930,14 +1101,20 @@
   /* ---------- 3) stage ---------- */
   const butler = $('butler'), rope = $('rope'), bubble = $('bubble');
   const q = s => butler.querySelector(s);
-  let bx = 0;
-  function placeButler(x){ bx = x; butler.getAnimations().forEach(a => a.cancel()); butler.style.transform = `translateX(${x}px)`; }
-  async function walk(to, ms){
+  // bx = يمين/يسار، by = عمق (فوق = أبعد)، bs = حجمه (أصغر = أبعد)
+  let bx = 0, by = 0, bs = 1;
+  const bT = (x, y, s) => `translate(${x}px,${y}px) scale(${s})`;
+  function placeButler(x, y = 0, s = 1){
+    bx = x; by = y; bs = s;
+    butler.getAnimations().forEach(a => a.cancel());
+    butler.style.transform = bT(x, y, s);
+  }
+  async function walk(to, ms, {y = by, s = bs, easing = 'ease-in-out'} = {}){
     butler.classList.add('walking');
-    const a = butler.animate([{transform:`translateX(${bx}px)`},{transform:`translateX(${to}px)`}],
-      {duration:ms, easing:'ease-in-out', fill:'forwards'});
+    const a = butler.animate([{transform:bT(bx, by, bs)},{transform:bT(to, y, s)}],
+      {duration:ms, easing, fill:'forwards'});
     await a.finished;
-    bx = to; butler.style.transform = `translateX(${to}px)`; a.cancel();
+    bx = to; by = y; bs = s; butler.style.transform = bT(to, y, s); a.cancel();
     butler.classList.remove('walking');
   }
   function placeRope(){
@@ -959,8 +1136,19 @@
     return 'كم ساعة';
   }
 
+  // الفقاعة تبقى داخل الشاشة حتى لو الرجال واقف على الطرف
+  function fitBubble(){
+    bubble.style.setProperty('--bx', '0px');
+    const r = butler.getBoundingClientRect(), k = r.width / butler.offsetWidth || 1;
+    const half = bubble.offsetWidth * k / 2, c = r.left + r.width/2, m = 10;
+    let shift = 0;
+    if (c - half < m) shift = m - (c - half);
+    else if (c + half > innerWidth - m) shift = innerWidth - m - (c + half);
+    bubble.style.setProperty('--bx', (shift / k) + 'px');
+  }
   async function say(text, ms){
     bubble.textContent = text;
+    fitBubble();
     bubble.classList.add('on');
     await wait(ms);
     bubble.classList.remove('on');
@@ -1047,7 +1235,6 @@
     store.set('stage','door2');
     await wait(800);
     showChrome(true);
-    maybeStartFinale();
   }
 
   function showStageFinal(){
@@ -1059,7 +1246,31 @@
     $('act2').classList.add('show');
     requestAnimationFrame(() => requestAnimationFrame(() => stage.classList.remove('instant')));
     showChrome(true);
-    setTimeout(maybeStartFinale, 700);
+  }
+
+  /* ---------- بصمة الباب الثاني ---------- */
+  // تشتغل حتى قبل ما يخلص العدّاد — والرجال يعاتبها بعدين إذا ما صبرت
+  const door2 = $('door2');
+  fingerprint({btn:$('fp2'), fill:$('holdFill2'), pct:$('holdPct2'), hint:$('hint2'), hints:HINTS2, onOpen:openDoor2});
+
+  async function openDoor2(){
+    store.set('early', !params.has('open') && TARGET - Date.now() > 0 ? '1' : '0');
+    showChrome(false);
+    await wait(350);
+    door2.classList.add('open');
+    await wait(900);
+    door2.classList.add('zoom');
+    $('flash').classList.add('on');
+    await wait(2000);
+    store.set('stage','room');
+    stage.classList.add('gone');
+    showRoom();
+    await wait(250);
+    $('flash').classList.add('fast'); $('flash').classList.remove('on');
+    await wait(900);
+    wood.classList.add('on');                    // الأرضية الخشبية تنفرش
+    await wait(1500);
+    runRoom();
   }
 
   /* ---------- إرسال الأمنية للتليجرام ---------- */
@@ -1079,52 +1290,134 @@
   }
   async function sendWish(answer){
     if (!ENDPOINT) return;
-    const msg = {step:1, q:'أغلى أمنية في بالك', a:answer};
+    const msg = {step:1, q:'أغلى ما تملكين', a:answer};
     try { await post(msg); }
     catch(e){ const qq = loadQueue(); qq.push(msg); saveQueue(qq); }
   }
   flush();
   addEventListener('online', flush);
 
-  /* ---------- الفينالي: النوتة + الزر الهارب ---------- */
-  const sticky = $('sticky'), runner = $('runner'), runnerHint = $('runnerHint'), paperOpen = $('paperOpen'), door2El = $('door2');
-  let finaleStarted = false, wishText = '';
+  /* ---------- 4) الغرفة الخشبية: النوتة + الزر الهارب + الباب التالي ---------- */
+  const room = $('room'), wood = $('wood'), door3 = $('door3');
+  const sticky = $('sticky'), runner = $('runner'), runnerTxt = $('runnerTxt'), runnerHint = $('runnerHint'), paperOpen = $('paperOpen');
+  let wishText = '';
 
-  function finaleReady(){ return params.has('open') || params.has('finale') || TARGET - Date.now() <= 0; }
-  function maybeStartFinale(){
-    if (finaleStarted || !finaleReady()) return;
-    finaleStarted = true;
-    startFinale();
+  // أرضية خشبية بمنظور: الألواح تضيق كل ما بعدت، ومفاصلها متفرّقة مثل الباركيه
+  function buildFloor(){
+    const w = wood.clientWidth, h = wood.clientHeight;
+    if (!w || !h) return;
+    const zNear = .9, zWall = 3.4, A = h / (1 - 1/zWall);
+    const Y = z => A/z - A/zWall;
+    const S = Math.max(58, Math.min(w, 900) / 5.6);        // عرض اللوح قدّام العين
+    const X = (xw, z) => w/2 + xw*S/z;
+    const n = Math.ceil((w/2) * zWall / S) + 1;
+    const tones = ['#7a4926','#6b3e1f','#83512d','#5e361a','#8b5a33','#704322','#77462a'];
+    let seed = 11;
+    const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
+    const pt = (xw, z) => X(xw, z).toFixed(1) + ',' + Y(z).toFixed(1);
+    let planks = '', grain = '', seams = '';
+    for (let i = -n; i < n; i++){
+      let z0 = zNear, z1 = zNear + .3 + rnd()*1.1;
+      while (z0 < zWall){
+        const zb = Math.min(z1, zWall);
+        planks += `<polygon points="${pt(i,z0)} ${pt(i+1,z0)} ${pt(i+1,zb)} ${pt(i,zb)}" fill="${tones[Math.floor(rnd()*tones.length)]}"/>`;
+        for (let g = 0; g < 2; g++){
+          const gx = i + .2 + rnd()*.6;
+          grain += `<path d="M${pt(gx,z0)}L${pt(gx + (rnd()-.5)*.1, zb)}"/>`;
+        }
+        if (z1 < zWall) seams += `<path d="M${pt(i,z1)}L${pt(i+1,z1)}"/>`;
+        z0 = z1; z1 = z0 + 1.2 + rnd();
+      }
+      seams += `<path d="M${pt(i,zNear)}L${pt(i,zWall)}"/>`;
+    }
+    wood.innerHTML = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="woodShade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset=".5" stop-color="#000" stop-opacity=".15"/><stop offset="1" stop-color="#000" stop-opacity=".05"/>
+        </linearGradient>
+        <radialGradient id="woodLight" cx=".5" cy="0" r=".7">
+          <stop offset="0" stop-color="#ffd9a0" stop-opacity=".3"/><stop offset="1" stop-color="#ffd9a0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      ${planks}
+      <g fill="none" stroke="rgba(40,18,6,.35)" stroke-width="1">${grain}</g>
+      <g fill="none" stroke="rgba(20,8,2,.75)" stroke-width="1.4">${seams}</g>
+      <rect width="100%" height="100%" fill="url(#woodShade)"/>
+      <rect width="100%" height="100%" fill="url(#woodLight)"/>
+    </svg>`;
   }
+  addEventListener('resize', () => { if (!room.classList.contains('gone')) buildFloor(); });
 
-  async function startFinale(){
-    // القفل يختفي، والعدّاد يصير "حان الوقت"
-    $('door2').classList.add('unlocked');
-    $('countCap').textContent = 'حان الوقت';
-    $('count').style.opacity = '.4';
-    $('lock').style.pointerEvents = 'none';
-
-    // الرجال يرجع من اليمين
+  const depth = () => wood.clientHeight * .5;     // كم يرتفع الرجال لما يكون بعيد (ورا)
+  function showRoom(){
+    room.classList.remove('gone');
+    room.appendChild(butler);
     butler.style.display = '';
-    const bw = butler.offsetWidth;
-    if (bx < innerWidth) placeButler(innerWidth + 30);
-    await walk(innerWidth/2 - bw/2, 2400);
+    buildFloor();
+    placeButler(innerWidth + 20, -depth(), .62);
+  }
+  // يوقف يمين الباب التالي عشان ما يغطيه
+  function standX(){
+    const bw = butler.offsetWidth, d = door3.getBoundingClientRect();
+    return Math.min(d.right + 6 - .25*bw, innerWidth - .8*bw);
+  }
+  const tipHat = D => Promise.all([
+    anim(q('.armB'), [{transform:'rotate(0deg)'},{transform:'rotate(-205deg)',offset:.25},{transform:'rotate(-205deg)',offset:.72},{transform:'rotate(0deg)'}], D),
+    anim(q('.hat'), [{transform:'translate(0,0) rotate(0deg)'},{transform:'translate(0,0) rotate(0deg)',offset:.24},{transform:'translate(8px,-22px) rotate(-18deg)',offset:.36},{transform:'translate(8px,-22px) rotate(-18deg)',offset:.64},{transform:'translate(0,0) rotate(0deg)',offset:.78},{transform:'translate(0,0) rotate(0deg)'}], D),
+    anim(q('.upper'), [{transform:'none'},{transform:'none',offset:.34},{transform:'translateY(10px) scaleY(.95)',offset:.46},{transform:'translateY(10px) scaleY(.95)',offset:.6},{transform:'none',offset:.74},{transform:'none'}], D)
+  ]);
+  // حركة "يمسك الوضعية ويرجع": من ٠ إلى v ويثبت، وبعدين يرجع ٠
+  const pose = (el, v, ms, a = .22, b = .78) => anim(el, [{transform:'rotate(0deg)'},{transform:`rotate(${v}deg)`,offset:a},{transform:`rotate(${v}deg)`,offset:b},{transform:'rotate(0deg)'}], ms);
+
+  async function runRoom(){
+    const armA = q('.armA'), armB = q('.armB'), upper = q('.upper'), head = q('.head');
+
+    // يمشي فوق الأرضية من ورا لقدّام بهدوء
+    await walk(standX(), 3800, {y:0, s:1, easing:'cubic-bezier(.4,0,.4,1)'});
     await wait(300);
 
-    // يقدّم النوتة
-    const armB = q('.armB');
-    await say(BUTLER2.before, 2000);
-    await Promise.all([
-      say(BUTLER2.note, 2200),
-      anim(armB, [{transform:'rotate(0deg)'},{transform:'rotate(-70deg)',offset:.3},{transform:'rotate(-70deg)',offset:.7},{transform:'rotate(0deg)'}], 2200)
-    ]);
-    // لو كتبت أمنيتها قبل (ورجعت للموقع)، ما نطلب منها تكتب مرة ثانية
-    const saved = store.get('wish');
-    if (saved){ wishText = saved; afterWish(); return; }
+    if (!store.get('greeted')){
+      await Promise.all([say(ROOM.hello, 2600), tipHat(2600)]);
+      if (store.get('early') !== '0'){
+        const [why, count, you, fine] = ROOM.early(remainingText());
+        // "لماذا لم تصبري؟" — يديه على خصره ويميل راسه
+        await Promise.all([say(why, 2600), pose(armA, 24, 2600), pose(armB, -24, 2600), pose(head, -9, 2600)]);
+        // "العدّاد يقول باقي…" — يأشّر على الباب
+        await Promise.all([say(count, 2600), pose(armA, 96, 2600, .25), pose(head, -6, 2600, .25)]);
+        // "وأنتِ بصمتي!" — يرفع يديه مصدوم
+        await Promise.all([
+          say(you, 2200), pose(armA, 150, 2200, .18, .72), pose(armB, -150, 2200, .18, .72),
+          anim(upper, [{transform:'none'},{transform:'translateY(-6px)',offset:.18},{transform:'none',offset:.34},{transform:'none'}], 2200)
+        ]);
+        // "ما عليه…" — يهزّ راسه وينحني شوي
+        await Promise.all([
+          say(fine, 2600),
+          anim(head, [{transform:'rotate(0deg)'},{transform:'rotate(-5deg)',offset:.12},{transform:'rotate(5deg)',offset:.26},{transform:'rotate(-5deg)',offset:.4},{transform:'rotate(0deg)',offset:.54},{transform:'rotate(0deg)'}], 2600),
+          anim(upper, [{transform:'none'},{transform:'none',offset:.56},{transform:'translateY(8px) scaleY(.96)',offset:.76},{transform:'none'}], 2600)
+        ]);
+      } else {
+        const [patient, proud] = ROOM.onTime;
+        await Promise.all([
+          say(patient, 2800), pose(armB, 42, 2800, .2, .8),
+          anim(upper, [{transform:'none'},{transform:'none',offset:.15},{transform:'translateY(14px) scaleY(.92)',offset:.35},{transform:'translateY(14px) scaleY(.92)',offset:.7},{transform:'none',offset:.88},{transform:'none'}], 2800)
+        ]);
+        await Promise.all([say(proud, 2600), pose(head, -8, 2600)]);
+      }
+      store.set('greeted','1');
+    } else {
+      await Promise.all([say(ROOM.back, 2200), tipHat(2200)]);
+    }
 
-    await say(BUTLER2.write, 2200);
+    wishText = store.get('wish') || '';
+    if (wishText){ paperText(wishText); await giveButton(); return; }
 
-    // تفتح نافذة كتابة الأمنية
+    // يطلّع النوتة ويمدّها لها
+    butler.classList.add('has-note');
+    await anim(armA, [{transform:'rotate(0deg)'},{transform:'rotate(68deg)'}], 700, {fill:'forwards'});
+    for (const L of ROOM.note) await say(L, 2400);
+    butler.classList.remove('has-note');
+    armA.getAnimations().forEach(a => a.cancel());
+    await anim(armA, [{transform:'rotate(68deg)'},{transform:'rotate(0deg)'}], 600);
     openWishModal();
   }
 
@@ -1136,18 +1429,20 @@
   $('next1').onclick = async () => {
     const box = $('a1'), btn = $('next1'), text = box.value.trim();
     if (!text){ box.classList.remove('bad'); void box.offsetWidth; box.classList.add('bad'); box.focus(); return; }
+    if (btn.disabled) return;
     wishText = text;
     store.set('wish', text);
     btn.disabled = true; const label = btn.textContent; btn.textContent = '…';
     await sendWish(text);
     btn.disabled = false; btn.textContent = label;
+    box.blur();
     step(3);
     setTimeout(() => { qModal.classList.remove('show'); afterWish(); }, 1500);
   };
   // ما نخلي تسكّر النافذة بدون إرسال — لأنها جزء من القصة
   $('qClose').onclick = () => { if (wishText) qModal.classList.remove('show'); };
 
-  // الورقة تطير من نص الشاشة وتلتصق في زاوية الجدار
+  // النوتة تطير من نص الشاشة وتلتصق في زاوية الجدار
   async function flyNoteToCorner(){
     sticky.hidden = false;
     const r = sticky.getBoundingClientRect();
@@ -1171,64 +1466,105 @@
     paperText(wishText);
     await flyNoteToCorner();
     await wait(500);
+    await giveButton();
+  }
 
-    // الرجال يعطيها الزر ويودّع
-    const armA = q('.armA');
-    await Promise.all([
-      say(BUTLER2.button, 2200),
-      anim(armA, [{transform:'rotate(0deg)'},{transform:'rotate(70deg)',offset:.3},{transform:'rotate(70deg)',offset:.7},{transform:'rotate(0deg)'}], 2200)
-    ]);
-    // يطلع الزر الهارب
-    runner.hidden = false; placeRunnerStart();
-    requestAnimationFrame(() => runner.classList.add('on'));
-    await say(BUTLER2.luck, 1600);
-
-    // الرجال يمشي يمين ويختفي
-    const bw = butler.offsetWidth;
-    await walk(innerWidth + bw + 40, 2200);
+  // الرجال يعطيها الزر، ويأشّر على الباب التالي، ويمشي
+  async function giveButton(){
+    const armA = q('.armA'), head = q('.head');
+    const [take, press] = ROOM.button;
+    showRunner();
+    await Promise.all([say(take, 2300), pose(armA, 55, 2300, .25)]);
+    await Promise.all([say(press, 2800), pose(armA, 100, 2800, .25), pose(head, -6, 2800, .25)]);
+    armRunner();
+    await Promise.all([say(ROOM.luck, 1600), tipHat(1600)]);
+    await walk(innerWidth + 40, 2800, {y:-depth()*.35, s:.8, easing:'cubic-bezier(.4,0,.4,1)'});
     butler.style.display = 'none';
-    runnerArmed = true;
   }
 
   function paperText(t){ $('paperBody').textContent = t; }
 
-  /* --- الزر الهارب --- */
-  let runnerArmed = false, runTries = 0, solved = false;
-  function rndPos(){
-    const w = runner.offsetWidth, h = runner.offsetHeight;
-    const pad = 12, topMin = clampTop();
-    const x = pad + Math.random() * (innerWidth - w - pad*2);
-    const y = topMin + Math.random() * (innerHeight*0.72 - h - topMin);
-    return {x, y};
+  /* --- الزر الهارب: يروح يمين ويسار، ولو قرّبت منه يهرب --- */
+  let runnerArmed = false, runTries = 0, solved = false, lastFlee = 0;
+  const RN = {x:0, y:0, lane:0, vx:0, t:0, raf:0, dash:null};
+  function setRunner(x, y, rot = 0){ RN.x = x; RN.y = y; runner.style.transform = `translate(${x}px,${y}px) rotate(${rot}deg)`; }
+  const runSpeed = () => Math.min(80 + runTries*18, 240);    // يسرع شوي مع كل محاولة
+  // المنطقة اللي يتحرك فيها: تحت النوتة الملتصقة وفوق سطر التلميح
+  function lane(){
+    const h = runner.offsetHeight, top = Math.max(innerHeight*.42, sticky.getBoundingClientRect().bottom + 40);
+    return {top, bottom: Math.max(top, innerHeight*.8 - h)};
   }
-  function clampTop(){ return Math.max(innerHeight*0.2, 120); }
-  function placeRunnerStart(){
-    const w = runner.offsetWidth;
-    runner.style.left = (innerWidth/2 - w/2) + 'px';
-    runner.style.top = (innerHeight*0.5) + 'px';
+  function showRunner(){
+    runner.hidden = false;
+    runnerTxt.textContent = 'افتحي الباب 🚪';
+    runner.style.setProperty('--p', 0);
+    const b = lane();
+    setRunner(Math.max(12, innerWidth*.3 - runner.offsetWidth/2), (b.top + b.bottom)/2);
+    requestAnimationFrame(() => runner.classList.add('on'));
   }
-  let lastFlee = 0;
-  function flee(){
+  function patrol(t){
+    const dt = Math.max(0, Math.min(50, t - RN.t)) / 1000; RN.t = t;
+    const maxX = innerWidth - runner.offsetWidth - 12;
+    if (RN.dash){
+      const d = RN.dash, k = Math.max(0, Math.min(1, (t - d.t0) / d.ms)), e = 1 - Math.pow(1 - k, 3);
+      setRunner(d.x0 + (d.x1 - d.x0)*e, d.y0 + (d.y1 - d.y0)*e, (1 - k)*d.spin);
+      if (k >= 1){ RN.dash = null; RN.lane = d.y1; }
+    } else {
+      let x = RN.x + RN.vx*dt;
+      if (x <= 12){ x = 12; RN.vx = Math.abs(RN.vx); }
+      if (x >= maxX){ x = maxX; RN.vx = -Math.abs(RN.vx); }
+      setRunner(x, RN.lane + Math.sin(t/260)*4, Math.sin(t/170)*2.5);
+    }
+    RN.raf = requestAnimationFrame(patrol);
+  }
+  function armRunner(){
+    runnerArmed = true;
+    RN.lane = RN.y; RN.vx = (Math.random() < .5 ? -1 : 1) * runSpeed();
+    RN.t = performance.now();
+    cancelAnimationFrame(RN.raf); RN.raf = requestAnimationFrame(patrol);
+  }
+  function stopRunner(){ cancelAnimationFrame(RN.raf); RN.dash = null; }
+
+  function flee(px, py){
     const now = performance.now();
     if (now - lastFlee < 250) return;            // لمسة وحدة = هروب واحد
     lastFlee = now;
-    const p = rndPos();
-    runner.style.left = p.x + 'px';
-    runner.style.top = p.y + 'px';
-    const h = runnerHint;
-    h.textContent = RUN_HINTS[runTries % RUN_HINTS.length];
-    h.classList.remove('on'); void h.offsetWidth; h.classList.add('on');
+    const w = runner.offsetWidth, h = runner.offsetHeight, b = lane();
+    // يختار أبعد مكان عن إصبعها من بين كم اختيار
+    let best = null, far = -1;
+    for (let i = 0; i < 8; i++){
+      const x = 12 + Math.random() * (innerWidth - w - 24);
+      const y = b.top + Math.random() * (b.bottom - b.top);
+      const d = Math.hypot(x + w/2 - px, y + h/2 - py);
+      if (d > far){ far = d; best = {x, y}; }
+    }
+    RN.dash = {x0:RN.x, y0:RN.y, x1:best.x, y1:best.y, t0:now, ms:420, spin:(Math.random() < .5 ? -1 : 1) * 14};
+    RN.vx = (best.x + w/2 > px ? 1 : -1) * runSpeed();
+    runnerHint.textContent = RUN_HINTS[runTries % RUN_HINTS.length];
+    runnerHint.classList.remove('on'); void runnerHint.offsetWidth; runnerHint.classList.add('on');
     runTries++;
-    // بعد كم محاولة، الورقة في الزاوية تهتز كتلميح
+    // بعد كم محاولة، النوتة في الزاوية تهتز كتلميح
     if (runTries >= 5) sticky.classList.add('nudge');
     navigator.vibrate && navigator.vibrate(10);
   }
-  // يهرب أول ما تقترب (pointerenter) أو تحاول تضغط
-  runner.addEventListener('pointerenter', () => { if (runnerArmed && !solved) flee(); });
-  runner.addEventListener('pointerdown', e => { if (runnerArmed && !solved){ e.preventDefault(); flee(); } });
+  function nearRunner(e, pad){
+    const r = runner.getBoundingClientRect();
+    return Math.abs(e.clientX - (r.left + r.width/2)) < r.width/2 + pad
+        && Math.abs(e.clientY - (r.top + r.height/2)) < r.height/2 + pad;
+  }
+  // بالجوال: أي لمسة قريبة منه تخليه يهرب قبل ما يوصله الإصبع
+  room.addEventListener('pointerdown', e => { if (runnerArmed && !solved && nearRunner(e, 46)) flee(e.clientX, e.clientY); }, true);
+  // بالماوس: يهرب أول ما يقرّب المؤشر
+  room.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && runnerArmed && !solved && nearRunner(e, 24)) flee(e.clientX, e.clientY); });
+  runner.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    if (canCatch) startCatch(e);
+    else if (runnerArmed && !solved) flee(e.clientX, e.clientY);
+  });
+  runner.addEventListener('contextmenu', e => e.preventDefault());
 
-  /* --- الحل: تضغط الورقة الملتصقة --- */
-  let paperOpened = false;
+  /* --- الحل: تضغط النوتة الملتصقة --- */
+  let paperOpened = false, canCatch = false;
   sticky.addEventListener('click', () => {
     if (!runnerArmed || solved || paperOpened) return;
     openPaper();
@@ -1236,67 +1572,100 @@
 
   async function openPaper(){
     paperOpened = true;
-    runnerArmed = false;                         // الزر يوقف هروب ويختفي شوي
+    runnerArmed = false;                         // الزر يوقف ويختفي
+    stopRunner();
     runner.classList.remove('on');
     runnerHint.classList.remove('on');
     sticky.classList.remove('on','nudge');
-    // الورقة تكبر في النص
+    // النوتة تكبر قدامها
     paperOpen.hidden = false;
-    requestAnimationFrame(() => paperOpen.classList.add('on'));
-    // تقعد قدام الورقة ٣ ثواني… بعدها يجي الزر ويثبت قدامها
-    await wait(3000);
-    bringRunnerToPaper();
-  }
-  function bringRunnerToPaper(){
-    const w = runner.offsetWidth, h = runner.offsetHeight;
-    const sheet = paperOpen.querySelector('.paper-sheet').getBoundingClientRect();
-    runner.style.left = (innerWidth/2 - w/2) + 'px';
-    runner.style.top = Math.min(sheet.bottom + 18, innerHeight - h - 80) + 'px';
-    runnerArmed = false;           // وقف الهروب
-    runner.classList.remove('on'); void runner.offsetWidth; runner.classList.add('on');
-    runnerHint.textContent = 'أمسكيه الآن… ثبّتي إصبعك ٣ ثواني';
-    runnerHint.classList.add('on');
-    armCatch();
+    requestAnimationFrame(() => requestAnimationFrame(() => paperOpen.classList.add('on')));
+    navigator.vibrate && navigator.vibrate(12);
+    await wait(BORED_MS);
+    await boredRunner();
   }
 
-  /* --- تعلّق ٣ ثواني على الزر --- */
-  let catchTimer = null;
-  function armCatch(){
-    const start = () => {
-      if (solved) return;
-      runner.classList.add('caught');
-      navigator.vibrate && navigator.vibrate(20);
-      catchTimer = setTimeout(finishOpen, 3000);
-    };
-    const cancel = () => {
-      if (solved) return;
-      runner.classList.remove('caught');
-      clearTimeout(catchTimer);
-    };
-    runner.addEventListener('pointerdown', e => { e.preventDefault(); start(); });
-    ['pointerup','pointercancel','pointerleave'].forEach(ev => runner.addEventListener(ev, cancel));
+  // بعد شوي، الزر يجي بنفسه لنص النوتة… كأنه طفش من الهروب
+  async function boredRunner(){
+    runnerTxt.textContent = 'اضغطيني 🥱';
+    const sheet = paperOpen.querySelector('.paper-sheet').getBoundingClientRect();
+    const w = runner.offsetWidth, h = runner.offsetHeight;
+    const tx = sheet.left + sheet.width/2 - w/2, ty = sheet.top + sheet.height/2 - h/2;
+    const fromRight = RN.x + w/2 > innerWidth/2;
+    const sx = fromRight ? innerWidth + 10 : -w - 10, tilt = fromRight ? 6 : -6;
+    setRunner(sx, ty);
+    runner.classList.add('on');
+    runnerHint.textContent = 'الزر طفش من الهروب… 😮‍💨';
+    runnerHint.classList.add('on');
+    // يمشي متثاقل: خطوة… وقفة… خطوة
+    const at = (k, dy = 0, r = 0, offset) => ({transform:`translate(${sx + (tx - sx)*k}px,${ty + dy}px) rotate(${r}deg)`, offset});
+    const a = runner.animate([
+      at(0, 0, 0, 0), at(.36, -4, tilt, .28), at(.42, 0, 0, .38), at(.42, 0, 0, .5),
+      at(.82, -4, tilt, .76), at(.88, 0, 0, .86), at(1, 0, 0, 1)
+    ], {duration:3200, easing:'ease-in-out', fill:'forwards'});
+    await a.finished;
+    setRunner(tx, ty); a.cancel();
+    // تنهيدة
+    await runner.animate([
+      {transform:`translate(${tx}px,${ty}px) scale(1)`},
+      {transform:`translate(${tx}px,${ty + 3}px) scale(1.08,.9)`},
+      {transform:`translate(${tx}px,${ty}px) scale(1)`}
+    ], {duration:800, easing:'ease-in-out'}).finished;
+    runnerHint.textContent = 'ثبّتي إصبعك عليه ' + AR(CATCH_MS/1000) + ' ثواني 🤍';
+    canCatch = true;
   }
+
+  /* --- تثبّت إصبعها على الزر لين يمتلي --- */
+  let catchP = 0, catching = false, catchLooping = false, catchLast = 0;
+  function catchLoop(t){
+    const dt = Math.max(0, t - catchLast); catchLast = t;
+    catchP = catching ? Math.min(1, catchP + dt/CATCH_MS) : Math.max(0, catchP - dt/1200);
+    runner.style.setProperty('--p', catchP);
+    if (catching) runnerHint.textContent = 'لا تشيلين إصبعك… ' + AR(Math.max(1, Math.ceil((1 - catchP) * CATCH_MS / 1000)));
+    if (catchP >= 1){ catchLooping = false; finishOpen(); return; }
+    if (catching || catchP > 0) requestAnimationFrame(catchLoop); else catchLooping = false;
+  }
+  function startCatch(e){
+    if (solved) return;
+    try { runner.setPointerCapture(e.pointerId); } catch(_){}
+    catching = true; runner.classList.add('caught');
+    navigator.vibrate && navigator.vibrate(20);
+    if (!catchLooping){ catchLooping = true; catchLast = performance.now(); requestAnimationFrame(catchLoop); }
+  }
+  function stopCatch(){
+    if (!catching || solved) return;
+    catching = false; runner.classList.remove('caught');
+    runnerHint.textContent = 'شلتي إصبعك؟ 😅 ' + AR(CATCH_MS/1000) + ' ثواني بس…';
+  }
+  ['pointerup','pointercancel','lostpointercapture'].forEach(ev => runner.addEventListener(ev, stopCatch));
 
   async function finishOpen(){
-    if (solved) return; solved = true;
+    if (solved) return; solved = true; canCatch = false;
     store.set('stage','final');
     navigator.vibrate && navigator.vibrate([30,40,80]);
-    // تختفي الورقة والزر
-    paperOpen.classList.remove('on');
-    runner.classList.remove('on');
+    // تختفي النوتة والزر
     runnerHint.classList.remove('on');
-    await wait(500);
+    paperOpen.classList.remove('on');
+    runner.classList.add('bye');
+    await wait(800);
     paperOpen.hidden = true; runner.hidden = true; sticky.hidden = true;
-    showChrome(false);
-    // ينفتح الباب ويطلع نور
-    $('door2').classList.add('open');
-    $('count').style.opacity = '.2';
-    await wait(1400);
-    door2El.classList.add('zoom');
+    // ينفتح الباب التالي ويطلع نور، وتدخل الشاشة فيه
+    door3.classList.add('open');
+    await wait(1300);
+    door3.classList.add('zoom');
     $('flash').classList.add('on');
     await wait(2000);
-    stage.classList.add('gone');
+    room.classList.add('gone');
     playFinalMessage();
+  }
+
+  // لو حدّثت الصفحة وهي داخل الغرفة
+  function resumeRoom(){
+    intro.classList.add('hidden'); gate.classList.add('hidden'); stage.classList.add('gone');
+    showRoom();
+    if (store.get('wish')){ sticky.hidden = false; sticky.classList.add('on'); }
+    requestAnimationFrame(() => requestAnimationFrame(() => wood.classList.add('on')));
+    setTimeout(runRoom, 1600);
   }
 
   /* ---------- الرسالة الأخيرة ---------- */
@@ -1304,6 +1673,8 @@
     $('finalMsg').classList.remove('gone');
     requestAnimationFrame(() => $('finalMsg').classList.remove('hidden'));
     $('flash').classList.add('fast'); $('flash').classList.remove('on');
+    // لو شافت الرسالة كاملة قبل (وحدّثت الصفحة)، الزر الأحمر يطلع على طول
+    if (store.get('finalSeen')) setTimeout(() => { finalDone = true; tryShowRed(); }, 2500);
     await wait(1400);
     for (const L of FINAL_LINES){
       const n = showLine($('lineFinal'), L);
@@ -1314,15 +1685,70 @@
     $('finalSign').classList.add('on');
     await wait(1200);
     showChrome(true);
+    store.set('finalSeen','1');
+    await wait(1500);
+    finalDone = true; tryShowRed();
   }
 
+  /* ---------- الزر الأحمر الغريب ---------- */
+  const redBtn = $('redBtn'), redSay = $('redSay'), surprise = $('surprise');
+  let redN = +(store.get('red') || 0), redReady = false, finalDone = false, redTimer = 0;
+  // نتأكد إن الصورة موجودة قبل ما نطلّع الزر
+  const surprisePic = new Image();
+  surprisePic.onload = () => { $('surpriseImg').src = SURPRISE_IMG; redReady = true; tryShowRed(); };
+  surprisePic.src = SURPRISE_IMG;
+  function redCap(){ $('redCap').textContent = redN > RED_LINES.length + 1 ? 'الصورة 🤍' : redN > RED_LINES.length ? 'متأكدة؟' : 'ممنوع الضغط'; }
+  function tryShowRed(){
+    if (!redReady || !finalDone || !redBtn.hidden) return;
+    redCap();
+    redBtn.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => redBtn.classList.add('on')));
+  }
+  function redSays(text){
+    redSay.textContent = text;
+    redSay.classList.remove('on'); void redSay.offsetWidth; redSay.classList.add('on');
+    clearTimeout(redTimer);
+    redTimer = setTimeout(() => redSay.classList.remove('on'), 6000);
+  }
+  redBtn.addEventListener('click', () => {
+    const dome = redBtn.querySelector('.red-dome');
+    dome.classList.remove('hit'); void dome.offsetWidth; dome.classList.add('hit');
+    redN++; store.set('red', redN); redCap();
+    if (redN <= RED_LINES.length){ redSays(RED_LINES[redN - 1]); navigator.vibrate && navigator.vibrate(15); }
+    else if (redN === RED_LINES.length + 1){ redSays(RED_SURE); navigator.vibrate && navigator.vibrate([20,40,20]); }
+    else { clearTimeout(redTimer); redSay.classList.remove('on'); openSurprise(); }
+  });
+  redBtn.addEventListener('contextmenu', e => e.preventDefault());
+  function openSurprise(){
+    surprise.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => surprise.classList.add('on')));
+    navigator.vibrate && navigator.vibrate([30,40,80]);
+  }
+  function closeSurprise(){
+    surprise.classList.remove('on');
+    setTimeout(() => { surprise.hidden = true; }, 600);
+  }
+  $('surpriseClose').onclick = closeSurprise;
+  surprise.onclick = e => { if (e.target === surprise) closeSurprise(); };
+
   /* ---------- العدّاد ---------- */
+  const HINT2_EARLY = 'المسي البصمة… لو ما قدرتي تصبرين 😏';
+  const HINT2_TIME  = 'حان الوقت 🤍 المسي البصمة وخلّي إصبعك';
   const els = {d:$('d'),h:$('h'),m:$('m'),s:$('s')};
   const prev = {};
+  let timeIsUp = false;
   function tick(){
     let ms = TARGET - Date.now();
-    if (params.has('open') || params.has('finale')) ms = 0;
-    if (ms <= 0){ ms = 0; if ($('act2').classList.contains('show')) maybeStartFinale(); }
+    if (params.has('open')) ms = 0;
+    if (ms <= 0){
+      ms = 0;
+      if (!timeIsUp){
+        timeIsUp = true;
+        $('countCap').textContent = 'حان الوقت';
+        $('count').style.opacity = '.45';
+        if ($('hint2').textContent === HINT2_EARLY) $('hint2').textContent = HINT2_TIME;
+      }
+    }
     const v = { d:Math.floor(ms/864e5), h:Math.floor(ms/36e5)%24, m:Math.floor(ms/6e4)%60, s:Math.floor(ms/1e3)%60 };
     for (const k in v){
       if (prev[k] !== v[k]){
@@ -1332,15 +1758,7 @@
       }
     }
   }
-  $('lock').onclick = () => {
-    if (finaleStarted) return;
-    const l = $('lock');
-    l.classList.remove('shake'); void l.offsetWidth; l.classList.add('shake');
-    navigator.vibrate && navigator.vibrate([15,30,15]);
-    const h = $('hint2');
-    h.textContent = 'صبرًا… الباب له وقته 😏'; h.classList.add('on');
-    clearTimeout(window.__ht); window.__ht = setTimeout(() => h.classList.remove('on'), 2200);
-  };
+  $('hint2').textContent = HINT2_EARLY;
   tick(); setInterval(tick, 1000);
 
   /* ---------- note + hearts ---------- */
@@ -1371,7 +1789,7 @@
   const closeModal = () => modal.classList.remove('show');
   $('close').onclick = closeModal;
   modal.onclick = e => { if (e.target === modal) closeModal(); };
-  addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); if (!surprise.hidden) closeSurprise(); } });
 
   replay.onclick = () => { store.del('stage'); location.href = location.pathname; };
 
@@ -1381,6 +1799,7 @@
     intro.classList.add('hidden'); gate.classList.add('hidden'); stage.classList.add('gone');
     playFinalMessage();
   }
+  else if (params.has('room') || (st === 'room' && !params.has('intro'))) resumeRoom();
   else if (params.has('stage2') || (st === 'door2' && !params.has('intro'))) showStageFinal();
   else if (st === 'gate' && !params.has('intro')) { intro.classList.add('hidden'); gate.classList.remove('hidden'); showChrome(true); }
   else playIntro();
