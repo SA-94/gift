@@ -233,7 +233,7 @@
   .unit b.tick{animation:tick .5s ease}
   @keyframes tick{0%{transform:translateY(-6px);opacity:.3}100%{transform:none;opacity:1}}
   .unit span{display:block;margin-top:3px;font-size:12px;color:var(--ink-dim);letter-spacing:.08em}
-  .hint2{min-height:22px;font-size:14px;color:#f0b9c6;text-align:center;opacity:0;transition:opacity .4s}
+  .hint2{min-height:22px;margin-top:16px;font-size:14px;text-shadow:0 1px 6px rgba(0,0,0,.8);color:#f0b9c6;text-align:center;opacity:0;transition:opacity .4s}
   .hint2.on{opacity:1}
 
   /* curtains */
@@ -279,14 +279,46 @@
   .butler .armA{transform-origin:64px 142px}
   .butler .armB{transform-origin:136px 142px}
   .butler .hat{transform-origin:100px 58px}
+  .butler .head{transform-origin:100px 120px}
+  .butler .eyeA{transform-origin:88px 91px;animation:blink 4.2s infinite}
+  .butler .eyeB{transform-origin:112px 91px;animation:blink 4.2s infinite}
+  @keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+  .butler .upper{animation:breathe 3.4s ease-in-out infinite}
+  @keyframes breathe{50%{transform:translateY(1.5px) scaleY(.992)}}
   .butler.walking .legA{animation:legA .56s ease-in-out infinite}
   .butler.walking .legB{animation:legA .56s ease-in-out infinite reverse}
   .butler.walking .upper{animation:bob .28s ease-in-out infinite alternate}
   .butler.walking .armA{animation:swing .56s ease-in-out infinite}
   .butler.walking .armB{animation:swing .56s ease-in-out infinite reverse}
-  @keyframes legA{0%,100%{transform:rotate(12deg)}50%{transform:rotate(-12deg)}}
-  @keyframes bob{from{transform:translateY(0)}to{transform:translateY(4px)}}
-  @keyframes swing{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
+  @keyframes legA{0%,100%{transform:rotate(13deg)}50%{transform:rotate(-13deg)}}
+  @keyframes bob{from{transform:translateY(0) rotate(-1.2deg)}to{transform:translateY(5px) rotate(1.2deg)}}
+  @keyframes swing{0%,100%{transform:rotate(-11deg)}50%{transform:rotate(11deg)}}
+
+  /* 😈 question button + form */
+  .evil{position:absolute;z-index:8;top:calc(clamp(64px,12vh,110px) + 34px);right:14px;
+    width:54px;height:54px;border-radius:50%;cursor:pointer;font-size:30px;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 50% 35%,rgba(122,26,51,.9),rgba(40,8,18,.95));
+    border:1px solid var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.5),0 0 22px rgba(194,83,111,.35);
+    opacity:0;transform:scale(.6);pointer-events:none;transition:opacity .8s ease,transform .8s cubic-bezier(.2,1.6,.4,1)}
+  .evil.on{opacity:1;transform:none;pointer-events:auto;animation:wiggle 4s ease-in-out 1s infinite}
+  @keyframes wiggle{0%,86%,100%{transform:rotate(0)}89%{transform:rotate(-14deg) scale(1.08)}92%{transform:rotate(12deg) scale(1.08)}95%{transform:rotate(-6deg)}}
+  .evil::after{content:"سؤال…";position:absolute;top:100%;margin-top:6px;font-size:11px;color:var(--gold-2);white-space:nowrap;letter-spacing:.06em}
+  .qcard .devil{font-size:46px;line-height:1;margin-bottom:6px}
+  .qcard .q{font-family:"Aref Ruqaa",serif;font-size:clamp(24px,6.4vw,30px);line-height:1.5;color:var(--gold-2)}
+  .qcard .qs{font-size:14px;color:var(--ink-dim);margin-top:2px}
+  .qcard textarea{width:100%;margin-top:16px;min-height:110px;resize:vertical;padding:12px 14px;border-radius:14px;
+    background:rgba(255,240,220,.05);border:1px solid var(--line);color:var(--ink);font:400 16px/1.7 "Tajawal";outline:none}
+  .qcard textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(216,178,106,.15)}
+  .qcard textarea.bad{animation:shakeX .4s ease;border-color:#c2536f}
+  @keyframes shakeX{25%,75%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+  .gbtn{margin-top:14px;min-width:140px;padding:12px 22px;border-radius:999px;border:0;cursor:pointer;
+    font:700 16px "Tajawal";color:#2a1206;background:linear-gradient(180deg,var(--gold-2),var(--gold));
+    box-shadow:0 8px 22px rgba(216,178,106,.25)}
+  .gbtn:disabled{opacity:.6;cursor:default}
+  .qcard .fine{margin-top:16px;font-size:12px;color:var(--ink-dim)}
+  .qcard .err{min-height:18px;margin-top:6px;font-size:13px;color:#f0b9c6}
+  .qstep[hidden]{display:none}
   .bubble{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translate(-50%,8px) scale(.9);
     white-space:nowrap;padding:10px 16px;border-radius:16px;font-size:clamp(14px,3.8vw,17px);font-weight:500;color:#3a1410;
     background:linear-gradient(180deg,#fffaf0,#f3e3c3);border:1px solid var(--gold);
@@ -445,7 +477,7 @@
     <div class="rope" id="rope"></div>
 
     <div class="butler" id="butler">
-      <div class="bubble" id="bubble">السلام عليكم… تفضّلي</div>
+      <div class="bubble" id="bubble"></div>
       <svg viewBox="0 0 200 420" aria-hidden="true">
         <ellipse cx="100" cy="404" rx="54" ry="7" fill="rgba(0,0,0,.45)"/>
         <g class="legA">
@@ -471,8 +503,8 @@
             <circle cx="100" cy="90" r="33" fill="#ebc39c"/>
             <path d="M67 86q2-28 33-29 31 1 33 29-8-15-33-15T67 86z" fill="#2a1d18"/>
             <path d="M82 81q6-4 12 0M106 81q6-4 12 0" stroke="#2a1d18" stroke-width="2.6" stroke-linecap="round" fill="none"/>
-            <ellipse cx="88" cy="91" rx="3" ry="3.8" fill="#231a17"/><ellipse cx="112" cy="91" rx="3" ry="3.8" fill="#231a17"/>
-            <circle cx="89" cy="89.6" r="1" fill="#fff"/><circle cx="113" cy="89.6" r="1" fill="#fff"/>
+            <g class="eyeA"><ellipse cx="88" cy="91" rx="3" ry="3.8" fill="#231a17"/><circle cx="89" cy="89.6" r="1" fill="#fff"/></g>
+            <g class="eyeB"><ellipse cx="112" cy="91" rx="3" ry="3.8" fill="#231a17"/><circle cx="113" cy="89.6" r="1" fill="#fff"/></g>
             <circle cx="79" cy="103" r="5.5" fill="#e8948a" opacity=".45"/><circle cx="121" cy="103" r="5.5" fill="#e8948a" opacity=".45"/>
             <path d="M100 103c-6-5-16-4-21 3 7-2 13 1 21 0 8 1 14-2 21 0-5-7-15-8-21-3z" fill="#2a1d18"/>
             <path d="M92 112q8 6 16 0" stroke="#8a4a3a" stroke-width="2" stroke-linecap="round" fill="none"/>
@@ -496,6 +528,8 @@
         </g>
       </svg>
     </div>
+
+    <button class="evil" id="evil" aria-label="سؤال">😈</button>
 
     <div class="pelmet">
       <svg class="crest2" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
@@ -528,6 +562,28 @@
     </div>
   </div>
 
+  <div class="modal" id="qModal" role="dialog" aria-modal="true" aria-label="سؤال">
+    <div class="card qcard">
+      <button class="close" id="qClose" aria-label="إغلاق">×</button>
+      <div class="devil">😈</div>
+      <div class="qstep" id="qStep1">
+        <p class="q">وش أغلى شي… وأقرب شي لقلبك؟</p>
+        <textarea id="a1" maxlength="1500" placeholder="اكتبي هنا…"></textarea>
+        <button class="gbtn" id="next1">التالي</button>
+      </div>
+      <div class="qstep" id="qStep2" hidden>
+        <p class="q">عندك كلام تبين تقولينه للمطوّر؟</p>
+        <p class="qs">(اللي سوّى هالموقع 😏)</p>
+        <textarea id="a2" maxlength="2000" placeholder="قوليها… هو يسمعك"></textarea>
+        <button class="gbtn" id="send2">إرسال</button>
+      </div>
+      <div class="qstep" id="qStep3" hidden>
+        <p class="q">وصل ✨</p>
+        <p class="qs">شكرًا… كلامك وصل للمطوّر</p>
+      </div>
+    </div>
+  </div>
+
 <script>
 (() => {
   /* ======= الإعدادات — عدّل هنا ======= */
@@ -551,12 +607,25 @@
   // الجمل اللي تطلع بعد ما ترتفع الستارة
   const STAGE_LINES = remaining => [
     'أفا…',
-    'ما توقعتها منك',
-    'ولا أنتِ مستعجلة في كل لقافة؟',
-    'أهم شي… إنك فتحتي الباب الأول',
-    'بس هذا الباب…',
-    'ما ينفتح إلا بعد ' + remaining
+    'ما توقعتها منك يا ولاء',
+    'كل هالاستعجال؟',
+    'ولا هي اللقافة كالعادة؟',
+    'المهم… شبعتي فضولك بالباب الأول',
+    'أما هذا الباب…',
+    'فمفتاحه الصبر',
+    'وما ينفتح إلا بعد ' + remaining
   ];
+  // كلام الرجال في المسرح
+  const BUTLER = {
+    hello:  'السلام عليكم يا ملكة 👑',
+    sorry:  'أعتذر… تأخرت عليك',
+    open:   'سأفتح لكِ الستار الآن',
+    please: 'تفضّلي…'
+  };
+
+  // رابط استقبال الرسائل (Cloudflare Worker يرسلها لبوت التليجرام)
+  // إذا كان فاضي، زر 😈 ما يطلع
+  const ENDPOINT = 'https://gift-relay.fahd027699.workers.dev';
   const HINTS = [
     'ما صبرتي؟ 😏 كمّلي لين يمتلي',
     'شوي شوي… الصبر مفتاح',
@@ -783,38 +852,81 @@
     return 'كم ساعة';
   }
 
+  async function say(text, ms){
+    bubble.textContent = text;
+    bubble.classList.add('on');
+    await wait(ms);
+    bubble.classList.remove('on');
+    await wait(350);
+  }
+  const anim = (el, frames, ms, extra = {}) => el.animate(frames, {duration:ms, easing:'ease-in-out', ...extra}).finished;
+
   async function runStage(){
-    const bw = butler.offsetWidth;
+    const bw = butler.offsetWidth, bh = butler.offsetHeight;
     const ropeBx = placeRope();
-    // walk in and greet
+    const u = bh / 420;                               // svg unit → px
+    const armB = q('.armB'), hat = q('.hat'), upper = q('.upper'), armA = q('.armA'), head = q('.head');
+
+    // 1) walk in to centre
     await walk(innerWidth/2 - bw/2, 2600);
     await wait(250);
-    bubble.classList.add('on');
-    const armB = q('.armB'), hat = q('.hat'), upper = q('.upper'), armA = q('.armA');
-    const D = 2600;
+
+    // 2) "السلام عليكم يا ملكة" — tip the hat and bow
+    const D = 2800;
     await Promise.all([
-      armB.animate([{transform:'rotate(0deg)'},{transform:'rotate(-205deg)',offset:.25},{transform:'rotate(-205deg)',offset:.72},{transform:'rotate(0deg)'}],{duration:D,easing:'ease-in-out'}).finished,
-      hat.animate([{transform:'translate(0,0) rotate(0deg)'},{transform:'translate(0,0) rotate(0deg)',offset:.24},{transform:'translate(8px,-20px) rotate(-16deg)',offset:.36},{transform:'translate(8px,-20px) rotate(-16deg)',offset:.64},{transform:'translate(0,0) rotate(0deg)',offset:.78},{transform:'translate(0,0) rotate(0deg)'}],{duration:D,easing:'ease-in-out'}).finished,
-      upper.animate([{transform:'none'},{transform:'none',offset:.34},{transform:'translateY(10px) scaleY(.95)',offset:.46},{transform:'translateY(10px) scaleY(.95)',offset:.6},{transform:'none',offset:.74},{transform:'none'}],{duration:D,easing:'ease-in-out'}).finished
+      say(BUTLER.hello, D),
+      anim(armB, [{transform:'rotate(0deg)'},{transform:'rotate(-205deg)',offset:.25},{transform:'rotate(-205deg)',offset:.72},{transform:'rotate(0deg)'}], D),
+      anim(hat, [{transform:'translate(0,0) rotate(0deg)'},{transform:'translate(0,0) rotate(0deg)',offset:.24},{transform:'translate(8px,-22px) rotate(-18deg)',offset:.36},{transform:'translate(8px,-22px) rotate(-18deg)',offset:.64},{transform:'translate(0,0) rotate(0deg)',offset:.78},{transform:'translate(0,0) rotate(0deg)'}], D),
+      anim(upper, [{transform:'none'},{transform:'none',offset:.34},{transform:'translateY(10px) scaleY(.95)',offset:.46},{transform:'translateY(10px) scaleY(.95)',offset:.6},{transform:'none',offset:.74},{transform:'none'}], D)
     ]);
-    await wait(400);
-    bubble.classList.remove('on');
-    // go to the rope and pull
+
+    // 3) "أعتذر… تأخرت عليك" — hand across the chest, deep polite bow
+    const S = 2600;
+    await Promise.all([
+      say(BUTLER.sorry, S),
+      anim(armB, [{transform:'rotate(0deg)'},{transform:'rotate(42deg)',offset:.2},{transform:'rotate(42deg)',offset:.8},{transform:'rotate(0deg)'}], S),
+      anim(upper, [{transform:'none'},{transform:'none',offset:.15},{transform:'translateY(14px) scaleY(.92)',offset:.35},{transform:'translateY(14px) scaleY(.92)',offset:.7},{transform:'none',offset:.88},{transform:'none'}], S),
+      anim(head, [{transform:'rotate(0deg)'},{transform:'rotate(0deg)',offset:.15},{transform:'rotate(-7deg) translateY(4px)',offset:.35},{transform:'rotate(-7deg) translateY(4px)',offset:.7},{transform:'rotate(0deg)',offset:.88},{transform:'rotate(0deg)'}], S)
+    ]);
+
+    // 4) "سأفتح لكِ الستار الآن" — points at the rope
+    await Promise.all([
+      say(BUTLER.open, 2000),
+      anim(armA, [{transform:'rotate(0deg)'},{transform:'rotate(78deg)',offset:.3},{transform:'rotate(78deg)',offset:.75},{transform:'rotate(0deg)'}], 2000),
+      anim(head, [{transform:'rotate(0deg)'},{transform:'rotate(5deg)',offset:.3},{transform:'rotate(5deg)',offset:.75},{transform:'rotate(0deg)'}], 2000)
+    ]);
+
+    // 5) walk to the rope, grab it, pull it down for real
     await walk(ropeBx, 1700);
-    await armA.animate([{transform:'rotate(0deg)'},{transform:'rotate(150deg)'}],{duration:700,easing:'ease-out',fill:'forwards'}).finished;
+    await anim(armA, [{transform:'translateY(0) rotate(0deg)'},{transform:'translateY(0) rotate(150deg)'}], 700, {easing:'ease-out', fill:'forwards'});
+    const pull = 40;                                   // svg units the hand travels down
     await Promise.all([
-      armA.animate([{transform:'rotate(150deg)'},{transform:'rotate(122deg)'}],{duration:450,easing:'ease-in',fill:'forwards'}).finished,
-      rope.animate([{transform:'translateY(0)'},{transform:'translateY(30px)'}],{duration:450,easing:'ease-in',fill:'forwards'}).finished
+      anim(armA, [{transform:'translateY(0) rotate(150deg)'},{transform:`translateY(${pull-14}px) rotate(150deg)`}], 520, {easing:'cubic-bezier(.5,0,.8,.6)', fill:'forwards'}),
+      anim(upper, [{transform:'none'},{transform:'translateY(14px) scaleY(.96)'}], 520, {easing:'cubic-bezier(.5,0,.8,.6)', fill:'forwards'}),
+      anim(rope, [{transform:'translateY(0)'},{transform:`translateY(${pull*u}px)`}], 520, {easing:'cubic-bezier(.5,0,.8,.6)', fill:'forwards'})
     ]);
-    stage.classList.add('raised');
     navigator.vibrate && navigator.vibrate(15);
-    await wait(300);
-    armA.getAnimations().forEach(a => a.cancel());
-    armA.animate([{transform:'rotate(122deg)'},{transform:'rotate(0deg)'}],{duration:700,easing:'ease-in-out'});
+
+    // 6) curtains fly up — and the rope goes up with them and disappears
+    stage.classList.add('raised');
+    const ropeTop = parseFloat(rope.style.top) + rope.offsetHeight + 60;
     rope.getAnimations().forEach(a => a.cancel());
-    rope.animate([{transform:'translateY(30px)'},{transform:'translateY(-8px)',offset:.5},{transform:'translateY(0)'}],{duration:800,easing:'ease-out'});
-    await wait(1600);
-    // butler leaves while the message plays
+    rope.animate([{transform:`translateY(${pull*u}px)`,opacity:1},{transform:`translateY(${pull*u + 10}px)`,opacity:1,offset:.08},{transform:`translateY(${-ropeTop}px)`,opacity:0}],
+      {duration:2600, easing:'cubic-bezier(.65,0,.3,1)', fill:'forwards'});
+    await wait(250);
+    armA.getAnimations().forEach(a => a.cancel()); upper.getAnimations().forEach(a => a.cancel());
+    await Promise.all([
+      anim(armA, [{transform:`translateY(${pull-14}px) rotate(150deg)`},{transform:'translateY(0) rotate(0deg)'}], 800),
+      anim(upper, [{transform:'translateY(14px) scaleY(.96)'},{transform:'none'}], 800)
+    ]);
+    await wait(900);
+
+    // 7) "تفضّلي…" — presents the stage, bows, and leaves
+    await Promise.all([
+      say(BUTLER.please, 1800),
+      anim(armB, [{transform:'rotate(0deg)'},{transform:'rotate(-78deg)',offset:.3},{transform:'rotate(-78deg)',offset:.75},{transform:'rotate(0deg)'}], 1800),
+      anim(upper, [{transform:'none'},{transform:'none',offset:.55},{transform:'translateY(8px) scaleY(.96)',offset:.75},{transform:'none'}], 1800)
+    ]);
     walk(-bw - 60, 2600);
     await wait(700);
     const done = TARGET - Date.now() <= 0;
@@ -828,6 +940,8 @@
     store.set('stage','door2');
     await wait(800);
     showChrome(true);
+    await wait(1200);
+    showEvil();
   }
 
   function showStageFinal(){
@@ -838,7 +952,58 @@
     $('act2').classList.add('show');
     requestAnimationFrame(() => requestAnimationFrame(() => stage.classList.remove('instant')));
     showChrome(true);
+    setTimeout(showEvil, 900);
   }
+
+  /* ---------- 😈 two questions → Telegram ---------- */
+  const qModal = $('qModal'), evil = $('evil');
+  const Q1 = 'وش أغلى شي… وأقرب شي لقلبك؟';
+  const Q2 = 'عندك كلام تبين تقولينه للمطوّر؟';
+  function showEvil(){ if (ENDPOINT || params.has('evil')) evil.classList.add('on'); }
+  function step(n){
+    [1,2,3].forEach(i => $('qStep'+i).hidden = i !== n);
+  }
+  // answers that failed to send wait here and are retried silently later
+  const loadQueue = () => { try { return JSON.parse(store.get('outbox') || '[]'); } catch(e){ return []; } };
+  const saveQueue = qq => store.set('outbox', JSON.stringify(qq));
+  async function post(msg){
+    const r = await fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(msg) });
+    if (!r.ok) throw new Error('send failed');
+  }
+  async function flush(){
+    if (!ENDPOINT) return;
+    const qq = loadQueue(), left = [];
+    for (const m of qq){ try { await post(m); } catch(e){ left.push(m); } }
+    saveQueue(left);
+  }
+  async function send(stepNo, question, answer){
+    if (!ENDPOINT) return;                             // preview mode (?evil) — nothing is sent
+    const msg = {step:stepNo, q:question, a:answer};
+    try { await post(msg); }
+    catch(e){ const qq = loadQueue(); qq.push(msg); saveQueue(qq); }
+  }
+  async function submit(btn, box, stepNo, question, next){
+    const text = box.value.trim();
+    if (!text){ box.classList.remove('bad'); void box.offsetWidth; box.classList.add('bad'); box.focus(); return; }
+    btn.disabled = true; const label = btn.textContent; btn.textContent = '…';
+    await send(stepNo, question, text);
+    btn.disabled = false; btn.textContent = label;
+    step(next);
+    if (next === 2) setTimeout(() => $('a2').focus(), 50);
+  }
+  flush();
+  addEventListener('online', flush);
+  evil.onclick = () => {
+    const wasDone = !$('qStep3').hidden;
+    if (wasDone){ $('a1').value = ''; $('a2').value = ''; }
+    step(wasDone || $('qStep2').hidden ? 1 : 2);
+    qModal.classList.add('show');
+    setTimeout(() => (!$('qStep1').hidden ? $('a1') : $('a2')).focus(), 350);
+  };
+  $('next1').onclick = () => submit($('next1'), $('a1'), 1, Q1, 2);
+  $('send2').onclick = () => submit($('send2'), $('a2'), 2, Q2, 3);
+  $('qClose').onclick = () => qModal.classList.remove('show');
+  qModal.onclick = e => { if (e.target === qModal) qModal.classList.remove('show'); };
 
   /* ---------- door 2 countdown + lock ---------- */
   const els = {d:$('d'),h:$('h'),m:$('m'),s:$('s')};
@@ -907,7 +1072,7 @@
   const closeModal = () => modal.classList.remove('show');
   $('close').onclick = closeModal;
   modal.onclick = e => { if (e.target === modal) closeModal(); };
-  addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); $('qModal').classList.remove('show'); } });
 
   replay.onclick = () => { store.del('stage'); location.href = location.pathname; };
 
