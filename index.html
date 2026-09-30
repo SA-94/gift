@@ -144,6 +144,10 @@
   .door-wrap.open .seam,.door-wrap.open .medal{opacity:0;pointer-events:none}
   #door1.open .opening::after{opacity:1}
   #door1.zoom{transform:scale(7)}
+  #door2 .opening::after{content:"";position:absolute;inset:0;z-index:1;opacity:0;transition:opacity 1.4s ease;
+    background:radial-gradient(70% 60% at 50% 50%,#fff 0%,#fffaf0 45%,rgba(255,240,210,.6) 80%,rgba(255,230,190,.2))}
+  #door2.open .opening::after{opacity:1}
+  #door2.zoom{transform:scale(8)}
 
   /* fingerprint medallion */
   .medal{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,-50%);
@@ -294,31 +298,80 @@
   @keyframes bob{from{transform:translateY(0) rotate(-1.2deg)}to{transform:translateY(5px) rotate(1.2deg)}}
   @keyframes swing{0%,100%{transform:rotate(-11deg)}50%{transform:rotate(11deg)}}
 
-  /* 😈 question button + form */
-  .evil{position:absolute;z-index:8;top:calc(clamp(64px,12vh,110px) + 34px);right:14px;
-    width:54px;height:54px;border-radius:50%;cursor:pointer;font-size:30px;line-height:1;
-    display:flex;align-items:center;justify-content:center;
-    background:radial-gradient(circle at 50% 35%,rgba(122,26,51,.9),rgba(40,8,18,.95));
-    border:1px solid var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.5),0 0 22px rgba(194,83,111,.35);
-    opacity:0;transform:scale(.6);pointer-events:none;transition:opacity .8s ease,transform .8s cubic-bezier(.2,1.6,.4,1)}
-  .evil.on{opacity:1;transform:none;pointer-events:auto;animation:wiggle 4s ease-in-out 1s infinite}
-  @keyframes wiggle{0%,86%,100%{transform:rotate(0)}89%{transform:rotate(-14deg) scale(1.08)}92%{transform:rotate(12deg) scale(1.08)}95%{transform:rotate(-6deg)}}
-  .evil::after{content:"سؤال…";position:absolute;top:100%;margin-top:6px;font-size:11px;color:var(--gold-2);white-space:nowrap;letter-spacing:.06em}
-  .qcard .devil{font-size:46px;line-height:1;margin-bottom:6px}
+  /* نافذة النوتة */
+  .qcard .paper-ico{font-size:44px;line-height:1;margin-bottom:6px}
   .qcard .q{font-family:"Aref Ruqaa",serif;font-size:clamp(24px,6.4vw,30px);line-height:1.5;color:var(--gold-2)}
   .qcard .qs{font-size:14px;color:var(--ink-dim);margin-top:2px}
-  .qcard textarea{width:100%;margin-top:16px;min-height:110px;resize:vertical;padding:12px 14px;border-radius:14px;
+  .qcard textarea{width:100%;margin-top:16px;min-height:120px;resize:vertical;padding:12px 14px;border-radius:14px;
     background:rgba(255,240,220,.05);border:1px solid var(--line);color:var(--ink);font:400 16px/1.7 "Tajawal";outline:none}
   .qcard textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(216,178,106,.15)}
   .qcard textarea.bad{animation:shakeX .4s ease;border-color:#c2536f}
   @keyframes shakeX{25%,75%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
-  .gbtn{margin-top:14px;min-width:140px;padding:12px 22px;border-radius:999px;border:0;cursor:pointer;
+  .gbtn{margin-top:14px;min-width:150px;padding:12px 22px;border-radius:999px;border:0;cursor:pointer;
     font:700 16px "Tajawal";color:#2a1206;background:linear-gradient(180deg,var(--gold-2),var(--gold));
     box-shadow:0 8px 22px rgba(216,178,106,.25)}
   .gbtn:disabled{opacity:.6;cursor:default}
-  .qcard .fine{margin-top:16px;font-size:12px;color:var(--ink-dim)}
-  .qcard .err{min-height:18px;margin-top:6px;font-size:13px;color:#f0b9c6}
   .qstep[hidden]{display:none}
+
+  /* الورقة الملتصقة في زاوية الجدار */
+  .sticky{position:absolute;z-index:8;top:calc(clamp(64px,12vh,110px) + 12px);right:16px;
+    width:60px;height:66px;padding:0;cursor:pointer;border:0;
+    background:linear-gradient(160deg,#fff7e6,#f2e2b8);border-radius:3px 3px 3px 14px;
+    box-shadow:0 8px 18px rgba(0,0,0,.5);transform:rotate(4deg);transform-origin:top center;
+    opacity:0;pointer-events:none;transition:opacity .5s ease}
+  .sticky.on{opacity:1;pointer-events:auto;animation:stickySway 3.5s ease-in-out infinite}
+  @keyframes stickySway{50%{transform:rotate(-2deg)}}
+  .sticky::after{content:"اقرأيني";position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:5px;
+    font-size:11px;color:var(--gold-2);white-space:nowrap}
+  .sticky .pin{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#ff8f8f,#b3122b);box-shadow:0 2px 4px rgba(0,0,0,.5)}
+  .sticky .sticky-lines{position:absolute;inset:14px 8px 8px;
+    background:repeating-linear-gradient(180deg,transparent 0 8px,rgba(90,40,16,.35) 8px 9px)}
+  .sticky.on.nudge{animation:nudge 1.6s ease-in-out infinite;box-shadow:0 8px 18px rgba(0,0,0,.5),0 0 22px rgba(243,220,164,.55)}
+  @keyframes nudge{0%,60%,100%{transform:rotate(4deg) scale(1)}68%{transform:rotate(-9deg) scale(1.1)}76%{transform:rotate(9deg) scale(1.1)}84%{transform:rotate(-4deg) scale(1.04)}}
+
+  /* الزر الهارب */
+  .runner{position:absolute;z-index:10;padding:14px 26px;border-radius:999px;border:0;cursor:pointer;
+    touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+    font:700 17px "Tajawal";color:#2a1206;white-space:nowrap;
+    background:linear-gradient(180deg,var(--gold-2),var(--gold));
+    box-shadow:0 8px 22px rgba(216,178,106,.35),0 0 26px rgba(216,178,106,.3);
+    opacity:0;pointer-events:none;transition:opacity .5s ease,
+      left .45s cubic-bezier(.34,1.56,.64,1),top .45s cubic-bezier(.34,1.56,.64,1),transform .2s ease}
+  .runner.on{opacity:1;pointer-events:auto}
+  .runner.caught{animation:caught 3s linear forwards;box-shadow:0 0 0 3px var(--gold-2),0 0 40px rgba(255,220,150,.8)}
+  @keyframes caught{to{box-shadow:0 0 0 3px #fff,0 0 60px 16px rgba(255,240,200,.9)}}
+  .runner-hint{position:absolute;z-index:9;left:50%;bottom:calc(9vh + env(safe-area-inset-bottom));transform:translateX(-50%);
+    font:500 15px "Tajawal";color:#f0d59a;text-align:center;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.8);
+    opacity:0;transition:opacity .35s ease;pointer-events:none;max-width:92vw}
+  .runner-hint.on{opacity:1}
+
+  /* الورقة المفتوحة قدام العين */
+  .paper-open{position:absolute;z-index:9;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+  .paper-open[hidden]{display:none}
+  .flying-note{position:fixed;z-index:15;width:60px;height:66px;left:0;top:0;border-radius:3px 3px 3px 14px;pointer-events:none;
+    background:linear-gradient(160deg,#fff7e6,#f2e2b8);box-shadow:0 12px 26px rgba(0,0,0,.55)}
+  .flying-note::after{content:"";position:absolute;inset:14px 8px 8px;
+    background:repeating-linear-gradient(180deg,transparent 0 8px,rgba(90,40,16,.35) 8px 9px)}
+  .paper-open .paper-sheet{width:min(74vw,300px);padding:26px 22px 20px;border-radius:6px;text-align:center;
+    color:#4a2a12;background:linear-gradient(170deg,#fffaf0,#f3e3c1);
+    box-shadow:0 26px 60px rgba(0,0,0,.6);border:1px solid rgba(120,80,30,.25);
+    transform:scale(.2) rotate(6deg);opacity:0;transition:transform .8s cubic-bezier(.2,.9,.2,1),opacity .6s ease}
+  .paper-open.on .paper-sheet{transform:none;opacity:1}
+  .paper-open .paper-head{font-family:"Aref Ruqaa",serif;font-size:22px;color:#7a1a33;margin-bottom:10px}
+  .paper-open .paper-body{font-size:17px;line-height:1.9;white-space:pre-wrap;word-break:break-word;min-height:28px;max-height:38vh;overflow:auto}
+  .paper-open{padding-bottom:90px}
+  .paper-open .paper-sheet{pointer-events:auto}
+  .paper-open .paper-foot{margin-top:14px;font-family:"Aref Ruqaa",serif;font-size:16px;color:#8a5a34}
+
+  /* الرسالة الأخيرة */
+  #finalMsg{z-index:14;flex-direction:column}
+  .final-wrap{max-width:640px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
+  .final-crown{font-size:44px;opacity:0;animation:fadeUp 1.4s ease forwards}
+  #lineFinal{font-family:"Aref Ruqaa",serif;font-size:clamp(22px,5.6vw,34px);line-height:1.9;min-height:1.9em}
+  .final-sign{font-family:"Aref Ruqaa",serif;font-size:clamp(20px,5vw,26px);color:var(--gold);opacity:0;transition:opacity 1.4s ease}
+  .final-sign.on{opacity:1}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
   .bubble{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translate(-50%,8px) scale(.9);
     white-space:nowrap;padding:10px 16px;border-radius:16px;font-size:clamp(14px,3.8vw,17px);font-weight:500;color:#3a1410;
     background:linear-gradient(180deg,#fffaf0,#f3e3c3);border:1px solid var(--gold);
@@ -447,7 +500,7 @@
         <div class="door-wrap" id="door2">
           <div class="frame">
             <div class="opening">
-              <div class="reveal"><p id="revealText">انفتح الباب ✨</p></div>
+              <div class="reveal"><p id="revealText">🤍</p></div>
               <div class="leaf l"><div class="panel p1"></div><div class="panel p2"></div></div>
               <div class="leaf r"><div class="panel p1"></div><div class="panel p2"></div></div>
               <div class="seam"></div>
@@ -529,12 +582,38 @@
       </svg>
     </div>
 
-    <button class="evil" id="evil" aria-label="سؤال">😈</button>
+    <!-- الورقة الملتصقة في الزاوية (بعد ما ترسل الأمنية) -->
+    <button class="sticky" id="sticky" aria-label="النوتة" hidden>
+      <span class="pin"></span>
+      <span class="sticky-lines"></span>
+    </button>
+
+    <!-- الزر الهارب -->
+    <button class="runner" id="runner" aria-label="افتحي الباب" hidden>افتحي الباب</button>
+    <div class="runner-hint" id="runnerHint" hidden></div>
+
+    <!-- الورقة المفتوحة قدام العين -->
+    <div class="paper-open" id="paperOpen" hidden>
+      <div class="paper-sheet">
+        <div class="paper-head">أمنيتك…</div>
+        <div class="paper-body" id="paperBody"></div>
+        <div class="paper-foot">— بإذن الله 🤍</div>
+      </div>
+    </div>
 
     <div class="pelmet">
       <svg class="crest2" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
         <path d="M50 8 61 39h33L67 58l10 32-27-19-27 19 10-32L6 39h33z" stroke-linejoin="round"/>
       </svg>
+    </div>
+  </section>
+
+  <!-- ٤) الرسالة الأخيرة -->
+  <section id="finalMsg" class="scene gone">
+    <div class="final-wrap">
+      <div class="final-crown">🤍</div>
+      <div class="line" id="lineFinal"></div>
+      <div class="final-sign" id="finalSign">— فهد</div>
     </div>
   </section>
 
@@ -562,23 +641,19 @@
     </div>
   </div>
 
-  <div class="modal" id="qModal" role="dialog" aria-modal="true" aria-label="سؤال">
+  <!-- نافذة النوتة: أغلى أمنية → توصل فهد -->
+  <div class="modal" id="qModal" role="dialog" aria-modal="true" aria-label="نوتة">
     <div class="card qcard">
       <button class="close" id="qClose" aria-label="إغلاق">×</button>
-      <div class="devil">😈</div>
       <div class="qstep" id="qStep1">
-        <p class="q">وش أغلى شي… وأقرب شي لقلبك؟</p>
-        <textarea id="a1" maxlength="1500" placeholder="اكتبي هنا…"></textarea>
-        <button class="gbtn" id="next1">التالي</button>
-      </div>
-      <div class="qstep" id="qStep2" hidden>
-        <p class="q">عندك كلام تبين تقولينه للمطوّر؟</p>
-        <p class="qs">(اللي سوّى هالموقع 😏)</p>
-        <textarea id="a2" maxlength="2000" placeholder="قوليها… هو يسمعك"></textarea>
-        <button class="gbtn" id="send2">إرسال</button>
+        <div class="paper-ico">✍️</div>
+        <p class="q">أغلى أمنية في بالك…</p>
+        <p class="qs">اكتبيها هنا… يمكن تتحقق 🤍</p>
+        <textarea id="a1" maxlength="2000" placeholder="اكتبي أمنيتك…"></textarea>
+        <button class="gbtn" id="next1">أرسليها</button>
       </div>
       <div class="qstep" id="qStep3" hidden>
-        <p class="q">حلو… 😏</p>
+        <p class="q">وصلَت أمنيتك ✨</p>
       </div>
     </div>
   </div>
@@ -621,9 +696,32 @@
     open:   'سأفتح لكِ الستار الآن',
     please: 'تفضّلي…'
   };
+  // كلام الرجال في مشهد النوتة (بعد ما يخلص العدّاد)
+  const BUTLER2 = {
+    before: 'قبل لا أخليك تفتحين…',
+    note:   'هذي نوتة… بتوصل فهد',
+    write:  'اكتبي فيها أغلى أمنية في بالك',
+    button: 'هذا هو الزر… بس يبيله صبر',
+    luck:   'يلا بالتوفيق 🤍'
+  };
+
+  // الرسالة الأخيرة وراء الباب الثاني
+  const FINAL_LINES = [
+    'وصلتِ…',
+    'خلف كل باب كان فيه صبر، وكان لك',
+    'أنتِ أول إنسانة سمعتني… بدون ما تطقطق',
+    'وأول مرة أحس إني أقدر أكون سند لأحد',
+    'اللي بيني وبينك بقى ذكرى حلوة… وبس',
+    'وأنا راضٍ فيها، ومحترم اللي قلتيه',
+    'بس ودّي أوصّي بشي واحد:',
+    'عيشي حياتك… وكوني أجمل نسخة منك',
+    'حقّقي أمنيتك اللي كتبتيها، وسافري وشوفي الشفق',
+    'ولا تخلّين أحد يصغّر حلمك',
+    'وفيه أحد بالحساء… بيدعي لك كل ما تذكّرك',
+    'الله يوفقك يا ولاء… في كل خطوة 🤍'
+  ];
 
   // رابط استقبال الرسائل (Cloudflare Worker يرسلها لبوت التليجرام)
-  // إذا كان فاضي، زر 😈 ما يطلع
   const ENDPOINT = 'https://gift-relay.fahd027699.workers.dev';
   const HINTS = [
     'ما صبرتي؟ 😏 كمّلي لين يمتلي',
@@ -631,7 +729,17 @@
     'قربتي… بس لازم صبر',
     'أسرع من كذا ما يصير؟ 🙂'
   ];
-  const LOCK_HINTS = ['صبرًا… الباب له وقته 😏', 'مقفول والله', 'قلنا صبر 🙂', 'حتى لو دقيتي ألف مرة 😄'];
+  // كلام يطلع تحت الزر الهارب كل ما تحاول تمسكه
+  const RUN_HINTS = [
+    'يا حبيبة قلبي خلق طيّارة 🛩️',
+    'يا حبيبة قلبي خلق دبّابة 🚂',
+    'سرعة الإنسان ما تكفي 😌',
+    'قرّبتي… لا لا، بعّدتي 😂',
+    'الصبر مفتاح الفرج 🗝️',
+    'ما ينمسك بالعافية… فكّري 🤔',
+    'الجواب قدّامك من زمان 😏',
+    'شوفي حواليك… في شي منسي 📌'
+  ];
   /* ==================================== */
 
   const $ = id => document.getElementById(id);
@@ -644,7 +752,7 @@
     del(k){ try { localStorage.removeItem(k); } catch(e){} }
   };
   const params = new URLSearchParams(location.search);
-  if (params.has('reset')) store.del('stage');
+  if (params.has('reset')){ store.del('stage'); store.del('wish'); }
   const noteBtn = $('noteBtn'), replay = $('replay');
   const showChrome = on => { noteBtn.classList.toggle('hidden', !on); replay.style.display = on ? '' : 'none'; };
 
@@ -939,8 +1047,7 @@
     store.set('stage','door2');
     await wait(800);
     showChrome(true);
-    await wait(1200);
-    showEvil();
+    maybeStartFinale();
   }
 
   function showStageFinal(){
@@ -948,21 +1055,16 @@
     stage.classList.add('instant');
     stage.classList.remove('gone'); stage.classList.add('raised');
     butler.style.display = 'none'; rope.style.display = 'none';
+    placeButler(innerWidth + 30); butler.style.display = '';
     $('act2').classList.add('show');
     requestAnimationFrame(() => requestAnimationFrame(() => stage.classList.remove('instant')));
     showChrome(true);
-    setTimeout(showEvil, 900);
+    setTimeout(maybeStartFinale, 700);
   }
 
-  /* ---------- 😈 two questions → Telegram ---------- */
-  const qModal = $('qModal'), evil = $('evil');
-  const Q1 = 'وش أغلى شي… وأقرب شي لقلبك؟';
-  const Q2 = 'عندك كلام تبين تقولينه للمطوّر؟';
-  function showEvil(){ if (ENDPOINT || params.has('evil')) evil.classList.add('on'); }
-  function step(n){
-    [1,2,3].forEach(i => $('qStep'+i).hidden = i !== n);
-  }
-  // answers that failed to send wait here and are retried silently later
+  /* ---------- إرسال الأمنية للتليجرام ---------- */
+  const qModal = $('qModal');
+  function step(n){ [1,3].forEach(i => $('qStep'+i).hidden = i !== n); }
   const loadQueue = () => { try { return JSON.parse(store.get('outbox') || '[]'); } catch(e){ return []; } };
   const saveQueue = qq => store.set('outbox', JSON.stringify(qq));
   async function post(msg){
@@ -975,44 +1077,252 @@
     for (const m of qq){ try { await post(m); } catch(e){ left.push(m); } }
     saveQueue(left);
   }
-  async function send(stepNo, question, answer){
-    if (!ENDPOINT) return;                             // preview mode (?evil) — nothing is sent
-    const msg = {step:stepNo, q:question, a:answer};
+  async function sendWish(answer){
+    if (!ENDPOINT) return;
+    const msg = {step:1, q:'أغلى أمنية في بالك', a:answer};
     try { await post(msg); }
     catch(e){ const qq = loadQueue(); qq.push(msg); saveQueue(qq); }
   }
-  async function submit(btn, box, stepNo, question, next){
-    const text = box.value.trim();
-    if (!text){ box.classList.remove('bad'); void box.offsetWidth; box.classList.add('bad'); box.focus(); return; }
-    btn.disabled = true; const label = btn.textContent; btn.textContent = '…';
-    await send(stepNo, question, text);
-    btn.disabled = false; btn.textContent = label;
-    step(next);
-    if (next === 2) setTimeout(() => $('a2').focus(), 50);
-    if (next === 3) setTimeout(() => qModal.classList.remove('show'), 1600);
-  }
   flush();
   addEventListener('online', flush);
-  evil.onclick = () => {
-    const wasDone = !$('qStep3').hidden;
-    if (wasDone){ $('a1').value = ''; $('a2').value = ''; }
-    step(wasDone || $('qStep2').hidden ? 1 : 2);
-    qModal.classList.add('show');
-    setTimeout(() => (!$('qStep1').hidden ? $('a1') : $('a2')).focus(), 350);
-  };
-  $('next1').onclick = () => submit($('next1'), $('a1'), 1, Q1, 2);
-  $('send2').onclick = () => submit($('send2'), $('a2'), 2, Q2, 3);
-  $('qClose').onclick = () => qModal.classList.remove('show');
-  qModal.onclick = e => { if (e.target === qModal) qModal.classList.remove('show'); };
 
-  /* ---------- door 2 countdown + lock ---------- */
+  /* ---------- الفينالي: النوتة + الزر الهارب ---------- */
+  const sticky = $('sticky'), runner = $('runner'), runnerHint = $('runnerHint'), paperOpen = $('paperOpen'), door2El = $('door2');
+  let finaleStarted = false, wishText = '';
+
+  function finaleReady(){ return params.has('open') || params.has('finale') || TARGET - Date.now() <= 0; }
+  function maybeStartFinale(){
+    if (finaleStarted || !finaleReady()) return;
+    finaleStarted = true;
+    startFinale();
+  }
+
+  async function startFinale(){
+    // القفل يختفي، والعدّاد يصير "حان الوقت"
+    $('door2').classList.add('unlocked');
+    $('countCap').textContent = 'حان الوقت';
+    $('count').style.opacity = '.4';
+    $('lock').style.pointerEvents = 'none';
+
+    // الرجال يرجع من اليمين
+    butler.style.display = '';
+    const bw = butler.offsetWidth;
+    if (bx < innerWidth) placeButler(innerWidth + 30);
+    await walk(innerWidth/2 - bw/2, 2400);
+    await wait(300);
+
+    // يقدّم النوتة
+    const armB = q('.armB');
+    await say(BUTLER2.before, 2000);
+    await Promise.all([
+      say(BUTLER2.note, 2200),
+      anim(armB, [{transform:'rotate(0deg)'},{transform:'rotate(-70deg)',offset:.3},{transform:'rotate(-70deg)',offset:.7},{transform:'rotate(0deg)'}], 2200)
+    ]);
+    // لو كتبت أمنيتها قبل (ورجعت للموقع)، ما نطلب منها تكتب مرة ثانية
+    const saved = store.get('wish');
+    if (saved){ wishText = saved; afterWish(); return; }
+
+    await say(BUTLER2.write, 2200);
+
+    // تفتح نافذة كتابة الأمنية
+    openWishModal();
+  }
+
+  function openWishModal(){
+    step(1); $('a1').value = wishText;
+    qModal.classList.add('show');
+    setTimeout(() => $('a1').focus(), 350);
+  }
+  $('next1').onclick = async () => {
+    const box = $('a1'), btn = $('next1'), text = box.value.trim();
+    if (!text){ box.classList.remove('bad'); void box.offsetWidth; box.classList.add('bad'); box.focus(); return; }
+    wishText = text;
+    store.set('wish', text);
+    btn.disabled = true; const label = btn.textContent; btn.textContent = '…';
+    await sendWish(text);
+    btn.disabled = false; btn.textContent = label;
+    step(3);
+    setTimeout(() => { qModal.classList.remove('show'); afterWish(); }, 1500);
+  };
+  // ما نخلي تسكّر النافذة بدون إرسال — لأنها جزء من القصة
+  $('qClose').onclick = () => { if (wishText) qModal.classList.remove('show'); };
+
+  // الورقة تطير من نص الشاشة وتلتصق في زاوية الجدار
+  async function flyNoteToCorner(){
+    sticky.hidden = false;
+    const r = sticky.getBoundingClientRect();
+    const note = document.createElement('div');
+    note.className = 'flying-note';
+    document.body.appendChild(note);
+    const sx = innerWidth/2 - 30, sy = innerHeight/2 - 33;
+    const midX = (sx + r.left)/2 - 40, midY = Math.min(sy, r.top) - 60;
+    await note.animate([
+      {transform:`translate(${sx}px,${sy}px) scale(3.2) rotate(0deg)`, opacity:0},
+      {transform:`translate(${sx}px,${sy}px) scale(2.6) rotate(-4deg)`, opacity:1, offset:.15},
+      {transform:`translate(${midX}px,${midY}px) scale(1.5) rotate(-190deg)`, offset:.6},
+      {transform:`translate(${r.left}px,${r.top}px) scale(1) rotate(4deg)`, opacity:1}
+    ], {duration:1500, easing:'cubic-bezier(.45,.05,.3,1)', fill:'forwards'}).finished;
+    sticky.classList.add('on');
+    note.remove();
+    navigator.vibrate && navigator.vibrate(12);
+  }
+
+  async function afterWish(){
+    paperText(wishText);
+    await flyNoteToCorner();
+    await wait(500);
+
+    // الرجال يعطيها الزر ويودّع
+    const armA = q('.armA');
+    await Promise.all([
+      say(BUTLER2.button, 2200),
+      anim(armA, [{transform:'rotate(0deg)'},{transform:'rotate(70deg)',offset:.3},{transform:'rotate(70deg)',offset:.7},{transform:'rotate(0deg)'}], 2200)
+    ]);
+    // يطلع الزر الهارب
+    runner.hidden = false; placeRunnerStart();
+    requestAnimationFrame(() => runner.classList.add('on'));
+    await say(BUTLER2.luck, 1600);
+
+    // الرجال يمشي يمين ويختفي
+    const bw = butler.offsetWidth;
+    await walk(innerWidth + bw + 40, 2200);
+    butler.style.display = 'none';
+    runnerArmed = true;
+  }
+
+  function paperText(t){ $('paperBody').textContent = t; }
+
+  /* --- الزر الهارب --- */
+  let runnerArmed = false, runTries = 0, solved = false;
+  function rndPos(){
+    const w = runner.offsetWidth, h = runner.offsetHeight;
+    const pad = 12, topMin = clampTop();
+    const x = pad + Math.random() * (innerWidth - w - pad*2);
+    const y = topMin + Math.random() * (innerHeight*0.72 - h - topMin);
+    return {x, y};
+  }
+  function clampTop(){ return Math.max(innerHeight*0.2, 120); }
+  function placeRunnerStart(){
+    const w = runner.offsetWidth;
+    runner.style.left = (innerWidth/2 - w/2) + 'px';
+    runner.style.top = (innerHeight*0.5) + 'px';
+  }
+  let lastFlee = 0;
+  function flee(){
+    const now = performance.now();
+    if (now - lastFlee < 250) return;            // لمسة وحدة = هروب واحد
+    lastFlee = now;
+    const p = rndPos();
+    runner.style.left = p.x + 'px';
+    runner.style.top = p.y + 'px';
+    const h = runnerHint;
+    h.textContent = RUN_HINTS[runTries % RUN_HINTS.length];
+    h.classList.remove('on'); void h.offsetWidth; h.classList.add('on');
+    runTries++;
+    // بعد كم محاولة، الورقة في الزاوية تهتز كتلميح
+    if (runTries >= 5) sticky.classList.add('nudge');
+    navigator.vibrate && navigator.vibrate(10);
+  }
+  // يهرب أول ما تقترب (pointerenter) أو تحاول تضغط
+  runner.addEventListener('pointerenter', () => { if (runnerArmed && !solved) flee(); });
+  runner.addEventListener('pointerdown', e => { if (runnerArmed && !solved){ e.preventDefault(); flee(); } });
+
+  /* --- الحل: تضغط الورقة الملتصقة --- */
+  let paperOpened = false;
+  sticky.addEventListener('click', () => {
+    if (!runnerArmed || solved || paperOpened) return;
+    openPaper();
+  });
+
+  async function openPaper(){
+    paperOpened = true;
+    runnerArmed = false;                         // الزر يوقف هروب ويختفي شوي
+    runner.classList.remove('on');
+    runnerHint.classList.remove('on');
+    sticky.classList.remove('on','nudge');
+    // الورقة تكبر في النص
+    paperOpen.hidden = false;
+    requestAnimationFrame(() => paperOpen.classList.add('on'));
+    // تقعد قدام الورقة ٣ ثواني… بعدها يجي الزر ويثبت قدامها
+    await wait(3000);
+    bringRunnerToPaper();
+  }
+  function bringRunnerToPaper(){
+    const w = runner.offsetWidth, h = runner.offsetHeight;
+    const sheet = paperOpen.querySelector('.paper-sheet').getBoundingClientRect();
+    runner.style.left = (innerWidth/2 - w/2) + 'px';
+    runner.style.top = Math.min(sheet.bottom + 18, innerHeight - h - 80) + 'px';
+    runnerArmed = false;           // وقف الهروب
+    runner.classList.remove('on'); void runner.offsetWidth; runner.classList.add('on');
+    runnerHint.textContent = 'أمسكيه الآن… ثبّتي إصبعك ٣ ثواني';
+    runnerHint.classList.add('on');
+    armCatch();
+  }
+
+  /* --- تعلّق ٣ ثواني على الزر --- */
+  let catchTimer = null;
+  function armCatch(){
+    const start = () => {
+      if (solved) return;
+      runner.classList.add('caught');
+      navigator.vibrate && navigator.vibrate(20);
+      catchTimer = setTimeout(finishOpen, 3000);
+    };
+    const cancel = () => {
+      if (solved) return;
+      runner.classList.remove('caught');
+      clearTimeout(catchTimer);
+    };
+    runner.addEventListener('pointerdown', e => { e.preventDefault(); start(); });
+    ['pointerup','pointercancel','pointerleave'].forEach(ev => runner.addEventListener(ev, cancel));
+  }
+
+  async function finishOpen(){
+    if (solved) return; solved = true;
+    store.set('stage','final');
+    navigator.vibrate && navigator.vibrate([30,40,80]);
+    // تختفي الورقة والزر
+    paperOpen.classList.remove('on');
+    runner.classList.remove('on');
+    runnerHint.classList.remove('on');
+    await wait(500);
+    paperOpen.hidden = true; runner.hidden = true; sticky.hidden = true;
+    showChrome(false);
+    // ينفتح الباب ويطلع نور
+    $('door2').classList.add('open');
+    $('count').style.opacity = '.2';
+    await wait(1400);
+    door2El.classList.add('zoom');
+    $('flash').classList.add('on');
+    await wait(2000);
+    stage.classList.add('gone');
+    playFinalMessage();
+  }
+
+  /* ---------- الرسالة الأخيرة ---------- */
+  async function playFinalMessage(){
+    $('finalMsg').classList.remove('gone');
+    requestAnimationFrame(() => $('finalMsg').classList.remove('hidden'));
+    $('flash').classList.add('fast'); $('flash').classList.remove('on');
+    await wait(1400);
+    for (const L of FINAL_LINES){
+      const n = showLine($('lineFinal'), L);
+      await wait(n*220 + 2400);
+      if (L !== FINAL_LINES[FINAL_LINES.length-1]) await hideLine($('lineFinal'));
+    }
+    await wait(600);
+    $('finalSign').classList.add('on');
+    await wait(1200);
+    showChrome(true);
+  }
+
+  /* ---------- العدّاد ---------- */
   const els = {d:$('d'),h:$('h'),m:$('m'),s:$('s')};
   const prev = {};
-  let opened2 = false, lockTries = 0, hintTimer;
   function tick(){
     let ms = TARGET - Date.now();
-    if (params.has('open')) ms = 0;
-    if (ms <= 0){ ms = 0; openDoor2(); }
+    if (params.has('open') || params.has('finale')) ms = 0;
+    if (ms <= 0){ ms = 0; if ($('act2').classList.contains('show')) maybeStartFinale(); }
     const v = { d:Math.floor(ms/864e5), h:Math.floor(ms/36e5)%24, m:Math.floor(ms/6e4)%60, s:Math.floor(ms/1e3)%60 };
     for (const k in v){
       if (prev[k] !== v[k]){
@@ -1022,25 +1332,14 @@
       }
     }
   }
-  function openDoor2(){
-    if (opened2) return; opened2 = true;
-    const go = () => {
-      if (!$('act2').classList.contains('show')) return setTimeout(go, 500);
-      $('door2').classList.add('unlocked');
-      setTimeout(() => $('door2').classList.add('open'), 700);
-      $('countCap').textContent = 'حان الوقت';
-      $('count').style.opacity = '.35';
-    };
-    go();
-  }
   $('lock').onclick = () => {
-    if (opened2) return;
+    if (finaleStarted) return;
     const l = $('lock');
     l.classList.remove('shake'); void l.offsetWidth; l.classList.add('shake');
     navigator.vibrate && navigator.vibrate([15,30,15]);
     const h = $('hint2');
-    h.textContent = LOCK_HINTS[lockTries++ % LOCK_HINTS.length]; h.classList.add('on');
-    clearTimeout(hintTimer); hintTimer = setTimeout(() => h.classList.remove('on'), 2200);
+    h.textContent = 'صبرًا… الباب له وقته 😏'; h.classList.add('on');
+    clearTimeout(window.__ht); window.__ht = setTimeout(() => h.classList.remove('on'), 2200);
   };
   tick(); setInterval(tick, 1000);
 
@@ -1072,13 +1371,17 @@
   const closeModal = () => modal.classList.remove('show');
   $('close').onclick = closeModal;
   modal.onclick = e => { if (e.target === modal) closeModal(); };
-  addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); $('qModal').classList.remove('show'); } });
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
   replay.onclick = () => { store.del('stage'); location.href = location.pathname; };
 
   /* ---------- start ---------- */
   const st = store.get('stage');
-  if (params.has('stage2') || (st === 'door2' && !params.has('intro'))) showStageFinal();
+  if (params.has('final') || (st === 'final' && !params.has('intro'))) {
+    intro.classList.add('hidden'); gate.classList.add('hidden'); stage.classList.add('gone');
+    playFinalMessage();
+  }
+  else if (params.has('stage2') || (st === 'door2' && !params.has('intro'))) showStageFinal();
   else if (st === 'gate' && !params.has('intro')) { intro.classList.add('hidden'); gate.classList.remove('hidden'); showChrome(true); }
   else playIntro();
 })();
