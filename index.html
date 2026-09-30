@@ -916,7 +916,7 @@
     del(k){ try { localStorage.removeItem(k); } catch(e){} }
   };
   const params = new URLSearchParams(location.search);
-  if (params.has('reset')){ ['stage','wish','early','greeted','red','finalSeen'].forEach(k => store.del(k)); }
+  if (params.has('reset')){ ['stage','wish','early','greeted','red'].forEach(k => store.del(k)); }
   const noteBtn = $('noteBtn'), replay = $('replay');
   const showChrome = on => { noteBtn.classList.toggle('hidden', !on); replay.style.display = on ? '' : 'none'; };
 
@@ -1673,8 +1673,6 @@
     $('finalMsg').classList.remove('gone');
     requestAnimationFrame(() => $('finalMsg').classList.remove('hidden'));
     $('flash').classList.add('fast'); $('flash').classList.remove('on');
-    // لو شافت الرسالة كاملة قبل (وحدّثت الصفحة)، الزر الأحمر يطلع على طول
-    if (store.get('finalSeen')) setTimeout(() => { finalDone = true; tryShowRed(); }, 2500);
     await wait(1400);
     for (const L of FINAL_LINES){
       const n = showLine($('lineFinal'), L);
@@ -1685,7 +1683,7 @@
     $('finalSign').classList.add('on');
     await wait(1200);
     showChrome(true);
-    store.set('finalSeen','1');
+    // الزر الأحمر ما يطلع إلا بعد ما تخلص الرسالة كاملة — حتى لو حدّثت الصفحة
     await wait(1500);
     finalDone = true; tryShowRed();
   }
