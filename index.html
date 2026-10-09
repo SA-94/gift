@@ -81,6 +81,7 @@
     padding:0 .04em;
     display:inline-block;opacity:0;transform:translateY(18px) scale(.96);filter:blur(12px);
     animation:wIn 1.1s cubic-bezier(.2,.7,.2,1) forwards;margin-inline:.14em}
+  .line .w.emo{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#fff;text-shadow:none}
   .line.out .w{animation:wOut .9s ease forwards}
   @keyframes wIn{to{opacity:1;transform:none;filter:blur(0)}}
   @keyframes wOut{from{opacity:1;filter:blur(0)}to{opacity:0;transform:translateY(-14px);filter:blur(14px)}}
@@ -402,7 +403,7 @@
   .paper-open .paper-foot{margin-top:14px;font-family:"Aref Ruqaa",serif;font-size:16px;color:#8a5a34}
 
   /* الرسالة الأخيرة */
-  #finalMsg{z-index:14;flex-direction:column}
+  #finalMsg{z-index:14;flex-direction:column;pointer-events:none}
   .final-wrap{max-width:640px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
   .final-crown{font-size:44px;opacity:0;animation:fadeUp 1.4s ease forwards}
   #lineFinal{font-family:"Aref Ruqaa",serif;font-size:clamp(22px,5.6vw,34px);line-height:1.9;min-height:1.9em}
@@ -440,7 +441,7 @@
   .heart{position:fixed;z-index:13;pointer-events:none;will-change:transform,opacity}
 
   /* ---------- modal ---------- */
-  .modal{position:fixed;inset:0;z-index:12;display:flex;align-items:center;justify-content:center;padding:16px;
+  .modal{position:fixed;inset:0;z-index:15;display:flex;align-items:center;justify-content:center;padding:16px;
     background:rgba(8,3,8,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
     opacity:0;pointer-events:none;transition:opacity .5s ease}
   .modal.show{opacity:1;pointer-events:auto}
@@ -462,6 +463,136 @@
   .card .sign{margin-top:22px;font-family:"Aref Ruqaa",serif;font-size:24px;color:var(--gold)}
   .close{position:absolute;top:14px;left:14px;width:34px;height:34px;border-radius:50%;
     border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--gold-2);font-size:18px;cursor:pointer;z-index:1}
+
+  /* ---------- بطاقة القلب + زر كمّلي ---------- */
+  .heart-card{padding:28px 20px 20px}
+  .heart-card h3{font-size:30px}
+  .heart-card .ornament{margin-bottom:12px}
+  .heart-card p{font-size:16px;line-height:1.8}
+  .heart-card p + p{margin-top:8px}
+  .heart-card .sign{margin-top:14px}
+  @media (max-height:600px){.heart-card p{font-size:15px;line-height:1.65}}
+  .heart-card .star{margin-top:14px;font-size:16px;line-height:1.9;color:var(--gold-2)}
+  .next-btn{position:fixed;right:0;top:50%;transform:translate(110%,-50%);z-index:10;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    padding:16px 10px 14px 12px;border-radius:16px 0 0 16px;cursor:pointer;border:0;
+    background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#2a1206;
+    box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 26px rgba(243,220,164,.45);
+    transition:transform .6s cubic-bezier(.34,1.56,.64,1);animation:nextGlow 2.2s ease-in-out infinite}
+  .next-btn[hidden]{display:none}
+  .next-btn.on{transform:translate(2px,-50%)}
+  .next-btn span{writing-mode:vertical-rl;font:700 15px "Tajawal";letter-spacing:.12em}
+  .next-btn b{font-size:18px;line-height:1}
+  @keyframes nextGlow{50%{box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 44px 8px rgba(243,220,164,.7)}}
+
+  /* ---------- ممر الأبواب الخمسة ---------- */
+  #hall{z-index:4;flex-direction:column}
+  .hall-wrap{display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2vh,16px);text-align:center}
+  .hall-step{font-size:13px;letter-spacing:.2em;color:var(--ink-dim)}
+  .hall-title{font-family:"Aref Ruqaa",serif;font-weight:700;font-size:clamp(30px,8vw,46px);line-height:1.25}
+  #hallTitle{padding:0 .1em;background:linear-gradient(180deg,var(--gold-2),var(--gold) 60%,var(--gold-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hall-ic{font-size:.72em}
+  #hallDoor{width:min(56vw,230px,32vh)}
+  #hallDoor.zoom{transform:scale(8)}
+  #hallDoor .medal svg{width:50%;height:50%}
+  #hallDoor .medal:disabled{cursor:default}
+  .hall-hint{min-height:24px;font-size:15px;color:#f0d59a;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+  .hall-dots{display:flex;gap:9px}
+  .hall-dots i{width:10px;height:10px;border-radius:50%;background:rgba(216,178,106,.22)}
+  .hall-dots i.done{background:var(--gold-2);box-shadow:0 0 8px var(--gold)}
+  .hall-dots i.now{background:transparent;box-shadow:inset 0 0 0 1.5px var(--gold-2)}
+  #hallDoor.k1 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.07),transparent 30%),linear-gradient(160deg,#c0612e,#7a2e17 50%,#3d1409)}
+  #hallDoor.k2 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.07),transparent 30%),linear-gradient(160deg,#2a7378,#14474b 50%,#08201f)}
+  #hallDoor.k3 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 30%),repeating-linear-gradient(45deg,rgba(0,0,0,.12) 0 3px,transparent 3px 9px),linear-gradient(160deg,#3d6b33,#1f4019 50%,#0c1e0b)}
+  #hallDoor.k4 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.1),transparent 30%),linear-gradient(160deg,#3a3a42,#17171c 50%,#060608)}
+  #hallDoor.k5 .leaf{background:radial-gradient(1.5px 1.5px at 30% 20%,#fff,transparent),radial-gradient(1px 1px at 70% 35%,#fff,transparent),radial-gradient(1.5px 1.5px at 45% 70%,#f3dca4,transparent),radial-gradient(1px 1px at 20% 85%,#fff,transparent),linear-gradient(160deg,#283070,#141a45 50%,#070920)}
+
+  /* نافذة اللغز (تطلع من تحت) */
+  .sheet{position:fixed;inset:0;z-index:12;display:flex;align-items:flex-end;justify-content:center;
+    background:rgba(8,3,8,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .4s ease}
+  .sheet.show{opacity:1;pointer-events:auto}
+  .sheet-card{position:relative;width:min(520px,100%);max-height:94%;overflow:auto;text-align:center;
+    padding:22px 16px calc(20px + env(safe-area-inset-bottom));border-radius:24px 24px 0 0;
+    background:radial-gradient(120% 50% at 50% 0%,rgba(216,178,106,.14),transparent 60%),linear-gradient(180deg,#2a0b17,#16060d);
+    border:1px solid var(--line);border-bottom:0;box-shadow:0 -20px 60px rgba(0,0,0,.6);
+    transform:translateY(100%);transition:transform .5s cubic-bezier(.2,.8,.2,1);
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+  .sheet.show .sheet-card{transform:none}
+  .sheet-card h4{font-family:"Aref Ruqaa",serif;font-size:26px;line-height:1.3;color:var(--gold-2)}
+  .sheet-card .how{font-size:14px;line-height:1.7;color:var(--ink-dim);margin:2px 22px 14px}
+  .sheet-msg{min-height:26px;margin-top:12px;font-size:16px;font-weight:500;color:#f0d59a}
+  .sheet-msg.win{animation:pop .45s ease}
+
+  /* لغز ١: بازل */
+  .jig-thumb{width:64px;height:64px;border-radius:8px;border:1px solid var(--line);display:block;margin:-4px auto 10px}
+  .jig{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:min(80vw,320px,46vh);aspect-ratio:1;margin:0 auto;transition:gap .6s ease}
+  .jig button{border:0;padding:0;border-radius:6px;background-size:300% 300%;cursor:pointer;touch-action:manipulation;
+    transition:transform .2s ease,box-shadow .2s ease,border-radius .6s ease}
+  .jig button.sel{transform:scale(.9);box-shadow:0 0 0 3px var(--gold-2),0 0 18px rgba(243,220,164,.6)}
+  .jig.won{gap:0}
+  .jig.won button{border-radius:0}
+
+  /* لغز ٢: الذاكرة */
+  .mem{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:min(86vw,330px);margin:0 auto}
+  .mem button{position:relative;aspect-ratio:3/4;border:0;padding:0;background:none;cursor:pointer;perspective:600px;touch-action:manipulation}
+  .mem .in{position:absolute;inset:0;transition:transform .45s ease;transform-style:preserve-3d;-webkit-transform-style:preserve-3d}
+  .mem button.flip .in{transform:rotateY(180deg)}
+  .mem .f,.mem .b{position:absolute;inset:0;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    -webkit-backface-visibility:hidden;backface-visibility:hidden}
+  .mem .f{background:linear-gradient(160deg,#7a1a33,#3a0b18);border:1px solid var(--line);color:var(--gold);font-size:18px}
+  .mem .b{transform:rotateY(180deg);background:linear-gradient(160deg,#fff7e6,#f2e2b8);font-size:clamp(24px,7vw,32px)}
+  .mem button.ok .b{box-shadow:0 0 0 2px var(--gold-2),0 0 16px rgba(243,220,164,.6)}
+
+  /* لغز ٣: المتاهة */
+  .maze-box{position:relative;margin:0 auto;touch-action:none;border-radius:8px;background:rgba(255,240,220,.04)}
+  .maze-box svg{display:block;overflow:visible}
+  .maze-me,.maze-goal{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;pointer-events:none;line-height:1}
+  .maze-me{filter:drop-shadow(0 0 6px rgba(255,230,150,.95));z-index:1}
+  .pad{display:grid;grid-template-columns:repeat(3,58px);grid-template-rows:repeat(2,48px);gap:6px;justify-content:center;margin-top:12px;direction:ltr}
+  .pad button{border-radius:12px;border:1px solid var(--line);background:rgba(255,240,220,.07);color:var(--gold-2);font-size:20px;cursor:pointer;touch-action:manipulation}
+  .pad button:active{background:rgba(216,178,106,.25)}
+  .pad .u{grid-column:2;grid-row:1}
+  .pad .l{grid-column:1;grid-row:2}
+  .pad .d{grid-column:2;grid-row:2}
+  .pad .r{grid-column:3;grid-row:2}
+
+  /* لغز ٤: البيانو */
+  .keys{display:flex;gap:6px;justify-content:center;height:min(34vh,210px);margin:4px auto 0;direction:ltr}
+  .keys button{position:relative;flex:1;max-width:58px;border:0;border-radius:0 0 12px 12px;cursor:pointer;touch-action:manipulation;
+    background:linear-gradient(180deg,#fffaf0,#e9dcc3);box-shadow:inset 0 -8px 0 rgba(0,0,0,.08),0 6px 14px rgba(0,0,0,.4);
+    transition:transform .08s ease,background .15s ease}
+  .keys button i{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:var(--c)}
+  .keys button.lit{background:var(--c);transform:translateY(3px)}
+  .keys.bad{animation:shakeX .4s ease}
+  .simon-status{min-height:24px;margin-bottom:10px;font-size:15px;color:var(--ink)}
+
+  /* لغز ٥: الكلمة */
+  .riddle{font-family:"Aref Ruqaa",serif;font-size:clamp(19px,5.2vw,23px);line-height:1.9;color:var(--ink);margin:0 4px 16px}
+  .slots{display:flex;gap:6px;justify-content:center;direction:rtl;margin-bottom:18px}
+  .slots button{width:38px;height:46px;border-radius:10px;border:1px dashed var(--gold-3);background:rgba(255,240,220,.04);
+    color:var(--gold-2);font:700 22px "Tajawal";cursor:pointer;touch-action:manipulation}
+  .slots button.full{border-style:solid;background:rgba(216,178,106,.14)}
+  .slots.bad{animation:shakeX .4s ease}
+  .letters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:320px;margin:0 auto}
+  .letters button{width:46px;height:50px;border-radius:12px;border:0;cursor:pointer;touch-action:manipulation;
+    background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#2a1206;font:700 22px "Tajawal";box-shadow:0 6px 14px rgba(0,0,0,.35)}
+  .letters button:disabled{opacity:.2;cursor:default}
+  .solved-word{font-family:"Aref Ruqaa",serif;font-size:38px;color:var(--gold-2);margin:4px 0 6px;animation:pop .5s ease}
+
+  /* ---------- النهاية: الشفق ---------- */
+  #ending{z-index:14;flex-direction:column;pointer-events:none}
+  .aurora-show{position:absolute;left:0;right:0;top:0;height:72%;pointer-events:none;opacity:0;transition:opacity 3s ease}
+  .aurora-show.on{opacity:1}
+  .aurora-show i{position:absolute;top:-12%;width:62%;height:95%;border-radius:50%;filter:blur(30px);
+    background:linear-gradient(180deg,transparent,rgba(64,214,170,.5) 40%,rgba(140,90,220,.32) 72%,transparent);
+    animation:sway 9s ease-in-out infinite alternate}
+  .aurora-show i:nth-child(1){left:-12%}
+  .aurora-show i:nth-child(2){left:22%;animation-duration:12s;background:linear-gradient(180deg,transparent,rgba(90,230,160,.48) 45%,rgba(60,160,220,.3) 75%,transparent)}
+  .aurora-show i:nth-child(3){left:52%;animation-duration:10s;animation-direction:alternate-reverse}
+  @keyframes sway{from{transform:translateX(-8%) skewX(-18deg) scaleY(.9)}to{transform:translateX(10%) skewX(14deg) scaleY(1.1)}}
+  #lineEnd{position:relative;font-size:clamp(24px,6vw,36px);line-height:1.9;min-height:1.9em}
+  .end-sign{position:relative;margin-top:16px;font-family:"Aref Ruqaa",serif;font-size:clamp(20px,5vw,26px);color:var(--gold);opacity:0;transition:opacity 1.4s ease}
+  .end-sign.on{opacity:1}
 
   .instant, .instant *{transition:none!important}
 
@@ -692,6 +823,63 @@
     </div>
   </section>
 
+  <!-- ٦) بطاقة القلب بعد الرسالة الأخيرة -->
+  <div class="modal" id="heartModal" role="dialog" aria-modal="true" aria-labelledby="heartTitle">
+    <div class="card heart-card">
+      <button class="close" id="heartClose" aria-label="إغلاق">×</button>
+      <h3 id="heartTitle">ولاء…</h3>
+      <svg class="ornament" viewBox="0 0 240 14" fill="none" stroke="currentColor" aria-hidden="true">
+        <path d="M0 7 H100 M140 7 H240" stroke-width="1"/>
+        <path d="M120 1 L126 7 L120 13 L114 7 Z" fill="currentColor"/>
+      </svg>
+      <div id="heartBody"></div>
+      <div class="sign">— فهد</div>
+    </div>
+  </div>
+  <button class="next-btn" id="nextBtn" aria-label="كمّلي" hidden><b>←</b><span>كمّلي</span></button>
+
+  <!-- ٧) ممر الأبواب الخمسة: كل باب وراه لغز -->
+  <section id="hall" class="scene gone" aria-live="polite">
+    <div class="hall-wrap">
+      <div class="hall-step" id="hallStep"></div>
+      <div class="hall-title"><span id="hallTitle"></span> <span class="hall-ic" id="hallIcon"></span></div>
+      <div class="door-wrap" id="hallDoor">
+        <div class="frame">
+          <div class="opening">
+            <div class="leaf l"><div class="panel p1"></div><div class="panel p2"></div></div>
+            <div class="leaf r"><div class="panel p1"></div><div class="panel p2"></div></div>
+            <div class="seam"></div>
+            <button class="medal" id="lockBtn" aria-label="افتحي اللغز">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <path d="M21 30v-8a11 11 0 0 1 22 0v8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                <rect x="15" y="29" width="34" height="27" rx="5" fill="currentColor"/>
+                <circle cx="32" cy="40" r="3.6" fill="#2a1508"/><rect x="30.4" y="41" width="3.2" height="8" rx="1.5" fill="#2a1508"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="hall-hint" id="hallHint"></div>
+      <div class="hall-dots" id="hallDots"></div>
+    </div>
+  </section>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-card">
+      <button class="close" id="sheetClose" aria-label="إغلاق">×</button>
+      <h4 id="sheetTitle"></h4>
+      <p class="how" id="sheetHow"></p>
+      <div id="puzzleBody"></div>
+      <div class="sheet-msg" id="sheetMsg" role="status"></div>
+    </div>
+  </div>
+
+  <!-- ٨) النهاية: الشفق -->
+  <section id="ending" class="scene gone">
+    <div class="aurora-show" id="auroraShow" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="line" id="lineEnd"></div>
+    <div class="end-sign" id="endSign">— فهد</div>
+  </section>
+
   <div id="flash"></div>
   <button class="replay" id="replay" style="display:none">↺ من البداية</button>
 
@@ -817,6 +1005,17 @@
     'قربتي… بس لازم صبر',
     'أسرع من كذا ما يصير؟ 🙂'
   ];
+  // كلام يطلع تحت الزر الهارب كل ما تحاول تمسكه
+  const RUN_HINTS = [
+    'يا حبيبة قلبي خلق طيّارة 🛩️',
+    'يا حبيبة قلبي خلق دبّابة 🚂',
+    'سرعة الإنسان ما تكفي 😌',
+    'قرّبتي… لا لا، بعّدتي 😂',
+    'الصبر مفتاح الفرج 🗝️',
+    'ما ينمسك بالعافية… فكّري 🤔',
+    'الجواب قدّامك من زمان 😏',
+    'شوفي حواليك… في شي منسي 📌'
+  ];
   // لو شالت إصبعها عن بصمة الباب الثاني قبل ما يمتلي
   const HINTS2 = [
     'ما صبرتي على العدّاد… ولا على البصمة؟ 😏',
@@ -827,6 +1026,39 @@
   // كم ثانية بعد فتح النوتة يجي الزر، وكم ثانية لازم تثبّت إصبعها عليه
   const BORED_MS = 5000;
   const CATCH_MS = 5000;
+
+  // بطاقة القلب اللي تطلع بعد الرسالة الأخيرة
+  const HEART = [
+    'قلتي لي مرة: «آمن بنفسك، ولا تخلّي أحد يكسرك».',
+    'واليوم أرجّع لك كلامك… لأنك أولى فيه من أي أحد.',
+    'إذا حسّيتي يوم إن المكان مو مكانك والناس مو ناسك، ترى اللي يدوّر على نفسه مو ضايع… هو بس في أول الطريق.',
+    '«تعب العشرين ولا ندم الأربعين»، كلامك وأنا مصدّقه.',
+    'وبكرة لما ينادونك «دكتورة»، تذكّري إن فيه أحد كان متأكد من هاليوم قبلك 🤍'
+  ];
+  const HEART_STAR = '⭐ وهذي نجمة مني… أدري إن نجومك ما تنعطى إلا نادر، بس هذي تستاهلينها.';
+
+  // الأبواب الخمسة بعد الرسالة الأخيرة — كل باب وراه لغز
+  const DOORS = [
+    {key:'jigsaw', title:'باب الخريف',  icon:'🍂',  how:'رتّبي الصورة: المسي قطعة، بعدين قطعة ثانية، ويتبدّلون'},
+    {key:'memory', title:'باب الذاكرة', icon:'🃏', how:'اقلبي البطاقات… وطابقي كل شي حلو مع شبيهه'},
+    {key:'maze',   title:'باب المتاهة', icon:'🌀', how:'وصّلي النجمة للقمر — اسحبي بإصبعك على المتاهة أو استخدمي الأسهم'},
+    {key:'piano',  title:'باب البيانو', icon:'🎹', how:'اسمعي اللحن وشوفي المفاتيح… وعيديه بنفس الترتيب (٣ جولات)'},
+    {key:'riddle', title:'الباب الأخير', icon:'🔐', how:'حلّي اللغز… ورتّبي الحروف'}
+  ];
+  const MEMORY_CARDS = ['🍂','🌙','⭐','🍵','🎹','🧩','🎨','🌌'];
+  const RIDDLE = {
+    q:    'أنا صفة فيكِ… لو قالوا لك «لا تفتحين الصورة» أول شي تسوينه تفتحينها 😏 وش أنا؟',
+    a:    'اللقافة',
+    extra:'ضرن',
+    hint: 'سبع حروف… وأنتِ رئيسة مؤسستها 😂'
+  };
+  // آخر شي بعد الباب الخامس
+  const ENDING_LINES = [
+    'خلّصتي الأبواب الخمسة… 🗝️',
+    'وهذا اللي كان ورا آخر باب',
+    'الشفق اللي ودّك تشوفينه يوم 🌌',
+    'الله يكتبه لك… وتشوفينه بعينك'
+  ];
 
   /* ==================================== */
 
@@ -840,7 +1072,7 @@
     del(k){ try { localStorage.removeItem(k); } catch(e){} }
   };
   const params = new URLSearchParams(location.search);
-  if (params.has('reset')){ ['stage','wish','early','greeted'].forEach(k => store.del(k)); }
+  if (params.has('reset')){ ['stage','wish','early','greeted','doorN'].forEach(k => store.del(k)); }
   const noteBtn = $('noteBtn'), replay = $('replay');
   const showChrome = on => { noteBtn.classList.toggle('hidden', !on); replay.style.display = on ? '' : 'none'; };
 
@@ -898,7 +1130,7 @@
     const words = text.split(' ');
     words.forEach((w,i) => {
       const s = document.createElement('span');
-      s.className = 'w'; s.textContent = w;
+      s.className = /\p{Extended_Pictographic}/u.test(w) ? 'w emo' : 'w'; s.textContent = w;
       s.style.animationDelay = (i*0.22)+'s';
       el.appendChild(s);
     });
@@ -1607,6 +1839,365 @@
     $('finalSign').classList.add('on');
     await wait(1200);
     showChrome(true);
+    await wait(1500);
+    heartModal.classList.add('show');
+  }
+
+  /* ---------- بطاقة القلب + زر كمّلي ---------- */
+  const heartModal = $('heartModal'), nextBtn = $('nextBtn');
+  $('heartBody').innerHTML = HEART.map(t => `<p>${t}</p>`).join('') + `<p class="star">${HEART_STAR}</p>`;
+  function closeHeart(){
+    if (!heartModal.classList.contains('show')) return;
+    heartModal.classList.remove('show');
+    setTimeout(() => {
+      nextBtn.hidden = false;
+      requestAnimationFrame(() => requestAnimationFrame(() => nextBtn.classList.add('on')));
+    }, 500);
+  }
+  $('heartClose').onclick = closeHeart;
+  heartModal.onclick = e => { if (e.target === heartModal) closeHeart(); };
+  nextBtn.onclick = async () => {
+    nextBtn.classList.remove('on');
+    setTimeout(() => { nextBtn.hidden = true; }, 600);
+    store.set('stage','doors');
+    showChrome(false);
+    $('flash').classList.add('on');
+    await wait(1500);
+    $('finalMsg').classList.add('gone');
+    openHall();
+    $('flash').classList.add('fast'); $('flash').classList.remove('on');
+  };
+
+  /* ---------- ممر الأبواب الخمسة ---------- */
+  const hall = $('hall'), hallDoor = $('hallDoor'), sheet = $('sheet'), lockBtn = $('lockBtn');
+  let doorIdx = 0, doorSolved = false, builtFor = -1, puzzleKeys = null;
+  const shuffle = a => { for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+
+  function openHall(){
+    doorIdx = Math.min(+(store.get('doorN') || 0), DOORS.length);
+    if (doorIdx >= DOORS.length) return showEnding();
+    hall.classList.remove('gone');
+    renderDoor();
+  }
+  function renderDoor(){
+    const d = DOORS[doorIdx];
+    hallDoor.className = 'door-wrap k' + (doorIdx + 1);          // يرجّع الباب مسكّر
+    $('hallStep').textContent = 'الباب ' + AR(doorIdx + 1) + ' من ' + AR(DOORS.length);
+    $('hallTitle').textContent = d.title;
+    $('hallIcon').textContent = d.icon;
+    $('hallHint').textContent = 'المسي القفل… وحلّي اللغز عشان ينفتح';
+    $('hallDots').innerHTML = DOORS.map((_, i) => `<i class="${i < doorIdx ? 'done' : i === doorIdx ? 'now' : ''}"></i>`).join('');
+    lockBtn.disabled = false; doorSolved = false;
+    builtFor = -1; puzzleKeys = null; $('puzzleBody').innerHTML = '';
+  }
+  lockBtn.onclick = () => {
+    if (doorSolved) return;
+    const d = DOORS[doorIdx];
+    $('sheetTitle').textContent = d.title + ' ' + d.icon;
+    $('sheetHow').textContent = d.how;
+    if (builtFor !== doorIdx){
+      $('puzzleBody').innerHTML = ''; $('sheetMsg').textContent = ''; $('sheetMsg').classList.remove('win');
+      puzzleKeys = null;
+      PUZZLES[d.key]($('puzzleBody'), puzzleSolved);
+      builtFor = doorIdx;
+    }
+    sheet.classList.add('show');
+  };
+  const closeSheet = () => sheet.classList.remove('show');
+  $('sheetClose').onclick = closeSheet;
+
+  // انحلّ اللغز → تنقفل النافذة، ينفتح الباب بنفس النور، ويجي الباب اللي بعده
+  async function puzzleSolved(msg){
+    if (doorSolved) return; doorSolved = true; puzzleKeys = null;
+    const m = $('sheetMsg');
+    m.textContent = msg; m.classList.remove('win'); void m.offsetWidth; m.classList.add('win');
+    navigator.vibrate && navigator.vibrate([30,40,60]);
+    store.set('doorN', String(doorIdx + 1));
+    await wait(1500);
+    closeSheet();
+    lockBtn.disabled = true;
+    $('hallHint').textContent = 'انفتح! 🗝️';
+    await wait(600);
+    hallDoor.classList.add('open');
+    await wait(1100);
+    hallDoor.classList.add('zoom');
+    $('flash').classList.add('on');
+    await wait(1800);
+    doorIdx++;
+    if (doorIdx >= DOORS.length){
+      hall.classList.add('gone');
+      showEnding();
+    } else {
+      hall.classList.add('instant');
+      renderDoor();
+      requestAnimationFrame(() => requestAnimationFrame(() => hall.classList.remove('instant')));
+    }
+    $('flash').classList.add('fast'); $('flash').classList.remove('on');
+  }
+
+  /* --- الألغاز --- */
+  // صورة الخريف للبازل (مرسومة، ما تحتاج ملف)
+  function autumnPicture(){
+    const stars = [[30,30],[70,55],[120,22],[160,48],[45,95],[190,18],[140,85],[262,140],[20,150]]
+      .map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="${i % 3 ? 1.4 : 2.2}" fill="#fff6dc" opacity=".9"/>`).join('');
+    const leafColors = ['#e8a33a','#c2532a','#8a1a2e','#d97a2b','#f0c25a','#a8331f'];
+    let leaves = '';
+    for (let i = 0; i < 46; i++){
+      const a = i * 2.4, rr = 14 + (i % 7) * 7;
+      leaves += `<circle cx="${(95 + Math.cos(a) * rr * 1.5).toFixed(1)}" cy="${(118 + Math.sin(a) * rr).toFixed(1)}" r="${13 + (i % 4) * 3}" fill="${leafColors[i % 6]}" opacity=".92"/>`;
+    }
+    const falling = [[190,190,20],[230,235,-30],[160,250,50],[255,200,10],[205,268,-60]]
+      .map(([x, y, r], i) => `<ellipse cx="${x}" cy="${y}" rx="7" ry="3.6" fill="${leafColors[i]}" transform="rotate(${r} ${x} ${y})"/>`).join('');
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+      <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22092a"/><stop offset=".5" stop-color="#7a1a33"/><stop offset="1" stop-color="#e0843f"/></linearGradient>
+      <radialGradient id="glow"><stop offset="0" stop-color="#fff3d0" stop-opacity=".9"/><stop offset="1" stop-color="#f3dca4" stop-opacity="0"/></radialGradient></defs>
+      <rect width="300" height="300" fill="url(#sky)"/>${stars}
+      <circle cx="228" cy="72" r="48" fill="url(#glow)"/><circle cx="228" cy="72" r="24" fill="#fff3d0"/><circle cx="238" cy="66" r="21" fill="#5a1630" opacity=".35"/>
+      <path d="M0 236 Q70 206 150 230 T300 218 V300 H0Z" fill="#4a1a0c"/>
+      <path d="M0 262 Q90 240 170 262 T300 256 V300 H0Z" fill="#2a0e06"/>
+      <path d="M86 250 C90 210 82 182 92 150 L104 150 C112 186 104 214 110 250Z" fill="#2a1206"/>
+      <path d="M95 175 L60 140 M100 165 L135 128 M97 190 L128 172" stroke="#2a1206" stroke-width="6" stroke-linecap="round"/>
+      ${leaves}${falling}
+      <path d="M232 250 h34 v-30 h-34z" fill="#3a1408"/><path d="M228 222 l21 -18 l21 18z" fill="#5c1226"/><rect x="244" y="232" width="9" height="18" fill="#f3dca4"/>
+    </svg>`;
+  }
+
+  const PUZZLES = {
+    // ١) بازل: تلمس قطعتين فيتبدّلون لين ترجع الصورة
+    jigsaw(box, done){
+      const img = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(autumnPicture());
+      const thumb = el('img', 'jig-thumb'); thumb.src = img; thumb.alt = 'الصورة الأصلية';
+      const grid = el('div', 'jig');
+      box.append(thumb, grid);
+      let order;
+      do { order = shuffle([0,1,2,3,4,5,6,7,8]); } while (order.filter((v, i) => v === i).length > 1);
+      let sel = -1;
+      const cells = order.map((_, i) => {
+        const b = el('button'); b.setAttribute('aria-label', 'قطعة ' + AR(i + 1));
+        b.style.backgroundImage = `url("${img}")`;
+        b.onclick = () => pick(i);
+        grid.appendChild(b); return b;
+      });
+      const paint = () => cells.forEach((b, i) => { b.style.backgroundPosition = `${(order[i] % 3) * 50}% ${Math.floor(order[i] / 3) * 50}%`; });
+      function pick(i){
+        if (grid.classList.contains('won')) return;
+        if (sel < 0){ sel = i; cells[i].classList.add('sel'); return; }
+        cells[sel].classList.remove('sel');
+        if (sel !== i){
+          [order[sel], order[i]] = [order[i], order[sel]];
+          paint();
+          [sel, i].forEach(k => cells[k].animate([{transform:'scale(.82)'},{transform:'scale(1)'}], {duration:260, easing:'ease-out'}));
+          navigator.vibrate && navigator.vibrate(8);
+        }
+        sel = -1;
+        if (order.every((v, k) => v === k)){ grid.classList.add('won'); done('الصورة اكتملت 🍂✨'); }
+      }
+      paint();
+    },
+
+    // ٢) الذاكرة: ٨ أزواج من الأشياء اللي تحبها
+    memory(box, done){
+      const deck = shuffle([...MEMORY_CARDS, ...MEMORY_CARDS]);
+      const g = el('div', 'mem'); box.appendChild(g);
+      let open = [], matched = 0, busy = false;
+      deck.forEach(e => {
+        const b = el('button', '', `<span class="in"><span class="f">✦</span><span class="b">${e}</span></span>`);
+        b.setAttribute('aria-label', 'بطاقة');
+        b.onclick = () => {
+          if (busy || b.classList.contains('flip')) return;
+          b.classList.add('flip'); open.push(b);
+          if (open.length < 2) return;
+          const [x, y] = open; open = [];
+          if (x.dataset.e === y.dataset.e){
+            x.classList.add('ok'); y.classList.add('ok'); matched++;
+            navigator.vibrate && navigator.vibrate(12);
+            if (matched === MEMORY_CARDS.length) done('ذاكرتك حديد 🃏✨');
+          } else {
+            busy = true;
+            setTimeout(() => { x.classList.remove('flip'); y.classList.remove('flip'); busy = false; }, 800);
+          }
+        };
+        b.dataset.e = e; g.appendChild(b);
+      });
+    },
+
+    // ٣) المتاهة: النجمة تمشي في الممر لين أقرب مفترق
+    maze(box, done){
+      const C = 7, R = 9;
+      const s = Math.max(26, Math.floor(Math.min(innerWidth * .84, 320, innerHeight * .5 * C / R) / C));
+      const W = C * s, H = R * s, id = (c, r) => r * C + c;
+      const walls = Array.from({length: C * R}, () => [1, 1, 1, 1]);           // فوق، يمين، تحت، يسار
+      const DIRS = [[0, -1, 0, 2], [1, 0, 1, 3], [0, 1, 2, 0], [-1, 0, 3, 1]];
+      const seen = new Array(C * R).fill(false), stack = [[C - 1, 0]];
+      seen[id(C - 1, 0)] = true;
+      while (stack.length){
+        const [c, r] = stack[stack.length - 1];
+        const nb = DIRS.filter(([dx, dy]) => { const nc = c + dx, nr = r + dy; return nc >= 0 && nc < C && nr >= 0 && nr < R && !seen[id(nc, nr)]; });
+        if (!nb.length){ stack.pop(); continue; }
+        const [dx, dy, w, o] = nb[Math.floor(Math.random() * nb.length)];
+        walls[id(c, r)][w] = 0; walls[id(c + dx, r + dy)][o] = 0;
+        seen[id(c + dx, r + dy)] = true; stack.push([c + dx, r + dy]);
+      }
+      let lines = '';
+      for (let r = 0; r < R; r++) for (let c = 0; c < C; c++){
+        const w = walls[id(c, r)], x = c * s, y = r * s;
+        if (w[0]) lines += `<line x1="${x}" y1="${y}" x2="${x + s}" y2="${y}"/>`;
+        if (w[3]) lines += `<line x1="${x}" y1="${y}" x2="${x}" y2="${y + s}"/>`;
+        if (c === C - 1 && w[1]) lines += `<line x1="${x + s}" y1="${y}" x2="${x + s}" y2="${y + s}"/>`;
+        if (r === R - 1 && w[2]) lines += `<line x1="${x}" y1="${y + s}" x2="${x + s}" y2="${y + s}"/>`;
+      }
+      const wrap = el('div', 'maze-box');
+      wrap.style.width = W + 'px'; wrap.style.height = H + 'px';
+      wrap.innerHTML = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+        <g class="trail" fill="rgba(243,220,164,.35)"></g>
+        <g stroke="#d8b26a" stroke-width="3" stroke-linecap="round">${lines}</g></svg>`;
+      const me = el('div', 'maze-me', '⭐'), goal = el('div', 'maze-goal', '🌙');
+      [me, goal].forEach(e => { e.style.width = e.style.height = s + 'px'; e.style.fontSize = Math.round(s * .66) + 'px'; });
+      goal.style.transform = `translate(0px,${(R - 1) * s}px)`;
+      wrap.append(goal, me);
+      const pad = el('div', 'pad', '<button class="u" aria-label="فوق">▲</button><button class="l" aria-label="يسار">◀</button><button class="d" aria-label="تحت">▼</button><button class="r" aria-label="يمين">▶</button>');
+      box.append(wrap, pad);
+      const trail = wrap.querySelector('.trail');
+      let pc = C - 1, pr = 0, moving = false, won = false;
+      const place = () => { me.style.transform = `translate(${pc * s}px,${pr * s}px)`; };
+      const dot = (c, r) => { trail.insertAdjacentHTML('beforeend', `<circle cx="${c * s + s / 2}" cy="${r * s + s / 2}" r="${Math.max(2, s * .1)}"/>`); };
+      place(); dot(pc, pr);
+      async function go(d){
+        if (moving || won) return;
+        if (walls[id(pc, pr)][d]) { me.animate([{transform:`translate(${pc * s}px,${pr * s}px)`},{transform:`translate(${pc * s + DIRS[d][0] * 4}px,${pr * s + DIRS[d][1] * 4}px)`},{transform:`translate(${pc * s}px,${pr * s}px)`}], 160); return; }
+        moving = true;
+        const path = [[pc, pr]];
+        let c = pc, r = pr, dir = d;
+        for (let k = 0; k < C * R; k++){
+          c += DIRS[dir][0]; r += DIRS[dir][1]; path.push([c, r]);
+          if (c === 0 && r === R - 1) break;
+          const back = DIRS[dir][3];
+          const exits = [0, 1, 2, 3].filter(x => x !== back && !walls[id(c, r)][x]);
+          if (exits.length !== 1) break;                                   // مفترق أو طريق مسدود
+          dir = exits[0];
+        }
+        const a = me.animate(path.map(([x, y]) => ({transform:`translate(${x * s}px,${y * s}px)`})), {duration:Math.max(140, (path.length - 1) * 80), easing:'linear', fill:'forwards'});
+        await a.finished;
+        path.slice(1).forEach(([x, y]) => dot(x, y));
+        [pc, pr] = path[path.length - 1]; place(); a.cancel();
+        moving = false;
+        if (pc === 0 && pr === R - 1){ won = true; goal.animate([{transform:goal.style.transform + ' scale(1)'},{transform:goal.style.transform + ' scale(1.5)'},{transform:goal.style.transform + ' scale(1)'}], 600); done('وصلت النجمة للقمر 🌙✨'); }
+      }
+      pad.querySelector('.u').onclick = () => go(0);
+      pad.querySelector('.r').onclick = () => go(1);
+      pad.querySelector('.d').onclick = () => go(2);
+      pad.querySelector('.l').onclick = () => go(3);
+      let sx = 0, sy = 0, sid = null;
+      wrap.addEventListener('pointerdown', e => { sid = e.pointerId; sx = e.clientX; sy = e.clientY; try { wrap.setPointerCapture(e.pointerId); } catch(_){} });
+      wrap.addEventListener('pointerup', e => {
+        if (e.pointerId !== sid) return; sid = null;
+        const dx = e.clientX - sx, dy = e.clientY - sy;
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < 18) return;
+        go(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0));
+      });
+      puzzleKeys = e => { const k = {ArrowUp:0, ArrowRight:1, ArrowDown:2, ArrowLeft:3}[e.key]; if (k != null){ e.preventDefault(); go(k); } };
+    },
+
+    // ٤) البيانو: يعزف لحن وهي تعيده (٣ جولات)
+    piano(box, done){
+      const NOTES = [261.6, 293.7, 329.6, 392.0, 440.0];
+      const COLORS = ['#e07a93','#d8b26a','#7fd1b9','#8fa8ff','#c58cf2'];
+      const LENS = [3, 4, 5];
+      const seq = [];
+      while (seq.length < LENS[LENS.length - 1]){ const n = Math.floor(Math.random() * NOTES.length); if (n !== seq[seq.length - 1]) seq.push(n); }
+      const status = el('div', 'simon-status', '🔊 علّي الصوت… والمسي «ابدئي»');
+      const keys = el('div', 'keys');
+      const startBtn = el('button', 'gbtn', 'ابدئي 🎵');
+      box.append(status, keys, startBtn);
+      const btns = NOTES.map((_, i) => { const b = el('button', '', '<i></i>'); b.style.setProperty('--c', COLORS[i]); b.setAttribute('aria-label', 'مفتاح ' + AR(i + 1)); keys.appendChild(b); return b; });
+      let ctx = null, round = 0, pos = 0, listening = false;
+      function tone(i, ms){
+        try {
+          ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+          if (ctx.state === 'suspended') ctx.resume();
+          const o = ctx.createOscillator(), g = ctx.createGain(), t = ctx.currentTime;
+          o.type = 'triangle'; o.frequency.value = NOTES[i];
+          g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.35, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + ms / 1000);
+          o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t + ms / 1000 + .05);
+        } catch(e){}
+      }
+      function light(i, ms = 420){ btns[i].classList.add('lit'); tone(i, ms); setTimeout(() => btns[i].classList.remove('lit'), ms - 80); }
+      async function play(){
+        listening = false; pos = 0;
+        status.textContent = 'الجولة ' + AR(round + 1) + ' من ' + AR(LENS.length) + ' — اسمعي… 👂';
+        await wait(700);
+        for (let k = 0; k < LENS[round]; k++){ light(seq[k]); await wait(650); }
+        status.textContent = 'دورك 🎹';
+        listening = true;
+      }
+      btns.forEach((b, i) => b.addEventListener('pointerdown', async e => {
+        e.preventDefault();
+        light(i, 300);
+        if (!listening) return;
+        if (seq[pos] !== i){
+          listening = false;
+          keys.classList.remove('bad'); void keys.offsetWidth; keys.classList.add('bad');
+          status.textContent = 'قريبة 😅 نسمعها مرة ثانية';
+          await wait(1100); play(); return;
+        }
+        pos++;
+        if (pos < LENS[round]) return;
+        listening = false; round++;
+        if (round >= LENS.length){ status.textContent = '🎶'; done('عزفتيها صح 🎹✨'); return; }
+        status.textContent = 'صح! 👏 الجولة الجاية أطول…';
+        await wait(1100); play();
+      }));
+      startBtn.onclick = () => { tone(0, 1); startBtn.remove(); play(); };       // أول لمسة تفتح الصوت في الآيفون
+    },
+
+    // ٥) لغز الكلمة: ترتّب الحروف
+    riddle(box, done){
+      const ans = [...RIDDLE.a];
+      const q = el('p', 'riddle', RIDDLE.q);
+      const slots = el('div', 'slots'), letters = el('div', 'letters');
+      box.append(q, slots, letters);
+      const filled = ans.map(() => null);                                 // كل خانة: رقم زر الحرف
+      const slotBtns = ans.map((_, k) => { const b = el('button'); b.setAttribute('aria-label', 'خانة ' + AR(k + 1)); b.onclick = () => clear(k); slots.appendChild(b); return b; });
+      const pool = shuffle([...ans, ...RIDDLE.extra]);
+      const letterBtns = pool.map((ch, j) => { const b = el('button', '', ch); b.onclick = () => put(j); letters.appendChild(b); return b; });
+      let tries = 0;
+      function paint(){ slotBtns.forEach((b, k) => { const j = filled[k]; b.textContent = j == null ? '' : pool[j]; b.classList.toggle('full', j != null); }); }
+      function put(j){
+        const k = filled.indexOf(null); if (k < 0) return;
+        filled[k] = j; letterBtns[j].disabled = true; paint();
+        if (filled.indexOf(null) < 0) check();
+      }
+      function clear(k){ const j = filled[k]; if (j == null) return; filled[k] = null; letterBtns[j].disabled = false; paint(); }
+      function check(){
+        if (filled.map(j => pool[j]).join('') === RIDDLE.a){
+          slots.replaceWith(el('div', 'solved-word', RIDDLE.a + ' ✓'));
+          letters.remove();
+          done('صح! 😂 أنتِ اللقافة بذاتها');
+          return;
+        }
+        tries++;
+        slots.classList.remove('bad'); void slots.offsetWidth; slots.classList.add('bad');
+        $('sheetMsg').textContent = tries >= 2 ? 'تلميح: ' + RIDDLE.hint : 'لا… فكّري زين 🤔 (المسي الخانة عشان ترجّعين حرفها)';
+      }
+    }
+  };
+
+  /* ---------- النهاية: الشفق ---------- */
+  async function showEnding(){
+    store.set('stage','end');
+    $('ending').classList.remove('gone');
+    $('auroraShow').classList.add('on');
+    await wait(1800);
+    for (const L of ENDING_LINES){
+      const n = showLine($('lineEnd'), L);
+      await wait(n*220 + 2600);
+      if (L !== ENDING_LINES[ENDING_LINES.length-1]) await hideLine($('lineEnd'));
+    }
+    await wait(600);
+    $('endSign').classList.add('on');
+    await wait(1200);
+    showChrome(true);
   }
 
   /* ---------- العدّاد ---------- */
@@ -1667,13 +2258,25 @@
   const closeModal = () => modal.classList.remove('show');
   $('close').onclick = closeModal;
   modal.onclick = e => { if (e.target === modal) closeModal(); };
-  addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  addEventListener('keydown', e => {
+    if (e.key === 'Escape'){ closeModal(); closeHeart(); closeSheet(); }
+    else if (sheet.classList.contains('show') && puzzleKeys) puzzleKeys(e);
+  });
 
-  replay.onclick = () => { store.del('stage'); location.href = location.pathname; };
+  replay.onclick = () => { store.del('stage'); store.del('doorN'); location.href = location.pathname; };
 
   /* ---------- start ---------- */
   const st = store.get('stage');
-  if (params.has('final') || (st === 'final' && !params.has('intro'))) {
+  const skipToEnd = () => { intro.classList.add('hidden'); gate.classList.add('hidden'); stage.classList.add('gone'); };
+  if (params.has('end') || (st === 'end' && !params.has('intro'))) { skipToEnd(); showEnding(); }
+  else if (params.has('doors') || (st === 'doors' && !params.has('intro'))) {
+    // ?doors=3 للتجربة: يبدأ من الباب الرابع
+    const n = parseInt(params.get('doors'), 10);
+    if (!isNaN(n)) store.set('doorN', String(n));
+    store.set('stage','doors');
+    skipToEnd(); openHall();
+  }
+  else if (params.has('final') || (st === 'final' && !params.has('intro'))) {
     intro.classList.add('hidden'); gate.classList.add('hidden'); stage.classList.add('gone');
     playFinalMessage();
   }
