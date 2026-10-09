@@ -505,7 +505,32 @@
   #hallDoor.k2 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.07),transparent 30%),linear-gradient(160deg,#2a7378,#14474b 50%,#08201f)}
   #hallDoor.k3 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 30%),repeating-linear-gradient(45deg,rgba(0,0,0,.12) 0 3px,transparent 3px 9px),linear-gradient(160deg,#3d6b33,#1f4019 50%,#0c1e0b)}
   #hallDoor.k4 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.1),transparent 30%),linear-gradient(160deg,#3a3a42,#17171c 50%,#060608)}
+  #hallDoor.k1::before{background:radial-gradient(closest-side,rgba(240,150,70,.42),rgba(216,120,60,.1) 60%,transparent)}
+  #hallDoor.k2::before{background:radial-gradient(closest-side,rgba(110,210,190,.36),rgba(80,170,160,.08) 60%,transparent)}
+  #hallDoor.k3::before{background:radial-gradient(closest-side,rgba(150,215,120,.32),rgba(100,170,90,.08) 60%,transparent)}
+  #hallDoor.k4::before{background:radial-gradient(closest-side,rgba(235,225,255,.34),rgba(180,170,220,.08) 60%,transparent)}
+  #hallDoor.k5::before{background:radial-gradient(closest-side,rgba(130,150,255,.42),rgba(90,110,220,.1) 60%,transparent)}
   #hallDoor.k5 .leaf{background:radial-gradient(1.5px 1.5px at 30% 20%,#fff,transparent),radial-gradient(1px 1px at 70% 35%,#fff,transparent),radial-gradient(1.5px 1.5px at 45% 70%,#f3dca4,transparent),radial-gradient(1px 1px at 20% 85%,#fff,transparent),linear-gradient(160deg,#283070,#141a45 50%,#070920)}
+
+  /* كلمة الباب: تطلع بعد ما ينفتح */
+  .door-note .dn-key{font-size:30px;line-height:1;margin-bottom:6px}
+  .door-note h3{font-size:28px}
+  .door-note .ornament{margin-bottom:12px}
+  .door-note p{font-size:16px;line-height:1.85}
+  .door-note p + p{margin-top:8px}
+  .door-note .qt{color:var(--gold-2)}
+  .door-note .sign{margin-top:12px}
+  .door-note .gbtn{margin-top:16px}
+  @media (max-height:760px){
+    .door-note{padding:22px 18px 18px}
+    .door-note .dn-key{display:none}
+    .door-note h3{font-size:24px}
+    .door-note .ornament{margin-bottom:8px}
+    .door-note p{font-size:15px;line-height:1.65}
+    .door-note p + p{margin-top:6px}
+    .door-note .sign{margin-top:8px;font-size:20px}
+    .door-note .gbtn{margin-top:10px;padding:10px 20px}
+  }
 
   /* نافذة اللغز (تطلع من تحت) */
   .sheet{position:fixed;inset:0;z-index:12;display:flex;align-items:flex-end;justify-content:center;
@@ -540,7 +565,9 @@
   .mem .f,.mem .b{position:absolute;inset:0;border-radius:10px;display:flex;align-items:center;justify-content:center;
     -webkit-backface-visibility:hidden;backface-visibility:hidden}
   .mem .f{background:linear-gradient(160deg,#7a1a33,#3a0b18);border:1px solid var(--line);color:var(--gold);font-size:18px}
-  .mem .b{transform:rotateY(180deg);background:linear-gradient(160deg,#fff7e6,#f2e2b8);font-size:clamp(24px,7vw,32px)}
+  .mem .b{transform:rotateY(180deg);background:linear-gradient(160deg,#fff7e6,#f2e2b8);flex-direction:column;gap:3px}
+  .mem .b i{font-style:normal;font-size:clamp(22px,6.4vw,30px);line-height:1}
+  .mem .b small{font:700 clamp(10px,2.9vw,12px)/1.2 "Tajawal";color:#5a2a12;text-align:center;padding:0 2px}
   .mem button.ok .b{box-shadow:0 0 0 2px var(--gold-2),0 0 16px rgba(243,220,164,.6)}
 
   /* لغز ٣: المتاهة */
@@ -873,6 +900,22 @@
     </div>
   </div>
 
+  <!-- كلمة الباب: تطلع ورا كل باب ينفتح -->
+  <div class="modal" id="doorNote" role="dialog" aria-modal="true" aria-labelledby="doorNoteTitle">
+    <div class="card door-note">
+      <button class="close" id="doorNoteClose" aria-label="إغلاق">×</button>
+      <div class="dn-key" aria-hidden="true">🗝️</div>
+      <h3 id="doorNoteTitle"></h3>
+      <svg class="ornament" viewBox="0 0 240 14" fill="none" stroke="currentColor" aria-hidden="true">
+        <path d="M0 7 H100 M140 7 H240" stroke-width="1"/>
+        <path d="M120 1 L126 7 L120 13 L114 7 Z" fill="currentColor"/>
+      </svg>
+      <div id="doorNoteBody"></div>
+      <div class="sign">— فهد</div>
+      <button class="gbtn" id="doorNoteNext"></button>
+    </div>
+  </div>
+
   <!-- ٨) النهاية: الشفق -->
   <section id="ending" class="scene gone">
     <div class="aurora-show" id="auroraShow" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -1045,7 +1088,47 @@
     {key:'piano',  title:'باب البيانو', icon:'🎹', how:'اسمعي اللحن وشوفي المفاتيح… وعيديه بنفس الترتيب (٣ جولات)'},
     {key:'riddle', title:'الباب الأخير', icon:'🔐', how:'حلّي اللغز… ورتّبي الحروف'}
   ];
-  const MEMORY_CARDS = ['🍂','🌙','⭐','🍵','🎹','🧩','🎨','🌌'];
+  // بطاقات الذاكرة: كل زوج صفة فيها، وأول ما تطابقه تطلع جملته
+  const MEMORY_CARDS = [
+    {e:'🍂', t:'خريفية',   s:'دافية مثل الخريف'},
+    {e:'⭐', t:'نادرة',    s:'مثل نجومك اللي ما تنعطى إلا نادر'},
+    {e:'☀️', t:'إيجابية',  s:'تقلبين أي يوم لصالحك'},
+    {e:'🤍', t:'قلب أبيض', s:'وطيبتك قوة'},
+    {e:'🧩', t:'صبورة',    s:'تركّبين الصعب قطعة قطعة'},
+    {e:'🎨', t:'مبدعة',    s:'تلوّنين الأشياء على ذوقك'},
+    {e:'🌙', t:'هادية',    s:'وفي هدوئك هيبة'},
+    {e:'🛡️', t:'قوية',     s:'وما أحد يقدر يمسّك'}
+  ];
+  // كلمة تطلع ورا كل باب ينفتح (الكلام بين «» من كلامها هي)
+  const DOOR_NOTES = [
+    {title:'كلمة الباب الأول', lines:[
+      'ولاء… فيه ناس تنحترم لأنها تستاهل، وأنتِ منهم.',
+      'احترمت كل كلمة قلتيها، وكل حدّ حطّيتيه… لأنك ما تحطين شي إلا عن قناعة، وهذا بحد ذاته يرفع الراس.',
+      'خلّيك دايم كذا: واضحة، وثابتة، وما تتنازلين عن شي تؤمنين فيه عشان أحد… كائنًا من كان.'
+    ]},
+    {title:'كلمة الباب الثاني', lines:[
+      '«قلبك ورق أبيض»… قلتها لك مرة، وما زلت أقولها.',
+      'اللي يخاف على مشاعر الناس ويداريهم حتى وهو تعبان، هذا قلب نادر — ولا تخلين أحد يقنعك إنه ضعف.',
+      'بس خلّي لطيبتك باب: تفتحينه للي يستاهل، وتقفلينه بكل هدوء عن اللي ما يستاهل. الطيبة قوة… لما تكون بيدك أنتِ.'
+    ]},
+    {title:'كلمة الباب الثالث', lines:[
+      'النجمة وصلت للقمر لأنها ما وقفت عند أول جدار.',
+      'وأنتِ كذا… كل ما تسكّر قدامك طريق، لفّيتي ولقيتي غيره.',
+      'لا تستعجلين النهاية، ولا تقارنين طريقك بطريق أحد. وتذكّري كلامك: «التجارب هي اللي تصنع الإنسان، مو الإنسان يجي مصنوع» 🌙'
+    ]},
+    {title:'كلمة الباب الرابع', lines:[
+      'الحياة لحن… وأنتِ اللي تختارين وش تعزفين.',
+      'عيشيها مبسوطة: سافري وشوفي الشفق، امشي في نوفمبر بالبرد اللي تحبينه، رتّبي جوّك وأغانيك، وسوّي حلاك واشربي شاهيك الحبق 🍵',
+      'ووصية صغيرة: اشربي مويتك، ونامي بدري، وخففي القهوة شوي 😏',
+      'ضحكتك تسوى كثير… لا تخلين شي ولا أحد ياخذها منك.'
+    ]},
+    {title:'كلمة الباب الأخير', lines:[
+      'قلتيها بنفسك: «الحياة سهالات… إذا كبّرتها كبرت، وإذا صغّرتها صغرت».',
+      'وقلتي: «مرح أسمح لأحد يصغّر حلمي أو يوقف في طريقي».',
+      'احفظي هالكلام، لأنه أقوى شي فيك: إنك تطيحين وتقومين، وتلبسين أصفر، وتكمّلين كأن ما صار شي ☀️',
+      'أنتِ أقوى من كل اللي حاولوا يقولون غير كذا… وأقوى حتى مما تتخيلين.'
+    ]}
+  ];
   const RIDDLE = {
     q:    'أنا صفة فيكِ… لو قالوا لك «لا تفتحين الصورة» أول شي تسوينه تفتحينها 😏 وش أنا؟',
     a:    'اللقافة',
@@ -1072,7 +1155,7 @@
     del(k){ try { localStorage.removeItem(k); } catch(e){} }
   };
   const params = new URLSearchParams(location.search);
-  if (params.has('reset')){ ['stage','wish','early','greeted','doorN'].forEach(k => store.del(k)); }
+  if (params.has('reset')){ ['stage','wish','early','greeted','doorN','noteN'].forEach(k => store.del(k)); }
   const noteBtn = $('noteBtn'), replay = $('replay');
   const showChrome = on => { noteBtn.classList.toggle('hidden', !on); replay.style.display = on ? '' : 'none'; };
 
@@ -1876,17 +1959,46 @@
 
   function openHall(){
     doorIdx = Math.min(+(store.get('doorN') || 0), DOORS.length);
-    if (doorIdx >= DOORS.length) return showEnding();
+    // لو حدّثت الصفحة قبل ما تقرا كلمة آخر باب فتحته، تطلع لها أول
+    const pending = +(store.get('noteN') || 0) < doorIdx ? doorIdx - 1 : -1;
+    if (doorIdx >= DOORS.length){
+      if (pending >= 0) return showDoorNote(pending, showEnding);
+      return showEnding();
+    }
     hall.classList.remove('gone');
     renderDoor();
+    if (pending >= 0) setTimeout(() => showDoorNote(pending, () => {}), 700);
   }
+
+  /* --- كلمة الباب --- */
+  const doorNote = $('doorNote');
+  let afterNote = null;
+  function showDoorNote(i, then){
+    const n = DOOR_NOTES[i];
+    $('doorNoteTitle').textContent = n.title;
+    $('doorNoteBody').innerHTML = n.lines.map(t => `<p>${t.replace(/«([^»]+)»/g, '<span class="qt">«$1»</span>')}</p>`).join('');
+    $('doorNoteNext').textContent = i < DOORS.length - 1 ? 'الباب اللي بعده ←' : 'كمّلي ←';
+    afterNote = {i, then};
+    doorNote.querySelector('.card').scrollTop = 0;
+    doorNote.classList.add('show');
+  }
+  function closeDoorNote(){
+    if (!doorNote.classList.contains('show')) return;
+    doorNote.classList.remove('show');
+    const a = afterNote; afterNote = null;
+    if (!a) return;
+    store.set('noteN', String(a.i + 1));                 // تنحسب مقروءة على طول، حتى لو حدّثت الصفحة
+    setTimeout(a.then, 450);
+  }
+  $('doorNoteNext').onclick = closeDoorNote;
+  $('doorNoteClose').onclick = closeDoorNote;
   function renderDoor(){
     const d = DOORS[doorIdx];
     hallDoor.className = 'door-wrap k' + (doorIdx + 1);          // يرجّع الباب مسكّر
     $('hallStep').textContent = 'الباب ' + AR(doorIdx + 1) + ' من ' + AR(DOORS.length);
     $('hallTitle').textContent = d.title;
     $('hallIcon').textContent = d.icon;
-    $('hallHint').textContent = 'المسي القفل… وحلّي اللغز عشان ينفتح';
+    $('hallHint').textContent = 'المسي القفل وحلّي اللغز… ووراه كلمة لك 🤍';
     $('hallDots').innerHTML = DOORS.map((_, i) => `<i class="${i < doorIdx ? 'done' : i === doorIdx ? 'now' : ''}"></i>`).join('');
     lockBtn.disabled = false; doorSolved = false;
     builtFor = -1; puzzleKeys = null; $('puzzleBody').innerHTML = '';
@@ -1924,16 +2036,18 @@
     hallDoor.classList.add('zoom');
     $('flash').classList.add('on');
     await wait(1800);
-    doorIdx++;
+    const opened = doorIdx++;
     if (doorIdx >= DOORS.length){
       hall.classList.add('gone');
-      showEnding();
     } else {
       hall.classList.add('instant');
       renderDoor();
       requestAnimationFrame(() => requestAnimationFrame(() => hall.classList.remove('instant')));
     }
     $('flash').classList.add('fast'); $('flash').classList.remove('on');
+    await wait(700);
+    // ورا الباب: كلمة لها، وبعدها الباب اللي بعده (أو النهاية)
+    showDoorNote(opened, () => { if (doorIdx >= DOORS.length) showEnding(); });
   }
 
   /* --- الألغاز --- */
@@ -1996,29 +2110,32 @@
       paint();
     },
 
-    // ٢) الذاكرة: ٨ أزواج من الأشياء اللي تحبها
+    // ٢) الذاكرة: ٨ أزواج، كل زوج صفة فيها
     memory(box, done){
-      const deck = shuffle([...MEMORY_CARDS, ...MEMORY_CARDS]);
+      const deck = shuffle([...MEMORY_CARDS.keys(), ...MEMORY_CARDS.keys()]);
       const g = el('div', 'mem'); box.appendChild(g);
       let open = [], matched = 0, busy = false;
-      deck.forEach(e => {
-        const b = el('button', '', `<span class="in"><span class="f">✦</span><span class="b">${e}</span></span>`);
+      deck.forEach(k => {
+        const c = MEMORY_CARDS[k];
+        const b = el('button', '', `<span class="in"><span class="f">✦</span><span class="b"><i>${c.e}</i><small>${c.t}</small></span></span>`);
         b.setAttribute('aria-label', 'بطاقة');
         b.onclick = () => {
           if (busy || b.classList.contains('flip')) return;
           b.classList.add('flip'); open.push(b);
           if (open.length < 2) return;
           const [x, y] = open; open = [];
-          if (x.dataset.e === y.dataset.e){
+          if (x.dataset.k === y.dataset.k){
             x.classList.add('ok'); y.classList.add('ok'); matched++;
             navigator.vibrate && navigator.vibrate(12);
-            if (matched === MEMORY_CARDS.length) done('ذاكرتك حديد 🃏✨');
+            const c = MEMORY_CARDS[+x.dataset.k];
+            if (matched === MEMORY_CARDS.length) done('ذاكرتك حديد 🃏✨ وكل هذي فيك');
+            else $('sheetMsg').textContent = `${c.e} ${c.t}… ${c.s}`;
           } else {
             busy = true;
             setTimeout(() => { x.classList.remove('flip'); y.classList.remove('flip'); busy = false; }, 800);
           }
         };
-        b.dataset.e = e; g.appendChild(b);
+        b.dataset.k = k; g.appendChild(b);
       });
     },
 
@@ -2259,11 +2376,11 @@
   $('close').onclick = closeModal;
   modal.onclick = e => { if (e.target === modal) closeModal(); };
   addEventListener('keydown', e => {
-    if (e.key === 'Escape'){ closeModal(); closeHeart(); closeSheet(); }
+    if (e.key === 'Escape'){ closeModal(); closeHeart(); closeSheet(); closeDoorNote(); }
     else if (sheet.classList.contains('show') && puzzleKeys) puzzleKeys(e);
   });
 
-  replay.onclick = () => { store.del('stage'); store.del('doorN'); location.href = location.pathname; };
+  replay.onclick = () => { ['stage','doorN','noteN'].forEach(k => store.del(k)); location.href = location.pathname; };
 
   /* ---------- start ---------- */
   const st = store.get('stage');
@@ -2272,7 +2389,7 @@
   else if (params.has('doors') || (st === 'doors' && !params.has('intro'))) {
     // ?doors=3 للتجربة: يبدأ من الباب الرابع
     const n = parseInt(params.get('doors'), 10);
-    if (!isNaN(n)) store.set('doorN', String(n));
+    if (!isNaN(n)){ store.set('doorN', String(n)); store.set('noteN', String(n)); }
     store.set('stage','doors');
     skipToEnd(); openHall();
   }
