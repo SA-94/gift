@@ -503,14 +503,21 @@
   .hall-dots i.now{background:transparent;box-shadow:inset 0 0 0 1.5px var(--gold-2)}
   #hallDoor.k1 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.07),transparent 30%),linear-gradient(160deg,#c0612e,#7a2e17 50%,#3d1409)}
   #hallDoor.k2 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.07),transparent 30%),linear-gradient(160deg,#2a7378,#14474b 50%,#08201f)}
-  #hallDoor.k3 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 30%),repeating-linear-gradient(45deg,rgba(0,0,0,.12) 0 3px,transparent 3px 9px),linear-gradient(160deg,#3d6b33,#1f4019 50%,#0c1e0b)}
-  #hallDoor.k4 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.1),transparent 30%),linear-gradient(160deg,#3a3a42,#17171c 50%,#060608)}
+  #hallDoor.k3 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.08),transparent 30%),repeating-linear-gradient(90deg,rgba(0,0,0,.1) 0 2px,transparent 2px 14px),linear-gradient(160deg,#c9a46a,#8a6236 50%,#4a3018)}
+  #hallDoor.k4 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 30%),repeating-linear-gradient(45deg,rgba(0,0,0,.12) 0 3px,transparent 3px 9px),linear-gradient(160deg,#3d6b33,#1f4019 50%,#0c1e0b)}
+  #hallDoor.k5 .leaf{background:linear-gradient(180deg,rgba(255,255,255,.1),transparent 30%),linear-gradient(160deg,#3a3a42,#17171c 50%,#060608)}
+  #hallDoor.k6 .leaf{background:radial-gradient(1.5px 1.5px at 30% 20%,#fff,transparent),radial-gradient(1px 1px at 70% 35%,#fff,transparent),radial-gradient(1.5px 1.5px at 45% 70%,#f3dca4,transparent),radial-gradient(1px 1px at 20% 85%,#fff,transparent),linear-gradient(160deg,#283070,#141a45 50%,#070920)}
   #hallDoor.k1::before{background:radial-gradient(closest-side,rgba(240,150,70,.42),rgba(216,120,60,.1) 60%,transparent)}
   #hallDoor.k2::before{background:radial-gradient(closest-side,rgba(110,210,190,.36),rgba(80,170,160,.08) 60%,transparent)}
-  #hallDoor.k3::before{background:radial-gradient(closest-side,rgba(150,215,120,.32),rgba(100,170,90,.08) 60%,transparent)}
-  #hallDoor.k4::before{background:radial-gradient(closest-side,rgba(235,225,255,.34),rgba(180,170,220,.08) 60%,transparent)}
-  #hallDoor.k5::before{background:radial-gradient(closest-side,rgba(130,150,255,.42),rgba(90,110,220,.1) 60%,transparent)}
-  #hallDoor.k5 .leaf{background:radial-gradient(1.5px 1.5px at 30% 20%,#fff,transparent),radial-gradient(1px 1px at 70% 35%,#fff,transparent),radial-gradient(1.5px 1.5px at 45% 70%,#f3dca4,transparent),radial-gradient(1px 1px at 20% 85%,#fff,transparent),linear-gradient(160deg,#283070,#141a45 50%,#070920)}
+  #hallDoor.k3::before{background:radial-gradient(closest-side,rgba(255,210,140,.4),rgba(220,170,100,.1) 60%,transparent)}
+  #hallDoor.k4::before{background:radial-gradient(closest-side,rgba(150,215,120,.32),rgba(100,170,90,.08) 60%,transparent)}
+  #hallDoor.k5::before{background:radial-gradient(closest-side,rgba(235,225,255,.34),rgba(180,170,220,.08) 60%,transparent)}
+  #hallDoor.k6::before{background:radial-gradient(closest-side,rgba(130,150,255,.42),rgba(90,110,220,.1) 60%,transparent)}
+  .hall-stars{min-height:20px;font-size:15px;font-weight:700;color:var(--gold-2);letter-spacing:.04em}
+  .won-stars{font-size:26px;letter-spacing:4px;line-height:1.3;animation:pop .5s ease}
+  .won-stars span{opacity:.2;filter:grayscale(1)}
+  .confetti{position:fixed;top:0;left:0;z-index:25;pointer-events:none;line-height:1;will-change:transform}
+  .heart-card .qt{color:var(--gold-2)}
 
   /* كلمة الباب: تطلع بعد ما ينفتح */
   .door-note .dn-key{font-size:30px;line-height:1;margin-bottom:6px}
@@ -593,18 +600,45 @@
   .keys.bad{animation:shakeX .4s ease}
   .simon-status{min-height:24px;margin-bottom:10px;font-size:15px;color:var(--ink)}
 
-  /* لغز ٥: الكلمة */
-  .riddle{font-family:"Aref Ruqaa",serif;font-size:clamp(19px,5.2vw,23px);line-height:1.9;color:var(--ink);margin:0 4px 16px}
-  .slots{display:flex;gap:6px;justify-content:center;direction:rtl;margin-bottom:18px}
-  .slots button{width:38px;height:46px;border-radius:10px;border:1px dashed var(--gold-3);background:rgba(255,240,220,.04);
-    color:var(--gold-2);font:700 22px "Tajawal";cursor:pointer;touch-action:manipulation}
-  .slots button.full{border-style:solid;background:rgba(216,178,106,.14)}
-  .slots.bad{animation:shakeX .4s ease}
-  .letters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:320px;margin:0 auto}
-  .letters button{width:46px;height:50px;border-radius:12px;border:0;cursor:pointer;touch-action:manipulation;
-    background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#2a1206;font:700 22px "Tajawal";box-shadow:0 6px 14px rgba(0,0,0,.35)}
-  .letters button:disabled{opacity:.2;cursor:default}
-  .solved-word{font-family:"Aref Ruqaa",serif;font-size:38px;color:var(--gold-2);margin:4px 0 6px;animation:pop .5s ease}
+  .maze-time{font:700 15px "Tajawal";color:var(--gold-2);margin:-4px 0 8px}
+
+  /* باب الحوش: الصعلوك يطلّ من الشبابيك */
+  .sa-top{display:flex;justify-content:space-between;align-items:center;width:min(84vw,330px,52vh);margin:0 auto 8px;font:700 16px "Tajawal";color:var(--gold-2)}
+  .sa-time.low{color:#ff9a9a;animation:pop .5s ease infinite alternate}
+  .yard{position:relative;width:min(84vw,330px,52vh);aspect-ratio:300/316;margin:0 auto;border-radius:14px;overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.45);touch-action:manipulation}
+  .yard svg.bg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .hole{position:absolute;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  .sprite{position:absolute;left:0;right:0;bottom:-6%;height:100%;display:flex;align-items:flex-end;justify-content:center;
+    transform:translateY(106%);transition:transform .16s ease-out;pointer-events:none}
+  .sprite.up{transform:translateY(6%)}
+  .sprite svg{width:88%;height:auto;display:block}
+  .sprite .cat{font-size:clamp(26px,8vw,34px);line-height:1;margin-bottom:6%}
+  .hole.bush::after{content:"";position:absolute;left:-8%;right:-8%;bottom:-10%;height:48%;border-radius:50% 50% 0 0;
+    background:radial-gradient(circle at 30% 35%,#4e8a45,#2a5a2c 70%)}
+  .sa-say{position:absolute;z-index:3;transform:translateX(-50%);white-space:nowrap;font:700 13px "Tajawal";color:#2a1206;
+    background:#fff3d6;padding:4px 10px;border-radius:12px;box-shadow:0 6px 14px rgba(0,0,0,.35);pointer-events:none}
+  .sa-say.warn{background:#ffd9d9}
+  .sa-cover{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+    background:rgba(20,6,12,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);padding:16px;text-align:center;
+    font:600 16px/1.6 "Tajawal";color:var(--ink)}
+  .sa-cover .gbtn{margin-top:0}
+
+  /* الباب الأخير: اختبار «كم تعرفين ولاء؟» */
+  .quiz-prog{display:flex;gap:7px;justify-content:center;margin-bottom:14px}
+  .quiz-prog i{width:24px;height:5px;border-radius:3px;background:rgba(216,178,106,.22)}
+  .quiz-prog i.done{background:var(--gold-2)}
+  .quiz-prog i.now{background:transparent;box-shadow:inset 0 0 0 1.5px var(--gold-2)}
+  .quiz-q{font:700 clamp(18px,5vw,21px)/1.6 "Tajawal";color:var(--ink);margin:0 6px 16px}
+  .quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:min(88vw,360px);margin:0 auto}
+  .quiz-o{min-height:58px;padding:10px 8px;border-radius:14px;border:1px solid var(--line);background:rgba(255,240,220,.06);
+    color:var(--ink);font:600 16px/1.4 "Tajawal";cursor:pointer;touch-action:manipulation;transition:transform .15s ease,background .2s ease}
+  .quiz-o.right{background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#2a1206;transform:scale(1.04)}
+  .quiz-o.wrong{background:rgba(194,83,111,.22);border-color:#c2536f;opacity:.75;animation:shakeX .4s ease}
+  .quiz-o:disabled{cursor:default}
+  .quiz-fb{min-height:28px;margin-top:14px;font:600 15px/1.6 "Tajawal";color:var(--ink-dim)}
+  .quiz-fb.ok{color:#f0d59a}
+  .quiz-fb.bad{color:#f0b9c6}
 
   /* ---------- النهاية: الشفق ---------- */
   #ending{z-index:14;flex-direction:column;pointer-events:none}
@@ -888,6 +922,7 @@
       </div>
       <div class="hall-hint" id="hallHint"></div>
       <div class="hall-dots" id="hallDots"></div>
+      <div class="hall-stars" id="hallStars"></div>
     </div>
   </section>
   <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
@@ -1070,23 +1105,37 @@
   const BORED_MS = 5000;
   const CATCH_MS = 5000;
 
-  // بطاقة القلب اللي تطلع بعد الرسالة الأخيرة
-  const HEART = [
-    'قلتي لي مرة: «آمن بنفسك، ولا تخلّي أحد يكسرك».',
-    'واليوم أرجّع لك كلامك… لأنك أولى فيه من أي أحد.',
-    'إذا حسّيتي يوم إن المكان مو مكانك والناس مو ناسك، ترى اللي يدوّر على نفسه مو ضايع… هو بس في أول الطريق.',
-    '«تعب العشرين ولا ندم الأربعين»، كلامك وأنا مصدّقه.',
-    'وبكرة لما ينادونك «دكتورة»، تذكّري إن فيه أحد كان متأكد من هاليوم قبلك 🤍'
+  // بطاقة القلب بعد الرسالة الأخيرة — أكثر من نسخة، وكل زيارة تطلع وحدة غير
+  const HEARTS = [
+    {lines:[
+      'قلتي لي مرة: «آمن بنفسك، ولا تخلّي أحد يكسرك».',
+      'واليوم أرجّع لك كلامك… لأنك أولى فيه من أي أحد.',
+      'إذا حسّيتي يوم إن المكان مو مكانك والناس مو ناسك، ترى اللي يدوّر على نفسه مو ضايع… هو بس في أول الطريق.',
+      '«تعب العشرين ولا ندم الأربعين»، كلامك وأنا مصدّقه.',
+      'وبكرة لما ينادونك «دكتورة»، تذكّري إن فيه أحد كان متأكد من هاليوم قبلك 🤍'
+    ], star:'⭐ وهذي نجمة مني… أدري إن نجومك ما تنعطى إلا نادر، بس هذي تستاهلينها.'},
+    {lines:[
+      'أدري إن الأيام أحيانًا تثقل، والناس أحيانًا تتعب.',
+      'بس أبيك تعرفين شي واحد: فيه أحد يدعي لك كل يوم إنك تكونين بخير، ومبسوطة، ومرتاحة البال.',
+      'وإذا احتجتي شي — أي شي — أنا موجود، بدون ما تشرحين ولا تبررين 🤍',
+      'وتذكّري: ما فيه شي أكبر منك… كل شي يصغر لما تقررين إنه صغير.'
+    ], star:'⭐ ونجمة زيادة… لأن نجومك ما تكفي لوحدها 😏'},
+    {lines:[
+      'ولاء… فيه ناس تمرّ، وفيه ناس تترك أثر.',
+      'وأنتِ من النوع اللي يترك أثر حلو، حتى وهو ما يدري.',
+      'الله يحفظك، ويسعدك، ويكتب لك كل حلم في بالك — من الشفق لين «الدكتورة» 🎓',
+      'وأي يوم تحتاجين أحد يسمعك… الباب مفتوح، بدون أي شرط.'
+    ], star:'⭐ هذي نجمة مني… ونجومك أنتِ ما تنعدّ.'}
   ];
-  const HEART_STAR = '⭐ وهذي نجمة مني… أدري إن نجومك ما تنعطى إلا نادر، بس هذي تستاهلينها.';
 
-  // الأبواب الخمسة بعد الرسالة الأخيرة — كل باب وراه لغز
+  // الأبواب بعد الرسالة الأخيرة — كل باب وراه لعبة، وورا كل لعبة كلمة
   const DOORS = [
-    {key:'jigsaw', title:'باب الخريف',  icon:'🍂',  how:'رتّبي الصورة: المسي قطعة، بعدين قطعة ثانية، ويتبدّلون'},
-    {key:'memory', title:'باب الذاكرة', icon:'🃏', how:'اقلبي البطاقات… وطابقي كل شي حلو مع شبيهه'},
-    {key:'maze',   title:'باب المتاهة', icon:'🌀', how:'وصّلي النجمة للقمر — اسحبي بإصبعك على المتاهة أو استخدمي الأسهم'},
-    {key:'piano',  title:'باب البيانو', icon:'🎹', how:'اسمعي اللحن وشوفي المفاتيح… وعيديه بنفس الترتيب (٣ جولات)'},
-    {key:'riddle', title:'الباب الأخير', icon:'🔐', how:'حلّي اللغز… ورتّبي الحروف'}
+    {key:'jigsaw',  title:'باب الخريف',   icon:'🍂', how:'رتّبي الصورة: المسي قطعة، بعدين قطعة ثانية، ويتبدّلون — كل ما قلّت حركاتك زادت نجومك ⭐'},
+    {key:'memory',  title:'باب الذاكرة',  icon:'🃏', how:'اقلبي البطاقات وطابقي كل صفة مع شبيهتها… وكل صفة منها فيك'},
+    {key:'saalouk', title:'باب الحوش',    icon:'🏡', how:'الصعلوك يطلّ من الشبابيك 👀 المسيه قبل لا يشوفك — ١٠ مرات قبل ما يخلص الوقت. وانتبهي من القطوة 🐈'},
+    {key:'maze',    title:'باب المتاهة',  icon:'🌀', how:'وصّلي النجمة للقمر — اسحبي على المتاهة أو استخدمي الأسهم، والأسرع ياخذ نجوم أكثر'},
+    {key:'piano',   title:'باب البيانو',  icon:'🎹', how:'اسمعي اللحن وشوفي المفاتيح… وعيديه بنفس الترتيب (٣ جولات)'},
+    {key:'quiz',    title:'الباب الأخير', icon:'🔐', how:'اختبار سريع: كم تعرفين ولاء؟ 😏'}
   ];
   // بطاقات الذاكرة: كل زوج صفة فيها، وأول ما تطابقه تطلع جملته
   const MEMORY_CARDS = [
@@ -1099,48 +1148,92 @@
     {e:'🌙', t:'هادية',    s:'وفي هدوئك هيبة'},
     {e:'🛡️', t:'قوية',     s:'وما أحد يقدر يمسّك'}
   ];
-  // كلمة تطلع ورا كل باب ينفتح (الكلام بين «» من كلامها هي)
+  // باب الحوش: كلام يطلع كل ما تلمسين الصعلوك (بدون سب)
+  const SAALOUK_HITS = ['انحاش! 🏃‍♂️','يخسى يشوف شعرة 😤','رح… غيري كثير 👋','عينه زايغة… مسكناه 👀','ناشب لك ناشب لك 😂','لا تطلّ مرة ثانية!','اللحية الإسبانية ما تنفع هنا 😂','باي باي 👋','الحوش حوشنا 😌','ولا شعرة 😤'];
+  const SAALOUK_SEEN = ['شافك 😳 انتبهي!','أوووه طلّ وشاف 👀','أسرع… لا يشوفك!'];
+  const SAALOUK_CAT  = 'لا! هذي قطوة الحوش 😿';
+  // الباب الأخير: اختبار سريع عنها (a = رقم الجواب الصح، no = رد كل جواب غلط)
+  const QUIZ = [
+    {q:'وش المشروب اللي «ما تشربين إلا هو»؟', o:['قهوة سوداء ☕','شاهي حبق 🍵','كرك 🫖','بيبسي 🥤'], a:1,
+     no:['القهوة حبيبتك… بس مو هي الجواب 😏','','الكرك؟ قلتيها بنفسك: «ما أحبه» 😂','بيبسي؟ 😳 لا لا ركّزي'], yes:'حبق وبس 🍵 صح!'},
+    {q:'أحب شهر عندك؟', o:['يناير ❄️','نوفمبر 🍂','رمضان 🌙','أغسطس ☀️'], a:1,
+     no:['قريب… بس فيه شهر أحلى 🍂','','رمضان حلو… بس مو هو الجواب 🌙','أغسطس؟ 😂 الحر؟ أكيد لا'], yes:'نوفمبر وبرده 🍂 صح!'},
+    {q:'اللون اللي يشبهك؟', o:['وردي 🌸','برغندي 🧣','أزرق 💙','أخضر 💚'], a:1,
+     no:['حلو… بس مو لونك 🌸','','لا… أدفى من كذا 💙','لا… خريفي أكثر 💚'], yes:'برغندي… مثل الخريف 🍂'},
+    {q:'لقبك الرسمي؟ 😏', o:['ملكة الصبر','مؤسسة اللقافة 🔍','رئيسة النوم 😴','سفيرة الهدوء'], a:1,
+     no:['ملكة الصبر؟ إنتِ؟ 😂 العدّاد يشهد','','قريب 😴 بس فيه لقب أشهر','الهدوء؟ 😂 لا لا'], yes:'مؤسسة اللقافة… وما تتوب 😂'},
+    {q:'وش ودّك تشوفينه بعينك يوم؟', o:['برج خليفة 🏙️','الشفق القطبي 🌌','الأهرامات 🐫','ديزني 🏰'], a:1,
+     no:['حلو… بس مو هو الحلم 🏙️','','لا… أبعد من كذا شوي ❄️','ديزني؟ 😂 لا'], yes:'الشفق… والله يكتبه لك 🌌'}
+  ];
+  // جمل تشجيع تطلع وهي تلعب
+  const CHEERS = {
+    jigsaw: ['حلو! 👌','قطعة في مكانها ✨','عينك ذهب 👀','كمّلي… قربتي 🍂','شاطرة 😌'],
+    piano:  ['صح! 👏 الجولة الجاية أطول…','أذنك موسيقية 🎶 كمّلي…','ولا غلطة 😮 الجاية أصعب…']
+  };
+  const HALL_HINTS = ['المسي القفل وحلّي اللغز… ووراه كلمة لك 🤍','القفل ينتظرك 🗝️ ووراه كلام لك','يلا يا بطلة… هذا الباب مو أصعب منك 😏','افتحيه… ووراه شي يستاهل 🤍'];
+  // كلمة تطلع ورا كل باب ينفتح — لكل باب أكثر من نسخة (الكلام بين «» من كلامها هي)
   const DOOR_NOTES = [
-    {title:'كلمة الباب الأول', lines:[
+    {title:'كلمة الباب الأول', variants:[[
       'ولاء… فيه ناس تنحترم لأنها تستاهل، وأنتِ منهم.',
       'احترمت كل كلمة قلتيها، وكل حدّ حطّيتيه… لأنك ما تحطين شي إلا عن قناعة، وهذا بحد ذاته يرفع الراس.',
       'خلّيك دايم كذا: واضحة، وثابتة، وما تتنازلين عن شي تؤمنين فيه عشان أحد… كائنًا من كان.'
-    ]},
-    {title:'كلمة الباب الثاني', lines:[
+    ],[
+      'الاحترام اللي لك ما يحتاج كلام كثير.',
+      'يكفي إنك بنت كلمتها كلمة، وحدودها حدود، وما تتنازل عن مبدأ عشان أحد.',
+      'هالشي نادر… وأنتِ نادرة ✨'
+    ]]},
+    {title:'كلمة الباب الثاني', variants:[[
       '«قلبك ورق أبيض»… قلتها لك مرة، وما زلت أقولها.',
       'اللي يخاف على مشاعر الناس ويداريهم حتى وهو تعبان، هذا قلب نادر — ولا تخلين أحد يقنعك إنه ضعف.',
       'بس خلّي لطيبتك باب: تفتحينه للي يستاهل، وتقفلينه بكل هدوء عن اللي ما يستاهل. الطيبة قوة… لما تكون بيدك أنتِ.'
-    ]},
-    {title:'كلمة الباب الثالث', lines:[
+    ],[
+      'قلبك يخاف على الكل… حتى على اللي ما يستاهل.',
+      'بس اسمحي لي أقول: خلّي شوي من هالخوف لنفسك 🤍',
+      'ارتاحي، ونامي زين، وما عليك من أحد — طيبتك ما تنقص منك، بس لا تخلين أحد يستغلها.'
+    ]]},
+    {title:'كلمة باب الحوش', variants:[[
+      'ضحكتي؟ 😂 هذا المطلوب.',
+      'وبجد… الحوش حوشك، والباب بابك، وما يدخل إلا اللي تبينه.',
+      'ما أحد يقرر عنك، لا في حياتك ولا في مستقبلك — وكلمتك «لا» كاملة، ما تحتاج تبرير 💪'
+    ],[
+      'شفتي كيف ينحاش؟ 😂 كذا كل شي ما تبينه.',
+      'أنتِ قلتيها: الحياة مو بالإجبار. لا تخلين ضغط أحد يمشيك على غير هواك.',
+      'وإذا احتجتي أحد يوقف معك… تعرفين إن فيه أحد موجود.'
+    ]]},
+    {title:'كلمة الباب الرابع', variants:[[
       'النجمة وصلت للقمر لأنها ما وقفت عند أول جدار.',
       'وأنتِ كذا… كل ما تسكّر قدامك طريق، لفّيتي ولقيتي غيره.',
       'لا تستعجلين النهاية، ولا تقارنين طريقك بطريق أحد. وتذكّري كلامك: «التجارب هي اللي تصنع الإنسان، مو الإنسان يجي مصنوع» 🌙'
-    ]},
-    {title:'كلمة الباب الرابع', lines:[
+    ],[
+      'مو لازم تعرفين الطريق كله… يكفي الخطوة الجاية.',
+      'وإذا تعبتي، وقّفي، ارتاحي، وبعدين كمّلي — المتاهة ما تهرب.',
+      'وأنتِ دايم تلقين المخرج 🌙'
+    ]]},
+    {title:'كلمة الباب الخامس', variants:[[
       'الحياة لحن… وأنتِ اللي تختارين وش تعزفين.',
       'عيشيها مبسوطة: سافري وشوفي الشفق، امشي في نوفمبر بالبرد اللي تحبينه، رتّبي جوّك وأغانيك، وسوّي حلاك واشربي شاهيك الحبق 🍵',
       'ووصية صغيرة: اشربي مويتك، ونامي بدري، وخففي القهوة شوي 😏',
       'ضحكتك تسوى كثير… لا تخلين شي ولا أحد ياخذها منك.'
-    ]},
-    {title:'كلمة الباب الأخير', lines:[
+    ],[
+      'إذا ضاق صدرك: شغّلي أغنيتك، وسوّي لك كوب حبق، وخلّي العالم يستناك شوي 🍵',
+      'تستاهلين أيام هادية، وضحك كثير، وناس تفرح فيك.',
+      'وأنا أدعي لك بكل هذا… وأكثر.'
+    ]]},
+    {title:'كلمة الباب الأخير', variants:[[
       'قلتيها بنفسك: «الحياة سهالات… إذا كبّرتها كبرت، وإذا صغّرتها صغرت».',
       'وقلتي: «مرح أسمح لأحد يصغّر حلمي أو يوقف في طريقي».',
       'احفظي هالكلام، لأنه أقوى شي فيك: إنك تطيحين وتقومين، وتلبسين أصفر، وتكمّلين كأن ما صار شي ☀️',
       'أنتِ أقوى من كل اللي حاولوا يقولون غير كذا… وأقوى حتى مما تتخيلين.'
-    ]}
+    ],[
+      'تذكّري: اللي يطيح ويقوم، أقوى من اللي ما طاح أبد.',
+      'وأنتِ قمتي أكثر من مرة… ولبستي أصفر بعدها ☀️',
+      'فلا تخافين من شي جاي — أنتِ قدّه، ومن قبل ما يجي.'
+    ]]}
   ];
-  const RIDDLE = {
-    q:    'أنا صفة فيكِ… لو قالوا لك «لا تفتحين الصورة» أول شي تسوينه تفتحينها 😏 وش أنا؟',
-    a:    'اللقافة',
-    extra:'ضرن',
-    hint: 'سبع حروف… وأنتِ رئيسة مؤسستها 😂'
-  };
-  // آخر شي بعد الباب الخامس
-  const ENDING_LINES = [
-    'خلّصتي الأبواب الخمسة… 🗝️',
-    'وهذا اللي كان ورا آخر باب',
-    'الشفق اللي ودّك تشوفينه يوم 🌌',
-    'الله يكتبه لك… وتشوفينه بعينك'
+  // آخر شي بعد الباب الأخير (نسختين، وتنضاف لها نجومها)
+  const ENDINGS = [
+    ['خلّصتي الأبواب كلها… 🗝️','وهذا اللي كان ورا آخر باب','الشفق اللي ودّك تشوفينه يوم 🌌','الله يكتبه لك… وتشوفينه بعينك'],
+    ['وصلتِ لآخر باب… 🗝️','وورا آخر باب… سماء كاملة لك 🌌','عيشي حياتك مبسوطة يا ولاء','والله يكتب لك كل اللي تتمنينه']
   ];
 
   /* ==================================== */
@@ -1155,7 +1248,19 @@
     del(k){ try { localStorage.removeItem(k); } catch(e){} }
   };
   const params = new URLSearchParams(location.search);
-  if (params.has('reset')){ ['stage','wish','early','greeted','doorN','noteN'].forEach(k => store.del(k)); }
+  if (params.has('reset')){ ['stage','wish','early','greeted','doorN','noteN','stars'].forEach(k => store.del(k)); }
+  // نسخة الأبواب: لو كانت بدأت أو خلّصت النسخة القديمة، تبدأ الجديدة من أولها
+  if (store.get('doorsVer') !== '2'){
+    if (['doors','end'].includes(store.get('stage'))){ store.set('stage','doors'); ['doorN','noteN','stars'].forEach(k => store.del(k)); }
+    store.set('doorsVer','2');
+  }
+  // كم مرة فتحت الموقع — عشان الكلام يتغير كل زيارة
+  const VISIT = (+store.get('visits') || 0) + 1;
+  store.set('visits', String(VISIT));
+  const pick = (arr, salt = 0) => arr[(VISIT + salt) % arr.length];
+  const rnd = arr => arr[Math.floor(Math.random() * arr.length)];
+  const fmt = t => t.replace(/«([^»]+)»/g, '<span class="qt">«$1»</span>');
+  const cnt = (n, one, many) => AR(n) + ' ' + (n >= 3 && n <= 10 ? many : one);
   const noteBtn = $('noteBtn'), replay = $('replay');
   const showChrome = on => { noteBtn.classList.toggle('hidden', !on); replay.style.display = on ? '' : 'none'; };
 
@@ -1928,7 +2033,8 @@
 
   /* ---------- بطاقة القلب + زر كمّلي ---------- */
   const heartModal = $('heartModal'), nextBtn = $('nextBtn');
-  $('heartBody').innerHTML = HEART.map(t => `<p>${t}</p>`).join('') + `<p class="star">${HEART_STAR}</p>`;
+  const heartNow = pick(HEARTS);
+  $('heartBody').innerHTML = heartNow.lines.map(t => `<p>${fmt(t)}</p>`).join('') + `<p class="star">${heartNow.star}</p>`;
   function closeHeart(){
     if (!heartModal.classList.contains('show')) return;
     heartModal.classList.remove('show');
@@ -1957,6 +2063,45 @@
   const shuffle = a => { for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
   const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 
+  // النجوم: كل باب يعطي ١–٣ نجوم حسب أدائها، وتنجمع لين النهاية
+  const getStars = () => { try { return JSON.parse(store.get('stars') || '{}'); } catch(e){ return {}; } };
+  function giveStars(i, n){ const st = getStars(); st[i] = Math.max(st[i] || 0, n); store.set('stars', JSON.stringify(st)); }
+  const totalStars = () => Object.values(getStars()).reduce((a, b) => a + b, 0);
+
+  // احتفال: نجوم وأوراق تطير
+  function confetti(n = 46){
+    const bits = ['⭐','✨','🍂','🤍','⭐','🍁'];
+    for (let i = 0; i < n; i++){
+      const c = el('span', 'confetti', rnd(bits));
+      c.style.left = (Math.random() * innerWidth) + 'px';
+      c.style.fontSize = (12 + Math.random() * 16) + 'px';
+      document.body.appendChild(c);
+      const dx = (Math.random() - .5) * 160, rot = (Math.random() - .5) * 720;
+      c.animate([
+        {transform:'translate(0,-40px) rotate(0deg)', opacity:0},
+        {opacity:1, offset:.1},
+        {transform:`translate(${dx}px,${innerHeight * (.6 + Math.random() * .45)}px) rotate(${rot}deg)`, opacity:0}
+      ], {duration:1600 + Math.random() * 1400, delay:Math.random() * 300, easing:'cubic-bezier(.2,.6,.4,1)', fill:'both'}).onfinish = () => c.remove();
+    }
+  }
+  // أصوات خفيفة (تنفتح مع أول لمسة — شرط الآيفون)
+  let actx = null;
+  function sfx(notes, type = 'sine', len = .13){
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === 'suspended') actx.resume();
+      notes.forEach((f, k) => {
+        const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime + k * len;
+        o.type = type; o.frequency.value = f;
+        g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.2, t + .015); g.gain.exponentialRampToValueAtTime(.0001, t + len * 1.6);
+        o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + len * 1.7);
+      });
+    } catch(e){}
+  }
+  const chime = () => sfx([523, 659, 784, 1047]);
+  const blip = () => sfx([880], 'triangle', .07);
+  addEventListener('pointerdown', () => { if (!actx) sfx([20], 'sine', .01); }, {once:true});
+
   function openHall(){
     doorIdx = Math.min(+(store.get('doorN') || 0), DOORS.length);
     // لو حدّثت الصفحة قبل ما تقرا كلمة آخر باب فتحته، تطلع لها أول
@@ -1976,7 +2121,7 @@
   function showDoorNote(i, then){
     const n = DOOR_NOTES[i];
     $('doorNoteTitle').textContent = n.title;
-    $('doorNoteBody').innerHTML = n.lines.map(t => `<p>${t.replace(/«([^»]+)»/g, '<span class="qt">«$1»</span>')}</p>`).join('');
+    $('doorNoteBody').innerHTML = pick(n.variants, i).map(t => `<p>${fmt(t)}</p>`).join('');
     $('doorNoteNext').textContent = i < DOORS.length - 1 ? 'الباب اللي بعده ←' : 'كمّلي ←';
     afterNote = {i, then};
     doorNote.querySelector('.card').scrollTop = 0;
@@ -1998,7 +2143,9 @@
     $('hallStep').textContent = 'الباب ' + AR(doorIdx + 1) + ' من ' + AR(DOORS.length);
     $('hallTitle').textContent = d.title;
     $('hallIcon').textContent = d.icon;
-    $('hallHint').textContent = 'المسي القفل وحلّي اللغز… ووراه كلمة لك 🤍';
+    $('hallHint').textContent = pick(HALL_HINTS, doorIdx);
+    const ts = totalStars();
+    $('hallStars').textContent = ts ? 'نجومك: ⭐ ' + AR(ts) : '';
     $('hallDots').innerHTML = DOORS.map((_, i) => `<i class="${i < doorIdx ? 'done' : i === doorIdx ? 'now' : ''}"></i>`).join('');
     lockBtn.disabled = false; doorSolved = false;
     builtFor = -1; puzzleKeys = null; $('puzzleBody').innerHTML = '';
@@ -2020,13 +2167,16 @@
   $('sheetClose').onclick = closeSheet;
 
   // انحلّ اللغز → تنقفل النافذة، ينفتح الباب بنفس النور، ويجي الباب اللي بعده
-  async function puzzleSolved(msg){
+  async function puzzleSolved(msg, stars = 3){
     if (doorSolved) return; doorSolved = true; puzzleKeys = null;
+    giveStars(doorIdx, stars);
     const m = $('sheetMsg');
-    m.textContent = msg; m.classList.remove('win'); void m.offsetWidth; m.classList.add('win');
+    m.innerHTML = `<div class="won-stars">${'⭐'.repeat(stars)}<span>${'⭐'.repeat(3 - stars)}</span></div>${msg}`;
+    m.classList.remove('win'); void m.offsetWidth; m.classList.add('win');
+    confetti(); chime();
     navigator.vibrate && navigator.vibrate([30,40,60]);
     store.set('doorN', String(doorIdx + 1));
-    await wait(1500);
+    await wait(2000);
     closeSheet();
     lockBtn.disabled = true;
     $('hallHint').textContent = 'انفتح! 🗝️';
@@ -2086,7 +2236,7 @@
       box.append(thumb, grid);
       let order;
       do { order = shuffle([0,1,2,3,4,5,6,7,8]); } while (order.filter((v, i) => v === i).length > 1);
-      let sel = -1;
+      let sel = -1, swaps = 0;
       const cells = order.map((_, i) => {
         const b = el('button'); b.setAttribute('aria-label', 'قطعة ' + AR(i + 1));
         b.style.backgroundImage = `url("${img}")`;
@@ -2100,12 +2250,14 @@
         cells[sel].classList.remove('sel');
         if (sel !== i){
           [order[sel], order[i]] = [order[i], order[sel]];
-          paint();
+          paint(); swaps++; blip();
           [sel, i].forEach(k => cells[k].animate([{transform:'scale(.82)'},{transform:'scale(1)'}], {duration:260, easing:'ease-out'}));
           navigator.vibrate && navigator.vibrate(8);
+          if (order[sel] === sel || order[i] === i) $('sheetMsg').textContent = rnd(CHEERS.jigsaw) + ' — حركاتك: ' + AR(swaps);
+          else $('sheetMsg').textContent = 'حركاتك: ' + AR(swaps);
         }
         sel = -1;
-        if (order.every((v, k) => v === k)){ grid.classList.add('won'); done('الصورة اكتملت 🍂✨'); }
+        if (order.every((v, k) => v === k)){ grid.classList.add('won'); done('الصورة اكتملت 🍂✨ بـ ' + cnt(swaps, 'حركة', 'حركات'), swaps <= 10 ? 3 : swaps <= 16 ? 2 : 1); }
       }
       paint();
     },
@@ -2114,7 +2266,7 @@
     memory(box, done){
       const deck = shuffle([...MEMORY_CARDS.keys(), ...MEMORY_CARDS.keys()]);
       const g = el('div', 'mem'); box.appendChild(g);
-      let open = [], matched = 0, busy = false;
+      let open = [], matched = 0, busy = false, misses = 0;
       deck.forEach(k => {
         const c = MEMORY_CARDS[k];
         const b = el('button', '', `<span class="in"><span class="f">✦</span><span class="b"><i>${c.e}</i><small>${c.t}</small></span></span>`);
@@ -2128,10 +2280,11 @@
             x.classList.add('ok'); y.classList.add('ok'); matched++;
             navigator.vibrate && navigator.vibrate(12);
             const c = MEMORY_CARDS[+x.dataset.k];
-            if (matched === MEMORY_CARDS.length) done('ذاكرتك حديد 🃏✨ وكل هذي فيك');
+            blip();
+            if (matched === MEMORY_CARDS.length) done('ذاكرتك حديد 🃏✨ وكل هذي فيك', misses <= 6 ? 3 : misses <= 12 ? 2 : 1);
             else $('sheetMsg').textContent = `${c.e} ${c.t}… ${c.s}`;
           } else {
-            busy = true;
+            busy = true; misses++;
             setTimeout(() => { x.classList.remove('flip'); y.classList.remove('flip'); busy = false; }, 800);
           }
         };
@@ -2174,7 +2327,11 @@
       goal.style.transform = `translate(0px,${(R - 1) * s}px)`;
       wrap.append(goal, me);
       const pad = el('div', 'pad', '<button class="u" aria-label="فوق">▲</button><button class="l" aria-label="يسار">◀</button><button class="d" aria-label="تحت">▼</button><button class="r" aria-label="يمين">▶</button>');
-      box.append(wrap, pad);
+      const clock = el('div', 'maze-time', '⏱️ ٠:٠٠');
+      box.append(clock, wrap, pad);
+      let started = 0, tick = 0;
+      const secs = () => Math.floor((performance.now() - started) / 1000);
+      const showClock = () => { const t = secs(); clock.textContent = '⏱️ ' + AR(Math.floor(t / 60)) + ':' + AR(String(t % 60).padStart(2, '0')); };
       const trail = wrap.querySelector('.trail');
       let pc = C - 1, pr = 0, moving = false, won = false;
       const place = () => { me.style.transform = `translate(${pc * s}px,${pr * s}px)`; };
@@ -2182,6 +2339,7 @@
       place(); dot(pc, pr);
       async function go(d){
         if (moving || won) return;
+        if (!started){ started = performance.now(); tick = setInterval(() => { if (!document.body.contains(clock)) return clearInterval(tick); showClock(); }, 250); }
         if (walls[id(pc, pr)][d]) { me.animate([{transform:`translate(${pc * s}px,${pr * s}px)`},{transform:`translate(${pc * s + DIRS[d][0] * 4}px,${pr * s + DIRS[d][1] * 4}px)`},{transform:`translate(${pc * s}px,${pr * s}px)`}], 160); return; }
         moving = true;
         const path = [[pc, pr]];
@@ -2199,7 +2357,12 @@
         path.slice(1).forEach(([x, y]) => dot(x, y));
         [pc, pr] = path[path.length - 1]; place(); a.cancel();
         moving = false;
-        if (pc === 0 && pr === R - 1){ won = true; goal.animate([{transform:goal.style.transform + ' scale(1)'},{transform:goal.style.transform + ' scale(1.5)'},{transform:goal.style.transform + ' scale(1)'}], 600); done('وصلت النجمة للقمر 🌙✨'); }
+        if (pc === 0 && pr === R - 1){
+          won = true; clearInterval(tick); showClock();
+          const t = secs();
+          goal.animate([{transform:goal.style.transform + ' scale(1)'},{transform:goal.style.transform + ' scale(1.5)'},{transform:goal.style.transform + ' scale(1)'}], 600);
+          done('وصلت النجمة للقمر 🌙✨ في ' + cnt(t, 'ثانية', 'ثواني'), t <= 25 ? 3 : t <= 50 ? 2 : 1);
+        }
       }
       pad.querySelector('.u').onclick = () => go(0);
       pad.querySelector('.r').onclick = () => go(1);
@@ -2228,7 +2391,7 @@
       const startBtn = el('button', 'gbtn', 'ابدئي 🎵');
       box.append(status, keys, startBtn);
       const btns = NOTES.map((_, i) => { const b = el('button', '', '<i></i>'); b.style.setProperty('--c', COLORS[i]); b.setAttribute('aria-label', 'مفتاح ' + AR(i + 1)); keys.appendChild(b); return b; });
-      let ctx = null, round = 0, pos = 0, listening = false;
+      let ctx = null, round = 0, pos = 0, listening = false, slips = 0;
       function tone(i, ms){
         try {
           ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
@@ -2253,7 +2416,7 @@
         light(i, 300);
         if (!listening) return;
         if (seq[pos] !== i){
-          listening = false;
+          listening = false; slips++;
           keys.classList.remove('bad'); void keys.offsetWidth; keys.classList.add('bad');
           status.textContent = 'قريبة 😅 نسمعها مرة ثانية';
           await wait(1100); play(); return;
@@ -2261,42 +2424,154 @@
         pos++;
         if (pos < LENS[round]) return;
         listening = false; round++;
-        if (round >= LENS.length){ status.textContent = '🎶'; done('عزفتيها صح 🎹✨'); return; }
-        status.textContent = 'صح! 👏 الجولة الجاية أطول…';
+        if (round >= LENS.length){ status.textContent = '🎶'; done('عزفتيها صح 🎹✨', slips === 0 ? 3 : slips <= 2 ? 2 : 1); return; }
+        status.textContent = rnd(CHEERS.piano);
         await wait(1100); play();
       }));
       startBtn.onclick = () => { tone(0, 1); startBtn.remove(); play(); };       // أول لمسة تفتح الصوت في الآيفون
     },
 
-    // ٥) لغز الكلمة: ترتّب الحروف
-    riddle(box, done){
-      const ans = [...RIDDLE.a];
-      const q = el('p', 'riddle', RIDDLE.q);
-      const slots = el('div', 'slots'), letters = el('div', 'letters');
-      box.append(q, slots, letters);
-      const filled = ans.map(() => null);                                 // كل خانة: رقم زر الحرف
-      const slotBtns = ans.map((_, k) => { const b = el('button'); b.setAttribute('aria-label', 'خانة ' + AR(k + 1)); b.onclick = () => clear(k); slots.appendChild(b); return b; });
-      const pool = shuffle([...ans, ...RIDDLE.extra]);
-      const letterBtns = pool.map((ch, j) => { const b = el('button', '', ch); b.onclick = () => put(j); letters.appendChild(b); return b; });
-      let tries = 0;
-      function paint(){ slotBtns.forEach((b, k) => { const j = filled[k]; b.textContent = j == null ? '' : pool[j]; b.classList.toggle('full', j != null); }); }
-      function put(j){
-        const k = filled.indexOf(null); if (k < 0) return;
-        filled[k] = j; letterBtns[j].disabled = true; paint();
-        if (filled.indexOf(null) < 0) check();
+    // ٥) باب الحوش: الصعلوك يطلّ من الشبابيك، تلمسه قبل لا يشوفها
+    saalouk(box, done){
+      const GOAL = 10, LIMIT = 30;
+      const face = hit => `<svg viewBox="0 0 64 70" aria-hidden="true">
+        <ellipse cx="32" cy="40" rx="19" ry="22" fill="#d9a07a"/>
+        <circle cx="13.5" cy="41" r="4" fill="#d9a07a"/><circle cx="50.5" cy="41" r="4" fill="#d9a07a"/>
+        <path d="M13 36 Q13 14 32 14 Q51 14 51 36 Q47 24 32 25 Q17 24 13 36Z" fill="#1c1310"/>
+        ${hit
+          ? `<path d="M21 35 l7 7 M28 35 l-7 7 M36 35 l7 7 M43 35 l-7 7" stroke="#1c1310" stroke-width="2.4" stroke-linecap="round"/>
+             <circle cx="20" cy="48" r="3.6" fill="#e8706a" opacity=".6"/><circle cx="44" cy="48" r="3.6" fill="#e8706a" opacity=".6"/>
+             <ellipse cx="32" cy="54" rx="3" ry="3.6" fill="#5a2a1e"/>
+             <text x="44" y="16" font-size="13">💫</text>`
+          : `<path d="M20 32 q5 -3 10 -1 M35 31 q5 -2 10 1" stroke="#1c1310" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+             <ellipse cx="25" cy="39" rx="4.2" ry="4.8" fill="#fff"/><ellipse cx="39" cy="39" rx="4.2" ry="4.8" fill="#fff"/>
+             <circle cx="27.4" cy="39.6" r="2.3" fill="#1c1310"/><circle cx="41.4" cy="39.6" r="2.3" fill="#1c1310"/>
+             <path d="M28 53.5 q4 2.4 8 0" stroke="#8a4434" stroke-width="1.6" fill="none" stroke-linecap="round"/>`}
+        <path d="M25 49.5 q7 -3 14 0" stroke="#1c1310" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M30 57.5 q2 6 4 0z" fill="#1c1310"/>
+      </svg>`;
+      const WIN = [[40,90,60,56],[150,90,60,56],[40,170,60,56],[150,170,60,56],[98,195,54,77]];
+      const frames = WIN.map(([x, y, w, h]) => `<rect x="${x - 4}" y="${y - 4}" width="${w + 8}" height="${h + 8}" rx="4" fill="#7a4a2a"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#2b1a14"/><rect x="${x}" y="${y}" width="${w}" height="${h * .35}" fill="#3a2418"/>`).join('');
+      const top = el('div', 'sa-top', `<span class="sa-score">٠ / ${AR(GOAL)}</span><span class="sa-time">⏱️ ${AR(LIMIT)}</span>`);
+      const yard = el('div', 'yard', `<svg class="bg" viewBox="0 0 300 316" preserveAspectRatio="none" aria-hidden="true">
+        <defs><linearGradient id="yardSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a0c2e"/><stop offset="1" stop-color="#c0612e"/></linearGradient></defs>
+        <rect width="300" height="316" fill="url(#yardSky)"/>
+        <circle cx="268" cy="30" r="12" fill="#fff3d0"/><circle cx="40" cy="22" r="1.6" fill="#fff"/><circle cx="160" cy="12" r="1.3" fill="#fff"/><circle cx="215" cy="40" r="1.5" fill="#fff"/>
+        <polygon points="10,64 125,18 240,64" fill="#7a1a33"/>
+        <rect x="20" y="62" width="210" height="210" fill="#e9d6b4"/><rect x="20" y="62" width="210" height="8" fill="#c9b08a"/>
+        ${frames}
+        <rect y="270" width="300" height="46" fill="#6b4524"/><rect y="270" width="300" height="4" fill="#4a2e16"/>
+        <path d="M250 150 L262 272 M298 150 L286 272 M246 150 H302" stroke="#5a3a22" stroke-width="4" fill="none"/>
+        <path d="M265 152 V226 M283 152 V226" stroke="#c9a46a" stroke-width="1.6"/><rect x="259" y="226" width="30" height="6" rx="2" fill="#7a1a33"/>
+      </svg>`);
+      box.append(top, yard);
+      const holes = [...WIN, [236,234,58,40]].map(([x, y, w, h], k) => {
+        const hole = el('div', 'hole' + (k === 5 ? ' bush' : ''));
+        Object.assign(hole.style, {left: x / 3 + '%', top: y / 3.16 + '%', width: w / 3 + '%', height: h / 3.16 + '%'});
+        const sprite = el('div', 'sprite');
+        hole.appendChild(sprite); yard.appendChild(hole);
+        return {hole, sprite, kind: null, to: 0, x: x + w / 2, y};
+      });
+      const scoreEl = top.querySelector('.sa-score'), timeEl = top.querySelector('.sa-time');
+      let score = 0, running = false, active = null, last = null, t0 = 0, clock = 0, gap = 0;
+      function say(text, h, warn){
+        const b = el('div', 'sa-say' + (warn ? ' warn' : ''), text);
+        b.style.left = h.x / 3 + '%'; b.style.top = Math.max(2, h.y / 3.16 - 7) + '%';
+        yard.appendChild(b);
+        b.animate([{transform:'translate(-50%,6px)', opacity:0},{transform:'translate(-50%,0)', opacity:1, offset:.2},{transform:'translate(-50%,-14px)', opacity:0}], {duration:1100, easing:'ease-out'}).onfinish = () => b.remove();
       }
-      function clear(k){ const j = filled[k]; if (j == null) return; filled[k] = null; letterBtns[j].disabled = false; paint(); }
-      function check(){
-        if (filled.map(j => pool[j]).join('') === RIDDLE.a){
-          slots.replaceWith(el('div', 'solved-word', RIDDLE.a + ' ✓'));
-          letters.remove();
-          done('صح! 😂 أنتِ اللقافة بذاتها');
-          return;
+      function hide(h){ h.sprite.classList.remove('up'); h.kind = null; if (active === h) active = null; }
+      function spawn(){
+        if (!running) return;
+        const h = rnd(holes.filter(x => x !== last)); last = h;
+        h.kind = score > 1 && Math.random() < .18 ? 'cat' : 'him';
+        h.sprite.innerHTML = h.kind === 'cat' ? '<span class="cat">🐈</span>' : face(false);
+        requestAnimationFrame(() => h.sprite.classList.add('up'));
+        active = h;
+        h.to = setTimeout(() => {
+          if (h.kind === 'him') say(rnd(SAALOUK_SEEN), h, true);
+          hide(h); next();
+        }, Math.max(620, 1150 - score * 55));
+      }
+      const next = () => { clearTimeout(gap); gap = setTimeout(spawn, 280 + Math.random() * 420); };
+      holes.forEach(h => h.hole.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        if (!running || h !== active || !h.kind) return;
+        clearTimeout(h.to);
+        if (h.kind === 'cat'){ score = Math.max(0, score - 1); say(SAALOUK_CAT, h, true); hide(h); }
+        else {
+          score++; h.kind = null; h.sprite.innerHTML = face(true); blip();
+          navigator.vibrate && navigator.vibrate(15);
+          say(rnd(SAALOUK_HITS), h);
+          setTimeout(() => hide(h), 260);
         }
-        tries++;
-        slots.classList.remove('bad'); void slots.offsetWidth; slots.classList.add('bad');
-        $('sheetMsg').textContent = tries >= 2 ? 'تلميح: ' + RIDDLE.hint : 'لا… فكّري زين 🤔 (المسي الخانة عشان ترجّعين حرفها)';
+        scoreEl.textContent = AR(score) + ' / ' + AR(GOAL);
+        if (score >= GOAL) finish(true); else next();
+      }));
+      function cover(html, label, go){
+        const c = el('div', 'sa-cover', `<div>${html}</div>`);
+        const b = el('button', 'gbtn', label);
+        b.onclick = () => { c.remove(); go(); };
+        c.appendChild(b); yard.appendChild(c);
       }
+      function start(){
+        score = 0; scoreEl.textContent = '٠ / ' + AR(GOAL);
+        running = true; t0 = performance.now();
+        clock = setInterval(() => {
+          if (!document.body.contains(yard)){ clearInterval(clock); running = false; return; }
+          const left = Math.max(0, LIMIT - Math.floor((performance.now() - t0) / 1000));
+          timeEl.textContent = '⏱️ ' + AR(left);
+          timeEl.classList.toggle('low', left <= 5);
+          if (left <= 0) finish(false);
+        }, 200);
+        next();
+      }
+      function finish(won){
+        running = false; clearInterval(clock); clearTimeout(gap);
+        holes.forEach(h => { clearTimeout(h.to); hide(h); });
+        timeEl.classList.remove('low');
+        if (won){
+          const t = Math.round((performance.now() - t0) / 1000);
+          done('طردتيه ١٠ مرات 😂🏡 في ' + cnt(t, 'ثانية', 'ثواني'), t <= 18 ? 3 : t <= 24 ? 2 : 1);
+        } else cover('خلص الوقت 😤<br>الصعلوك ما زال يطلّ…', 'مرة ثانية 🔁', start);
+      }
+      cover('الصعلوك يطلّ من الشبابيك 👀<br>المسيه قبل لا يشوفك… وانتبهي من القطوة 🐈', 'ابدئي 🏁', start);
+    },
+
+    // ٦) الباب الأخير: اختبار «كم تعرفين ولاء؟»
+    quiz(box, done){
+      let qi = 0, mistakes = 0;
+      const prog = el('div', 'quiz-prog'), qEl = el('p', 'quiz-q'), opts = el('div', 'quiz-opts'), fb = el('div', 'quiz-fb');
+      box.append(prog, qEl, opts, fb);
+      function show(){
+        const Q = QUIZ[qi];
+        prog.innerHTML = QUIZ.map((_, i) => `<i class="${i < qi ? 'done' : i === qi ? 'now' : ''}"></i>`).join('');
+        qEl.textContent = Q.q;
+        fb.textContent = ''; fb.className = 'quiz-fb';
+        opts.innerHTML = ''; opts.classList.remove('lock');
+        shuffle([...Q.o.keys()]).forEach(k => {
+          const b = el('button', 'quiz-o', Q.o[k]);
+          b.onclick = () => {
+            if (opts.classList.contains('lock')) return;
+            if (k === Q.a){
+              b.classList.add('right'); opts.classList.add('lock'); blip();
+              fb.textContent = Q.yes; fb.className = 'quiz-fb ok';
+              setTimeout(() => {
+                qi++;
+                if (qi < QUIZ.length) return show();
+                prog.innerHTML = QUIZ.map(() => '<i class="done"></i>').join('');
+                done('عرفتي نفسك صح 😌✨', mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1);
+              }, 1200);
+            } else {
+              mistakes++; b.classList.add('wrong'); b.disabled = true;
+              fb.textContent = Q.no[k] || 'لا… فكّري 🤔'; fb.className = 'quiz-fb bad';
+              navigator.vibrate && navigator.vibrate(10);
+            }
+          };
+          opts.appendChild(b);
+        });
+      }
+      show();
     }
   };
 
@@ -2306,10 +2581,13 @@
     $('ending').classList.remove('gone');
     $('auroraShow').classList.add('on');
     await wait(1800);
-    for (const L of ENDING_LINES){
+    const lines = [...pick(ENDINGS)];
+    const ts = totalStars();
+    if (ts) lines.splice(1, 0, 'جمعتي ' + cnt(ts, 'نجمة', 'نجوم') + ' من ' + AR(DOORS.length * 3) + ' ⭐');
+    for (const L of lines){
       const n = showLine($('lineEnd'), L);
       await wait(n*220 + 2600);
-      if (L !== ENDING_LINES[ENDING_LINES.length-1]) await hideLine($('lineEnd'));
+      if (L !== lines[lines.length-1]) await hideLine($('lineEnd'));
     }
     await wait(600);
     $('endSign').classList.add('on');
@@ -2380,7 +2658,7 @@
     else if (sheet.classList.contains('show') && puzzleKeys) puzzleKeys(e);
   });
 
-  replay.onclick = () => { ['stage','doorN','noteN'].forEach(k => store.del(k)); location.href = location.pathname; };
+  replay.onclick = () => { ['stage','doorN','noteN','stars'].forEach(k => store.del(k)); location.href = location.pathname; };
 
   /* ---------- start ---------- */
   const st = store.get('stage');
